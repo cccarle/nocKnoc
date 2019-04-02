@@ -4,7 +4,7 @@ class HomePage extends StatelessWidget {
   Widget _createGridList() {
     return GridView.count(
       crossAxisCount: 2,
-      padding: EdgeInsets.only(top: 0.0),
+      padding: EdgeInsets.only(top: 20.0),
       childAspectRatio: 12.0 / 9.0,
       children: <Widget>[
         Column(
@@ -14,10 +14,10 @@ class HomePage extends StatelessWidget {
                 print('klick');
               },
               child: Container(
-                  height: 300,
-                  width: 400,
+                  height: 320,
+                  width: 420,
                   decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20.0)),
                   child: Center(
                     child: Padding(
@@ -46,10 +46,10 @@ class HomePage extends StatelessWidget {
                 print('klick');
               },
               child: Container(
-                  height: 300,
-                  width: 400,
+                  height: 320,
+                  width: 420,
                   decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20.0)),
                   child: Center(
                     child: Padding(
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Besökare',
+                                'Affärspartner',
                                 style: TextStyle(
                                     fontSize: 40.0, fontFamily: 'Avenir'),
                               ),
@@ -78,10 +78,10 @@ class HomePage extends StatelessWidget {
                 print('klick');
               },
               child: Container(
-                  height: 300,
-                  width: 400,
+                  height: 320,
+                  width: 420,
                   decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20.0)),
                   child: Center(
                     child: Padding(
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Besökare',
+                                'Anställd',
                                 style: TextStyle(
                                     fontSize: 40.0, fontFamily: 'Avenir'),
                               ),
@@ -110,10 +110,10 @@ class HomePage extends StatelessWidget {
                 print('klick');
               },
               child: Container(
-                  height: 300,
-                  width: 400,
+                  height: 320,
+                  width: 420,
                   decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20.0)),
                   child: Center(
                     child: Padding(
@@ -124,7 +124,7 @@ class HomePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Besökare',
+                                'Leverans',
                                 style: TextStyle(
                                     fontSize: 40.0, fontFamily: 'Avenir'),
                               ),
@@ -141,6 +141,7 @@ class HomePage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0), // here the desired height
         child: AppBar(
@@ -177,13 +178,34 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(children: <Widget>[
-        Text('Välkommer'),
-        Text('Vem är du?'),
-        Expanded(
-          child: _createGridList(),
-        )
-      ]),
+      body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Container(
+                  height: 125.0,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20.0, top: 25.0),
+                    child: Text(
+                      'Välkommen!',
+                      style: TextStyle(fontSize: 90.0, color: Colors.white),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 0.0),
+                  child: Text(
+                    'Vem är du?',
+                    style: TextStyle(fontSize: 70.0, color: Colors.white),
+                  ),
+                )
+              ],
+            ),
+            Expanded(
+              child: _createGridList(),
+            )
+          ]),
     );
   }
 }
