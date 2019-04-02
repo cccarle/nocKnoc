@@ -10,12 +10,11 @@ class Main extends StatelessWidget {
   final meridiumBlue = const Color(0xFF09384E);
   final meridiumRed = const Color(0xFFDC3E2A);
 
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+          fontFamily: 'Avenir',
           brightness: Brightness.light,
           primaryColor: meridiumBlue,
           accentColor: meridiumRed),
