@@ -1,7 +1,56 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  @override
+
+  Widget _createGridList()  {
+    return GridView.count(
+      crossAxisCount: 2,
+      padding: EdgeInsets.all(10.0),
+      childAspectRatio: 8.0 / 9.0,
+      children: <Widget>[
+        Column (children: <Widget>[
+          Container(child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Column(
+              children: <Widget>[
+                Text('Besökare'),
+              ],
+            ),
+          ),)
+        ],),
+        Column (children: <Widget>[
+          Container(child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Column(
+              children: <Widget>[
+                Text('Anställd'),
+              ],
+            ),
+          ),)
+        ],),
+        Column (children: <Widget>[
+          Container(child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Column(
+              children: <Widget>[
+                Text('Affärspartner'),
+              ],
+            ),
+          ),)
+        ],),
+        Column (children: <Widget>[
+          Container(child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Column(
+              children: <Widget>[
+                Text('Leverans'),
+              ],
+            ),
+          ),)
+        ],)
+      ],
+    );
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
@@ -40,7 +89,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Container(child: Text('hej')),
+      body: Container(child: _createGridList()),
     );
   }
 }
