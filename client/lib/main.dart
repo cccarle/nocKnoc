@@ -15,10 +15,10 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // theme: ThemeData(
-      //     brightness: Brightness.light,
-      //     primarySwatch: meridiumBlue,
-      //     accentColor: meridiumRed),
+      theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: meridiumBlue,
+          accentColor: meridiumRed),
       home: HomePage(),
     );
   }
