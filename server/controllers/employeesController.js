@@ -1,7 +1,7 @@
-const api = require("../utils/slack/api")
+const api = require("../utils/slack/apiRoutes")
 
 module.exports = {
-  getAllEmployees: async () => {
+  getAll: async () => {
     let result = await api.getAllUsers()
     let employees = result.members.map(
       ({ id, team_id, real_name, profile }) => ({

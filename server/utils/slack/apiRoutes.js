@@ -10,6 +10,13 @@ module.exports = {
     return result = await bot.api.test({hyper:'card', hej: 'bye'})
 },
   getAllUsers: async () => {
-    return await bot.users.list({token})
+    return await bot.users.list()
+  },
+  getAllChannels: async () => {
+    return await bot.channels.list()
+  },
+  sendMessageToUser: async (userId) => {
+    return await bot.channels.list()
   }
+
 }
