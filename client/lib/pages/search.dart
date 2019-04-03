@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/list.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -7,7 +8,8 @@ class SearchPage extends StatefulWidget {
   }
 }
 
-class _SearchPage extends State<StatefulWidget> {
+class _SearchPage extends State<SearchPage> {
+  final List<String> test = ['hej'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +41,7 @@ class _SearchPage extends State<StatefulWidget> {
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (String value) {},
                 ),
+                ListItems(test)
               ]),
             ),
           ),
