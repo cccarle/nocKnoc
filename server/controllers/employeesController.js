@@ -1,4 +1,4 @@
-const api = require("../utils/slack/apiRoutes")
+const api = require("../utils/slack/api")
 
 module.exports = {
   getAll: async () => {

@@ -15,8 +15,8 @@ module.exports = {
   getAllChannels: async () => {
     return await bot.channels.list()
   },
-  sendMessageToUser: async (userId) => {
-    return await bot.channels.list()
+  sendMessageToChannel: async () => {
+    return await bot.chat.postMessage()
   }
 
 }
