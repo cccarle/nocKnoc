@@ -1,4 +1,4 @@
-const api = require("../utils/slack/api")
+const api = require('../utils/slack/api')
 
 module.exports = {
   getAll: async () => {
@@ -12,6 +12,14 @@ module.exports = {
       })
     )
     return employees
+  },
+  sendAcceptDecline: async (userId) => {
+    let user = await api.getUserById(userId)
+    let userName = user.user.real_name
+    console.log(user)
+    let text = `${userName} is wanted at the door`
+    // let result = await api.sendFormToChannel(userId, text)
+    return text
   }
 }
 _filterImagesFromProfile = profile => {

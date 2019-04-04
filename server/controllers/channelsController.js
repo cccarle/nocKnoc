@@ -1,4 +1,4 @@
-const api = require("../utils/slack/api")
+const api = require('../utils/slack/api')
 
 module.exports = {
 
@@ -11,5 +11,12 @@ module.exports = {
       })
     )
     return channels
+  },
+  sendAcceptDecline: async (channelId) => {
+    let channel = await api.getChannelById(channelId)
+    let channelName = channel.channel.name
+    let text = `${channelName} is wanted at the door`
+    let result = await api.sendFormToChannel(channelId, text)
+    return result
   }
 }

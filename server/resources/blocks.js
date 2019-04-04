@@ -17,15 +17,15 @@ exports.acceptDeclineMessage = (message) => {
             type: 'plain_text',
             text: 'Accept'
           },
-          url: 'https://api.slack.com/block-kit'
+          url: 'https://api.slack.com/block-kit',
+          value: 'true'
         },
         {
           type: 'button',
           text: {
             type: 'plain_text',
             text: 'Decline'
-          },
-          url: 'https://api.slack.com/block-kit'
+          }
         }
       ]
     }

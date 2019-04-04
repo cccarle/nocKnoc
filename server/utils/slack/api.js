@@ -16,12 +16,17 @@ module.exports = {
   getAllChannels: async () => {
     return await bot.channels.list()
   },
+  getUserById: async (user) => {
+    return await bot.users.info({token, user})
+  },
+  getChannelById: async (channel) => {
+    return await bot.channels.info({token, channel})
+  },
   sendMessageToChannel: async (channel, text) => {
     return await bot.chat.postMessage({token, channel: 'CHK464ERK', text: 'Hello World!'})
   },
-  sendFormToChannel: async (dialog, triggerId) => {
-    let blocks = acceptDeclineMessage('David vill in!!!!!')
-    return await bot.chat.postMessage({token, channel: 'CHK464ERK', text: 'hej', blocks})
+  sendFormToChannel: async (channel, text) => {
+    let blocks = acceptDeclineMessage(text)
+    return await bot.chat.postMessage({token, channel, text: '', blocks})
   }
-
 }
