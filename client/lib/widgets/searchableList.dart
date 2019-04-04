@@ -34,10 +34,22 @@ class _SearchableListState extends State<SearchableList> {
         child: Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: 20.0),
+          padding: EdgeInsets.only(bottom: 20.0),
         ),
         TextField(
-          decoration: new InputDecoration(labelText: "Search something"),
+          decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide(
+                  width: 10,
+                  style: BorderStyle.none,
+                ),
+              ),
+              labelStyle: TextStyle(color: Colors.yellow),
+              filled: true,
+              fillColor: Colors.white),
+          keyboardType: TextInputType.emailAddress,
+          onChanged: (String value) {},
           controller: controller,
         ),
         Container(
@@ -46,16 +58,19 @@ class _SearchableListState extends State<SearchableList> {
               shrinkWrap: true,
               itemCount: widget.items.length,
               itemBuilder: (BuildContext context, int index) {
-                Size(10.0, 10.0);
                 return filter == null || filter == ""
-                    ? new Card(child: new Text(widget.items[index]))
-                    : widget.items[index].contains(filter)
-                        ? new Card(
-                            child: new Text(
+                    ? Card(
+                        child: Text(widget.items[index],
+                            style: TextStyle(fontSize: 40.0)))
+                    : widget.items[index]
+                            .toLowerCase()
+                            .contains(filter.toString())
+                        ? Card(
+                            child: Text(
                             widget.items[index],
-                            style: TextStyle(fontSize: 20.0),
+                            style: TextStyle(fontSize: 40.0),
                           ))
-                        : new Container();
+                        : Container();
               }),
         )
       ],
