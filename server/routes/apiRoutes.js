@@ -1,7 +1,6 @@
 const server = require('express').Router()
 const employeesController = require('../controllers/employeesController')
 const channelsController = require('../controllers/channelsController')
-const validatePost = require('../middleware/validatePost')
 
 server.get('/employees', async (req, res) => {
   let result = await employeesController.getAll()
@@ -15,7 +14,7 @@ server.get('/channels', async (req, res) => {
   res.status(200).json(result)
 })
 
-server.post('/notify-channel', validatePost, async (req, res) => {
+server.post('/notify-channel', async (req, res) => {
   try {
     if (req.body.channelId) {
       let result = await channelsController.sendAcceptDecline(req.body.channelId)
@@ -32,6 +31,10 @@ server.post('/notify-channel', validatePost, async (req, res) => {
     console.log('something whent wrong')
     res.status(500).send(e)
   }
+})
+
+server.post('/payload', (req, res, next) => {
+  console.log(req.body)
 })
 
 module.exports = server

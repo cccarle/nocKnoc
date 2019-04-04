@@ -18,7 +18,8 @@ module.exports = {
     let userName = user.user.real_name
     console.log(user)
     let text = `${userName} is wanted at the door`
-    // let result = await api.sendFormToChannel(userId, text)
+    // TODO: FIND CORRECT CHANNEL
+    let result = await api.sendFormToChannel(userId, text)
     return text
   }
 }
