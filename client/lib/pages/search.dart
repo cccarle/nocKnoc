@@ -15,22 +15,6 @@ class _SearchPage extends State<SearchPage> {
   String filter;
 
   @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    controller.addListener(() {
-      setState(() {
-        filter = controller.text;
-      });
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,

@@ -38,14 +38,16 @@ class _SearchableListState extends State<SearchableList> {
         ),
         TextField(
           decoration: InputDecoration(
+        
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide(
+                  color: Theme.of(context).primaryColor,
                   width: 10,
                   style: BorderStyle.none,
                 ),
               ),
-              labelStyle: TextStyle(color: Colors.yellow),
+              labelStyle: TextStyle(color: Colors.black),
               filled: true,
               fillColor: Colors.white),
           keyboardType: TextInputType.emailAddress,
@@ -53,6 +55,7 @@ class _SearchableListState extends State<SearchableList> {
           controller: controller,
         ),
         Container(
+          decoration: new BoxDecoration(color: Theme.of(context).primaryColor),
           child: ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
@@ -64,7 +67,7 @@ class _SearchableListState extends State<SearchableList> {
                             style: TextStyle(fontSize: 40.0)))
                     : widget.items[index]
                             .toLowerCase()
-                            .contains(filter.toString())
+                            .contains(filter.toLowerCase())
                         ? Card(
                             child: Text(
                             widget.items[index],
