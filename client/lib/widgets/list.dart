@@ -21,6 +21,8 @@ class _ListItemsState extends State<ListItems> {
     Widget productCards;
     if (widget.people.length > 0) {
       productCards = ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
         itemBuilder: _buildProductItem,
         itemCount: widget.people.length,
       );
