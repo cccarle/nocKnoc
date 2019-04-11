@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './pages/search.dart';
 import './widgets/appBar.dart';
 import './pages/home.dart';
+import './block/provider.dart';
 
 void main() {
   runApp(Main());
@@ -13,17 +14,19 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          fontFamily: 'Avenir',
-          brightness: Brightness.light,
-          primaryColor: meridiumBlue,
-          accentColor: meridiumRed),
-      home: Scaffold(
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(70.0), // here the desired height
-            child: DynamicAppBar()),
-        body: SearchPage(),
+    return Provider(
+      child: MaterialApp(
+        theme: ThemeData(
+            fontFamily: 'Avenir',
+            brightness: Brightness.light,
+            primaryColor: meridiumBlue,
+            accentColor: meridiumRed),
+        home: Scaffold(
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(70.0), // here the desired height
+              child: DynamicAppBar()),
+          body: SearchPage(),
+        ),
       ),
     );
   }

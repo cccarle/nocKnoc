@@ -30,7 +30,7 @@ class _SearchPage extends State<SearchPage> {
                     style: TextStyle(fontSize: 80.0, color: Colors.white),
                   ),
                 ),
-                SearchableList(test)
+                SearchableList()
               ]),
             ),
           ),

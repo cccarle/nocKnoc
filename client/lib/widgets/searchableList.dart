@@ -1,82 +1,85 @@
 import 'package:flutter/material.dart';
+import '../block/bloc.dart';
+import '../block/provider.dart';
+import 'package:http/http.dart' show get;
 
-class SearchableList extends StatefulWidget {
-  final List<String> items;
-  SearchableList(this.items);
+import '../model/user_model.dart';
+import 'dart:convert';
 
-  @override
-  _SearchableListState createState() => _SearchableListState();
-}
-
-class _SearchableListState extends State<SearchableList> {
-  TextEditingController controller = new TextEditingController();
-  String filter;
-
-  @override
-  void initState() {
-    controller.addListener(() {
-      setState(() {
-        filter = controller.text;
-      });
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
+class SearchableList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of(context);
+
+    bloc.fetchData();
+
     return Material(
-        child: Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(bottom: 20.0),
-        ),
-        TextField(
-          decoration: InputDecoration(
-        
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColor,
-                  width: 10,
-                  style: BorderStyle.none,
-                ),
-              ),
-              labelStyle: TextStyle(color: Colors.black),
-              filled: true,
-              fillColor: Colors.white),
-          keyboardType: TextInputType.emailAddress,
-          onChanged: (String value) {},
-          controller: controller,
-        ),
-        Container(
-          decoration: new BoxDecoration(color: Theme.of(context).primaryColor),
-          child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: widget.items.length,
-              itemBuilder: (BuildContext context, int index) {
-                return filter == null || filter == ""
-                    ? Card(
-                        child: Text(widget.items[index],
-                            style: TextStyle(fontSize: 40.0)))
-                    : widget.items[index]
-                            .toLowerCase()
-                            .contains(filter.toLowerCase())
-                        ? Card(
-                            child: Text(
-                            widget.items[index],
-                            style: TextStyle(fontSize: 40.0),
-                          ))
-                        : Container();
-              }),
-        )
-      ],
-    ));
+      child: Column(
+        children: <Widget>[renderTextInput(bloc)],
+      ),
+    );
   }
+
+  Widget renderTextInput(Bloc bloc) {
+    // print(users);
+    return StreamBuilder(
+      stream: bloc.email,
+      builder: (context, snapshot) {
+        return Container(
+          color: Theme.of(context).primaryColor,
+          child: TextField(
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor,
+                    style: BorderStyle.none,
+                  ),
+                ),
+                labelStyle: TextStyle(color: Colors.black),
+                filled: true,
+                fillColor: Colors.white),
+            keyboardType: TextInputType.emailAddress,
+            onChanged: bloc.changeEmail,
+          ),
+        );
+      },
+    );
+  }
+
+  // renderTextInput() {
+  //   return
+  // }
+
+  // renderListView() {
+  //   return Container(
+  //     decoration: new BoxDecoration(color: Theme.of(context).primaryColor),
+  //     child: ListView.builder(
+  //       scrollDirection: Axis.vertical,
+  //       shrinkWrap: true,
+  //       itemCount: items.length,
+  //       itemBuilder: (BuildContext context, int index) {
+  //         selectList(index);
+  //       },
+  //     ),
+  //   );
+  // }
+
+  // selectList(index) {
+  //   return filter == null || filter == ""
+  //       ? Card(
+  //           child: Text(
+  //             widget.items[index],
+  //             style: TextStyle(fontSize: 40.0),
+  //           ),
+  //         )
+  //       : widget.items[index].toLowerCase().contains(filter.toLowerCase())
+  //           ? Card(
+  //               child: Text(
+  //                 widget.items[index],
+  //                 style: TextStyle(fontSize: 40.0),
+  //               ),
+  //             )
+  //           : Container();
+  // }
 }
