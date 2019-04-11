@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'validators.dart';
+import '../model/user_model.dart';
+import 'package:http/http.dart' show get;
+import 'dart:convert';
 
 class Bloc with Validators {
   final _searchedUser = BehaviorSubject<String>();
@@ -26,7 +29,18 @@ Sign in user
     print(userResult);
   }
 
-/* 
+  fetchData() async {
+    List user = [];
+    var response = await get('https://jsonplaceholder.typicode.com/users');
+    var test = json.decode(response.body);
+    test.forEach((res) => {
+      user.add(UserModel.fromJSON(res))
+
+    });
+    print(user);
+  }
+
+/* R
 Close streams
  */
 

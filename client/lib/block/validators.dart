@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:http/http.dart' show get;
+import 'dart:convert';
 
 class Validators {
   final validateEmail = StreamTransformer<String, String>.fromHandlers(
@@ -11,13 +14,4 @@ class Validators {
       }
     },
   );
-
-  final validatePassword = StreamTransformer<String, String>.fromHandlers(
-      handleData: (password, sink) {
-    if (password.length > 3) {
-      sink.add(password);
-    } else {
-      sink.addError('Password must be at least 4 characters');
-    }
-  });
 }

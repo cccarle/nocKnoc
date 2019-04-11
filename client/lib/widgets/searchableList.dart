@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import '../block/bloc.dart';
 import '../block/provider.dart';
+import 'package:http/http.dart' show get;
+
+import '../model/user_model.dart';
+import 'dart:convert';
 
 class SearchableList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
+
+    bloc.fetchData();
 
     return Material(
       child: Column(
@@ -15,6 +21,7 @@ class SearchableList extends StatelessWidget {
   }
 
   Widget renderTextInput(Bloc bloc) {
+    // print(users);
     return StreamBuilder(
       stream: bloc.email,
       builder: (context, snapshot) {
