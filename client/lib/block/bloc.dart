@@ -31,16 +31,14 @@ Sign in user
 
   fetchData() async {
     List user = [];
+    var s;
     var response = await get('https://jsonplaceholder.typicode.com/users');
     var test = json.decode(response.body);
-    test.forEach((res) => {
-      user.add(UserModel.fromJSON(res))
-
-    });
-    print(user);
+    test.forEach((res) => {s = UserModel.fromJSON(res), user.add(s)});
+    user.forEach((res) => {print(res)});
   }
 
-/* R
+/* 
 Close streams
  */
 

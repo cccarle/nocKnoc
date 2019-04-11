@@ -1,10 +1,9 @@
 class UserModel {
-  String url;
-
-  UserModel(this.url);
+  final String name;
+  UserModel({this.name});
 
   // named constructor
-  UserModel.fromJSON(Map<String, dynamic> parasedJSON) {
-    url = parasedJSON["name"];
+  factory UserModel.fromJSON(Map<String, dynamic> parasedJSON) {
+    return UserModel(name: parasedJSON["name"]);
   }
 }
