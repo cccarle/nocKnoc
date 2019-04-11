@@ -5,7 +5,7 @@ const http = require('http')
 const bodyParser = require('body-parser')
 
 let apiRoutes = require('./routes/apiRoutes')
-
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/api', apiRoutes)
 
