@@ -30,12 +30,11 @@ Sign in user
   }
 
   fetchData() async {
-    List user = [];
-    var s;
+    List users = [];
     var response = await get('https://jsonplaceholder.typicode.com/users');
-    var test = json.decode(response.body);
-    test.forEach((res) => {s = UserModel.fromJSON(res), user.add(s.name)});
-    
+    var decodedJson = json.decode(response.body);
+    decodedJson.forEach((res) => {users.add(UserModel.fromJSON(res).name)});
+    return users;
   }
 
 /* 

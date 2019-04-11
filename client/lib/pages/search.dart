@@ -10,7 +10,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPage extends State<SearchPage> {
-  final List<String> test = ['Carl', 'Marcus', 'David', 'Joel', 'Karl'];
   TextEditingController controller = new TextEditingController();
   String filter;
 
