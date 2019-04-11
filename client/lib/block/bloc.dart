@@ -34,8 +34,8 @@ Sign in user
     var s;
     var response = await get('https://jsonplaceholder.typicode.com/users');
     var test = json.decode(response.body);
-    test.forEach((res) => {s = UserModel.fromJSON(res), user.add(s)});
-    user.forEach((res) => {print(res)});
+    test.forEach((res) => {s = UserModel.fromJSON(res), user.add(s.name)});
+    
   }
 
 /* 
