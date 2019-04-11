@@ -10,6 +10,6 @@ app.use(bodyParser.json())
 app.use('/api', apiRoutes)
 
 http.createServer(app).listen(PORT, function () {
-  console.log('Express started on Port' + PORT)
+  console.log('Express started on Port: ' + PORT)
   console.log('Press Ctrl-C to terminate...')
 })
