@@ -9,8 +9,7 @@ exports.acceptDeclineMessage = (message) => {
     },
     {
       type: 'actions',
-      block_id: 'feednack',
-      response_url: "https://77318323.ngrok.io/payload",
+      block_id: 'feedback',
       elements: [
         {
           type: 'button',
@@ -18,15 +17,15 @@ exports.acceptDeclineMessage = (message) => {
             type: 'plain_text',
             text: 'Accept'
           },
-          url: 'https://api.slack.com/block-kit',
-          value: 'true',
+          value: 'true'
         },
         {
           type: 'button',
           text: {
             type: 'plain_text',
             text: 'Decline'
-          }
+          },
+          value: 'false'
         }
       ]
     }
