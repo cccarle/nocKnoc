@@ -34,7 +34,10 @@ server.post('/notify-channel', async (req, res) => {
 })
 
 server.post('/payload', (req, res, next) => {
-  console.log(req.body)
+  let payload = JSON.parse(req.body.payload)
+  console.log(payload.user.username)
+  console.log(payload.actions[0].value)
+  res.status(200).json({})
 })
 
 module.exports = server
