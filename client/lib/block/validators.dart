@@ -6,7 +6,7 @@ import 'dart:convert';
 class Validators {
   final validateEmail = StreamTransformer<String, String>.fromHandlers(
     handleData: (email, sink) {
-      print(email);
+      // print(email);
       if (email.contains('@')) {
         sink.add(email);
       } else {
