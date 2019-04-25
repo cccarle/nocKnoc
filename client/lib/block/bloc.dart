@@ -29,13 +29,6 @@ Sign in user
     print(userResult);
   }
 
-  fetchData() async {
-    List users = [];
-    var response = await get('https://jsonplaceholder.typicode.com/users');
-    var decodedJson = json.decode(response.body);
-    decodedJson.forEach((res) => {users.add(UserModel.fromJSON(res).name)});
-    return users;
-  }
 
 /* 
 Close streams

@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
 import '../block/bloc.dart';
 import '../block/provider.dart';
-import 'package:http/http.dart' show get;
-
-import '../model/user_model.dart';
-import 'dart:convert';
+import '../API/api.dart';
+import 'dart:async';
 
 class SearchableList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    final api = new Api();
 
-    bloc.fetchData();
+    final bloc = Provider.of(context);
+    final list = api.fecthUserList();
+
+    list.then((value) {
+      print(value);
+      return List();
+    });
 
     return Material(
       child: Column(
-        children: <Widget>[renderTextInput(bloc)],
+        children: <Widget>[
+          renderTextInput(bloc), /*renderListView(context) */
+          renderListView(list)
+        ],
       ),
     );
   }
 
   Widget renderTextInput(Bloc bloc) {
-    // print(users);
     return StreamBuilder(
       stream: bloc.email,
       builder: (context, snapshot) {
@@ -51,35 +57,46 @@ class SearchableList extends StatelessWidget {
   //   return
   // }
 
-  // renderListView() {
-  //   return Container(
-  //     decoration: new BoxDecoration(color: Theme.of(context).primaryColor),
-  //     child: ListView.builder(
-  //       scrollDirection: Axis.vertical,
-  //       shrinkWrap: true,
-  //       itemCount: items.length,
-  //       itemBuilder: (BuildContext context, int index) {
-  //         selectList(index);
-  //       },
-  //     ),
-  //   );
-  // }
+  renderListView(list) {
 
-  // selectList(index) {
-  //   return filter == null || filter == ""
-  //       ? Card(
-  //           child: Text(
+    print(list);
+    return Container(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: list.length,
+        itemBuilder: (BuildContext context, int index) {
+          selectList(index);
+        },
+      ),
+    );
+  }
+
+  // test(index) {
+  //   return Card(
+  //     child: Text(
+
   //             widget.items[index],
   //             style: TextStyle(fontSize: 40.0),
-  //           ),
-  //         )
-  //       : widget.items[index].toLowerCase().contains(filter.toLowerCase())
-  //           ? Card(
-  //               child: Text(
-  //                 widget.items[index],
-  //                 style: TextStyle(fontSize: 40.0),
-  //               ),
-  //             )
-  //           : Container();
+  //     )
+  //   )
   // }
+
+  selectList(index) {
+    return filter == null || filter == ""
+        ? Card(
+            child: Text(
+              widget.items[index],
+              style: TextStyle(fontSize: 40.0),
+            ),
+          )
+        : widget.items[index].toLowerCase().contains(filter.toLowerCase())
+            ? Card(
+                child: Text(
+                  widget.items[index],
+                  style: TextStyle(fontSize: 40.0),
+                ),
+              )
+            : Container();
+  }
 }
