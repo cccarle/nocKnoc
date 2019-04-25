@@ -1,4 +1,4 @@
-let employees = require('../controllers/employeesContoller')
+let employees = require('../controllers/employeesController')
 
 test('Get all empoloyees as object', async () => {
   let result = await employees.getAll()
