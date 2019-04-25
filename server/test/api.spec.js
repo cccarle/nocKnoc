@@ -27,19 +27,19 @@ test('Get user from workspace by id with wrong id', () => {
 })
 
 // TODO: find a correct id
-test('Get workspace user by id', async () => {
-  let id = 'This should be a correct id'
-  let result = await api.getUserById()
-  expect(typeof result).toBe('object')
-})
+// test('Get workspace user by id', async () => {
+//   let id = 'This should be a correct id'
+//   let result = await api.getUserById()
+//   expect(typeof result).toBe('object')
+// })
 
 // getChannelById
 // TODO: find a correct id
-test('Get workspace channel by id', async () => {
-  let id = 'This should be a correct id'
-  let result = await api.getChannelById()
-  expect(typeof result).toBe('object')
-})
+// test('Get workspace channel by id', async () => {
+//   let id = 'This should be a correct id'
+//   let result = await api.getChannelById()
+//   expect(typeof result).toBe('object')
+// })
 
 test('Get channel from workspace by id without id', () => {
   expect(
