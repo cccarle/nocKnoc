@@ -1,0 +1,7 @@
+{
+    "settings": {
+        "fallbackChannel": "",
+        "secondsToFallback": 30
+    },
+    "teamBlacklist": [],
+}
