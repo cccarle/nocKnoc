@@ -1,9 +1,18 @@
 const server = require('express').Router()
 const employeesController = require('../controllers/employeesController')
 const channelsController = require('../controllers/channelsController')
+const teamsController = require('../controllers/teamsController')
 
 server.get('/employees', async (req, res) => {
-  let result = await employeesController.getAll()
+  // let result = await employeesController.getAll()
+  let teams = await teamsController.getAll()
+  console.log(teams)
+  res.status(200).json(teams)
+})
+
+server.get('/employee/:id', async (req, res) => {
+  let id = req.params.id
+  let result = await employeesController.getEmployeeById(id)
   console.log(result)
   res.status(200).json(result)
 })
@@ -34,10 +43,10 @@ server.post('/notify-channel', async (req, res) => {
 })
 
 server.post('/payload', (req, res, next) => {
-  let payload = JSON.parse(req.body.payload)
-  console.log(payload.user.username)
-  console.log(payload.actions[0].value)
-  res.status(200).json({})
+  // let payload = JSON.parse(req.body.payload)
+  console.log(req.body)
+  // console.log(payload.actions[0].value)
+  res.status(200)
 })
 
 module.exports = server
