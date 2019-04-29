@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './pages/search.dart';
 import './widgets/appBar.dart';
 import './pages/home.dart';
-import './block/provider.dart';
+import './bloc/provider.dart';
 
 void main() {
   runApp(Main());
