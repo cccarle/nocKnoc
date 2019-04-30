@@ -2,12 +2,13 @@ const server = require('express').Router()
 const employeesController = require('../controllers/employeesController')
 const channelsController = require('../controllers/channelsController')
 const teamsController = require('../controllers/teamsController')
+const deviceInfoController = require('../controllers/deviceInfoController')
+const slack = require('../utils/slack/api')
 
 server.get('/employees', async (req, res) => {
-  // let result = await employeesController.getAll()
-  let teams = await teamsController.getAll()
-  console.log(teams)
-  res.status(200).json(teams)
+  let result = await employeesController.getAll()
+  console.log(result)
+  res.status(200).json(result)
 })
 
 server.get('/employee/:id', async (req, res) => {
@@ -21,6 +22,12 @@ server.get('/channels', async (req, res) => {
   let result = await channelsController.getAll()
   console.log(result)
   res.status(200).json(result)
+})
+
+server.get('/teams', async (req, res) => {
+  let teams = await teamsController.getAll()
+  console.log(teams)
+  res.status(200).json(teams)
 })
 
 server.post('/notify-channel', async (req, res) => {
@@ -40,6 +47,16 @@ server.post('/notify-channel', async (req, res) => {
     console.log('something whent wrong')
     res.status(500).send(e)
   }
+})
+
+server.post('/deviceinfo', async (req, res) => {
+  let result = await deviceInfoController.sendDeviceMessage(req.body.message)
+  res.status(200).json({result: result})
+})
+
+server.get('/botinfo', async (req, res) => {
+ let result = await slack.botInfo()
+ res.status(200).json(result)
 })
 
 server.post('/payload', (req, res, next) => {
