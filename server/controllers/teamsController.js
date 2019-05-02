@@ -8,7 +8,7 @@ const getAll = async () => {
         id,
         name,
         handle,
-        prefs
+        channels: prefs.channels
       })
     )
   return teams
@@ -18,7 +18,7 @@ const getTeamUsersById = async (id) => {
   return result
 }
 const getWhiteListedTeams = async () => {
-  let teams = await this.getAll()
+  let teams = await getAll()
   let whiteListedTeams = teams.filter((team) => !settings.teamBlacklist.includes(team.id))
   return whiteListedTeams
 }

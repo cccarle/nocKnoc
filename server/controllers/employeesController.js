@@ -16,6 +16,7 @@ module.exports = {
   },
   getNotifiableEmployees: async () => {
     let teams = await teamsController.getWhiteListedTeams()
+    return teams
   },
   getEmployeeById: async (id) => {
     let result = await api.getUserById(id)
