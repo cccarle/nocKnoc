@@ -6,7 +6,7 @@ const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
 
 server.get('/employees', async (req, res) => {
-  let result = await employeesController.getAll()
+  let result = await employeesController.getNotifiableEmployees()
   console.log(result)
   res.status(200).json(result)
 })
@@ -30,10 +30,10 @@ server.get('/teams', async (req, res) => {
   res.status(200).json(teams)
 })
 
-server.post('/notify-channel', async (req, res) => {
+server.post('/notify', async (req, res) => {
   try {
     if (req.body.channelId) {
-      let result = await channelsController.sendAcceptDecline(req.body.channelId)
+      let result = await channelsController.sendAcceptDecline(req.body.visitor, req.body.userId, req.body.channelId)
       console.log(result)
       res.status(200).json(result)
     } else if (req.body.employeeId) {
@@ -55,8 +55,8 @@ server.post('/deviceinfo', async (req, res) => {
 })
 
 server.get('/botinfo', async (req, res) => {
- let result = await slack.botInfo()
- res.status(200).json(result)
+  let result = await slack.botInfo()
+  res.status(200).json(result)
 })
 
 server.post('/payload', (req, res, next) => {

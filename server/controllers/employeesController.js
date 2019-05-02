@@ -1,4 +1,5 @@
 const api = require('../utils/slack/api')
+const teamsController = require('./teamsController')
 
 module.exports = {
   getAll: async () => {
@@ -12,6 +13,9 @@ module.exports = {
     //   })
     // )
     return result
+  },
+  getNotifiableEmployees: async () => {
+    let teams = await teamsController.getWhiteListedTeams()
   },
   getEmployeeById: async (id) => {
     let result = await api.getUserById(id)
