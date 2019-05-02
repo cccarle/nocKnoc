@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../bloc/bloc.dart';
 import '../bloc/provider.dart';
 
-class SearchableList extends StatelessWidget {
+class SearchInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
-    
+
     return Material(
       child: Column(
         children: <Widget>[
@@ -25,7 +25,7 @@ class SearchableList extends StatelessWidget {
           child: TextField(
             decoration: InputDecoration(
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(25.0),
                   borderSide: BorderSide(
                     color: Theme.of(context).primaryColor,
                     style: BorderStyle.none,

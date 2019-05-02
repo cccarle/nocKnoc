@@ -3,12 +3,17 @@ import '../bloc/bloc.dart';
 import '../bloc/provider.dart';
 import '../API/api.dart';
 
+// Widgets
+import '../widgets/alertIcon.dart';
+import '../widgets/slackUsername.dart';
+import '../widgets/slackUserImage.dart';
+
 class ListViewSlackUsers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
 
-    return Material(
+    return Container(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.all(30.0),
@@ -75,56 +80,6 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 }
 
-slackUserImage() {
-  return Container(
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(10.0),
-      child: Container(
-        // decoration: BoxDecoration(
-        //   border: Border.all(color: Colors.black),
-        // ),
-        child: Image.network(
-          'https://randomuser.me/api/portraits/med/men/65.jpg',
-          fit: BoxFit.fill,
-          height: 70.0,
-          width: 70.0,
-        ),
-      ),
-    ),
-  );
-}
-
-alertIcon() {
-  return Container(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[Icon(Icons.notifications_active, size: 30.0)],
-    ),
-  );
-}
-
-middleSection(index, list) {
-  return Expanded(
-    child: Container(
-      padding: EdgeInsets.only(left: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Text(
-            list[index],
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w200,
-              fontSize: 20.0,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
 slackUserListItem(index, list) {
   return Column(
     children: <Widget>[
@@ -133,9 +88,9 @@ slackUserListItem(index, list) {
       ),
       Row(
         children: <Widget>[
-          slackUserImage(),
-          middleSection(index, list),
-          alertIcon()
+          SlackUserImage(),
+          SlackUsername(index, list),
+          AlertIcon()
         ],
       )
     ],
