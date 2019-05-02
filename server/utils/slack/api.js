@@ -14,7 +14,7 @@ module.exports = {
     return bot.api.test({hyper: 'card', hej: 'bye'})
   },
   getAllUsers: () => {
-    return bot.users.list()
+    return bot.users.list({token: botToken})
   },
   getAllChannels: () => {
     return bot.channels.list()
@@ -26,10 +26,10 @@ module.exports = {
     return bot.channels.info({token: botToken, channel})
   },
   getAllTeams: () => {
-    return bot.usergroups.list({token: userToken})
+    return user.usergroups.list({token: userToken})
   },
-  getTeamUsersByTeamId: (usergroupId) => {
-    return bot.usergroups.users.list({token: userToken, usergroupId})
+  getTeamUsersByTeamId: (usergroup) => {
+    return user.usergroups.users.list({token: userToken, usergroup})
   },
   sendMessageToChannel: (channel, message) => {
     return bot.chat.postMessage({token: botToken, channel: channel, text: message})

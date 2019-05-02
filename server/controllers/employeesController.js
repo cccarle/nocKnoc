@@ -3,19 +3,31 @@ const teamsController = require('./teamsController')
 
 const getAll = async () => {
   let result = await api.getAllUsers()
-  // let employees = result.members.map(
-  //     ({ id, team_id, real_name, profile }) => ({
-  //       id,
-  //       team_id,
-  //       real_name,
-  //       images: _filterImagesFromProfile(profile)
-  //     })
-  //   )
-  return result
+  let employees = result.members.map(
+      ({ id, team_id, real_name, profile }) => ({
+        id,
+        team_id,
+        real_name,
+        images: _filterImagesFromProfile(profile)
+      })
+    )
+  return employees
 }
 const getNotifiableEmployees = async () => {
+  let employeeArray = []
   let teams = await teamsController.getWhiteListedTeams()
-  return teams
+  let employees = await getAll()
+  let employeesObject = employesAsObject(employees)
+  teams.forEach(team => {
+    team.users.forEach(userId => {
+      if (employeesObject[userId]) {
+        let employee = employeesObject[userId]
+        employee.team = team
+        employeeArray.push(employee)
+      }
+    })
+  })
+  return employeeArray
 }
 const getEmployeeById = async (id) => {
   let result = await api.getUserById(id)
@@ -38,12 +50,12 @@ const _filterImagesFromProfile = profile => {
   }
 }
 
-const getUserAsObject = async () => {
+const employesAsObject = (employees) => {
   let object = {}
-  let employees = await getAll()
   employees.forEach(employee => {
-
+    object[employee.id] = employee
   })
+  return object
 }
 
 module.exports = {
