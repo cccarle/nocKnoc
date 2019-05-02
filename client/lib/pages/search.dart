@@ -3,7 +3,6 @@ import '../widgets/searchableList.dart';
 import '../widgets/listView.dart';
 import '../widgets/appBar.dart';
 
-
 class SearchPage extends StatelessWidget {
   String option;
 
@@ -37,8 +36,6 @@ class SearchPage extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Container(
-                    width: 600,
-                    color: Colors.transparent,
                     child: ListViewSlackUsers(),
                   ),
                 ],

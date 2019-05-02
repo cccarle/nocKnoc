@@ -7,26 +7,21 @@ class ListViewSlackUsers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
+
     return Material(
-        child: new SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            color: Theme.of(context).primaryColor,
-            height: 600.0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20.0),
-              ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        padding: EdgeInsets.all(30.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 600,
               child: createFutureList(bloc),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   createFutureList(Bloc bloc) {
@@ -40,14 +35,14 @@ class ListViewSlackUsers extends StatelessWidget {
               AsyncSnapshot<List<String>> asyncsnapshot) {
             switch (asyncsnapshot.connectionState) {
               case ConnectionState.none:
-                return new Text('input a url');
+                return Text('input a url');
               case ConnectionState.waiting:
-                return new Center(child: new CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator());
               case ConnectionState.active:
-                return new Text('');
+                return Text('');
               case ConnectionState.done:
                 if (asyncsnapshot.hasError) {
-                  return new Text(
+                  return Text(
                     '${asyncsnapshot.error}',
                     style: TextStyle(color: Colors.red),
                   );
@@ -62,7 +57,7 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   buildList(asyncsnapshot, snapshot) {
-    return new ListView.builder(
+    return ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: asyncsnapshot.length,
@@ -73,85 +68,76 @@ class ListViewSlackUsers extends StatelessWidget {
 
   selectList(index, filter, list) {
     return filter == null || filter == ""
-        ? Card(
-            child: Stack(
-              children: <Widget>[
-                // Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: NetworkImage(
-                        'https://randomuser.me/api/portraits/med/men/65.jpg'),
-                  ),
-                ),
-                Align(
-                  child: Column(
-                      
-                    children: <Widget>[
-                      Text(
-                        list[index],
-                        style: TextStyle(color: Colors.black, fontSize: 30),
-                      )
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Icon(Icons.notifications_active),
-                )
-                // ),
-              ],
-            ),
-          )
+        ? slackUserListItem(index, list)
         : list[index].toLowerCase().contains(filter.toLowerCase())
-            ? Card(
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CircleAvatar(
-                            radius: 40,
-                            backgroundImage: NetworkImage(
-                                'https://randomuser.me/api/portraits/med/men/65.jpg')),
-                        Text(
-                          list[index],
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        Text(
-                          'Rs.',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
+            ? slackUserListItem(index, list)
             : Container();
   }
 }
 
-// Row(
-//     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//     children: [
-//       // Image.network(
-//       //   'https://randomuser.me/api/portraits/med/men/65.jpg',
-//       // ),
-//       Text(
-//         list[index],
-//         style: TextStyle(fontSize: 20.0),
-//       ),
-//       Container(
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           image: backgroundImage != null
-//               ? new DecorationImage(
-//                   image: backgroundImage, fit: BoxFit.cover)
-//               : null,
-//           shape: BoxShape.circle,
-//         ),
-//       )
-//     ],
-//   )
+slackUserImage() {
+  return Container(
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(10.0),
+      child: Container(
+        // decoration: BoxDecoration(
+        //   border: Border.all(color: Colors.black),
+        // ),
+        child: Image.network(
+          'https://randomuser.me/api/portraits/med/men/65.jpg',
+          fit: BoxFit.fill,
+          height: 70.0,
+          width: 70.0,
+        ),
+      ),
+    ),
+  );
+}
+
+alertIcon() {
+  return Container(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[Icon(Icons.notifications_active, size: 30.0)],
+    ),
+  );
+}
+
+middleSection(index, list) {
+  return Expanded(
+    child: Container(
+      padding: EdgeInsets.only(left: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Text(
+            list[index],
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w200,
+              fontSize: 20.0,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+slackUserListItem(index, list) {
+  return Column(
+    children: <Widget>[
+      SizedBox(
+        height: 10.0,
+      ),
+      Row(
+        children: <Widget>[
+          slackUserImage(),
+          middleSection(index, list),
+          alertIcon()
+        ],
+      )
+    ],
+  );
+}
