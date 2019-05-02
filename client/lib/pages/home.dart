@@ -1,143 +1,8 @@
 import 'package:flutter/material.dart';
+import './search.dart';
 
 class HomePage extends StatelessWidget {
-  Widget _createGridList() {
-    return GridView.count(
-      crossAxisCount: 2,
-      padding: EdgeInsets.only(top: 20.0),
-      childAspectRatio: 12.0 / 9.0,
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                print('klick');
-              },
-              child: Container(
-                  height: 320,
-                  width: 420,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Center(
-                    child: Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Besökare',
-                                style: TextStyle(
-                                    fontSize: 40.0, fontFamily: 'Avenir'),
-                              ),
-                            ],
-                          ),
-                        )),
-                  )),
-            )
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                print('klick');
-              },
-              child: Container(
-                  height: 320,
-                  width: 420,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Center(
-                    child: Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Affärspartner',
-                                style: TextStyle(
-                                    fontSize: 40.0, fontFamily: 'Avenir'),
-                              ),
-                            ],
-                          ),
-                        )),
-                  )),
-            )
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                print('klick');
-              },
-              child: Container(
-                  height: 320,
-                  width: 420,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Center(
-                    child: Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Anställd',
-                                style: TextStyle(
-                                    fontSize: 40.0, fontFamily: 'Avenir'),
-                              ),
-                            ],
-                          ),
-                        )),
-                  )),
-            )
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                print('klick');
-              },
-              child: Container(
-                  height: 320,
-                  width: 420,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Center(
-                    child: Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Leverans',
-                                style: TextStyle(
-                                    fontSize: 40.0, fontFamily: 'Avenir'),
-                              ),
-                            ],
-                          ),
-                        )),
-                  )),
-            )
-          ],
-        ),
-      ],
-    );
-  }
+  List<String> options = ["Leverans", "Besökare", "Affärspatner", "Anställd"];
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,9 +32,56 @@ class HomePage extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: _createGridList(),
+              child: _buildOptionsList(),
             )
           ]),
     );
+  }
+
+  Widget _buildOptionItem(BuildContext context, int index) {
+    return Card(
+      child: Column(
+        children: <Widget>[
+          GestureDetector(
+            onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(options[index]),
+                    ),
+                  ),
+                },
+            child: Container(
+                height: 280,
+                width: 370,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Center(
+                  child: Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              options[index],
+                              style: TextStyle(
+                                  fontSize: 40.0, fontFamily: 'Avenir'),
+                            ),
+                          ],
+                        ),
+                      )),
+                )),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOptionsList() {
+    return ListView.builder(
+        itemBuilder: _buildOptionItem, itemCount: options.length);
   }
 }

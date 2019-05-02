@@ -3,8 +3,14 @@ import '../widgets/searchableList.dart';
 import '../widgets/listView.dart';
 
 class SearchPage extends StatelessWidget {
+  String option;
+
+  SearchPage(this.option);
+
+
   @override
   Widget build(BuildContext context) {
+    print(option);
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         body: Center(

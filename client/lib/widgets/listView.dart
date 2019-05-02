@@ -34,35 +34,29 @@ class ListViewSlackUsers extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.searchedUserStream,
       builder: (context, snapshot) {
-        // if (snapshot.data != null) {
-          return FutureBuilder<List<String>>(
-            future: list,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<String>> asyncsnapshot) {
-              switch (asyncsnapshot.connectionState) {
-                case ConnectionState.none:
-                  return new Text('input a url');
-                case ConnectionState.waiting:
-                  return new Center(child: new CircularProgressIndicator());
-                case ConnectionState.active:
-                  return new Text('');
-                case ConnectionState.done:
-                  if (asyncsnapshot.hasError) {
-                    return new Text(
-                      '${asyncsnapshot.error}',
-                      style: TextStyle(color: Colors.red),
-                    );
-                  } else {
-                    return buildList(asyncsnapshot.data, snapshot.data);
-                  }
-              }
-            },
-          );
-        // } else {
-        //   return Container(
-        //     height: 200,
-        //   );
-        // }
+        return FutureBuilder<List<String>>(
+          future: list,
+          builder: (BuildContext context,
+              AsyncSnapshot<List<String>> asyncsnapshot) {
+            switch (asyncsnapshot.connectionState) {
+              case ConnectionState.none:
+                return new Text('input a url');
+              case ConnectionState.waiting:
+                return new Center(child: new CircularProgressIndicator());
+              case ConnectionState.active:
+                return new Text('');
+              case ConnectionState.done:
+                if (asyncsnapshot.hasError) {
+                  return new Text(
+                    '${asyncsnapshot.error}',
+                    style: TextStyle(color: Colors.red),
+                  );
+                } else {
+                  return buildList(asyncsnapshot.data, snapshot.data);
+                }
+            }
+          },
+        );
       },
     );
   }
