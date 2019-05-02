@@ -2,42 +2,43 @@ var Slack = require('slack')
 require('dotenv').config()
 let {acceptDeclineMessage} = require('../../resources/blocks.js')
 
-// const token = process.env.Bot_User_OAuth_Access_Token
-// const token = process.env.User_OAuth_Access_Token
-// const token = process.env.Bot_Meridium_OAuth_Access_Token
-const token = process.env.User_Meridium_OAuth_Access_Token
+// const botToken = process.env.Bot_User_OAuth_Access_Token
+// const usoken = process.env.User_OAuth_Access_Token
+const botToken = process.env.Bot_Meridium_OAuth_Access_Token
+const userToken = process.env.User_Meridium_OAuth_Access_Token
 
-let bot = new Slack({token})
+let bot = new Slack({botToken})
+let user = new Slack({userToken})
 module.exports = {
-  testSlack: async () => {
-    return await bot.api.test({hyper: 'card', hej: 'bye'})
+  testSlack: () => {
+    return bot.api.test({hyper: 'card', hej: 'bye'})
   },
-  getAllUsers: async () => {
-    return await bot.users.list()
+  getAllUsers: () => {
+    return bot.users.list()
   },
-  getAllChannels: async () => {
-    return await bot.channels.list()
+  getAllChannels: () => {
+    return bot.channels.list()
   },
-  getUserById: async (userId) => {
-    return await bot.users.info({token, userId})
+  getUserById: (userId) => {
+    return bot.users.info({token: botToken, userId})
   },
-  getChannelById: async (channel) => {
-    return await bot.channels.info({token, channel})
+  getChannelById: (channel) => {
+    return bot.channels.info({token: botToken, channel})
   },
-  getAllTeams: async () => {
-    return await bot.usergroups.list({token})
+  getAllTeams: () => {
+    return bot.usergroups.list({token: userToken})
   },
-  getTeamUsersByTeamId: async (teamId) => {
-    return await bot.usergroups.users.list({token, teamId})
+  getTeamUsersByTeamId: (usergroupId) => {
+    return bot.usergroups.users.list({token: userToken, usergroupId})
   },
-  sendMessageToChannel: async (channel, message) => {
-    return await bot.chat.postMessage({token, channel: channel, text: message})
+  sendMessageToChannel: (channel, message) => {
+    return bot.chat.postMessage({token: botToken, channel: channel, text: message})
   },
-  sendFormToChannel: async (channel, text) => {
+  sendFormToChannel: (channel, text) => {
     let blocks = acceptDeclineMessage(text)
-    return await bot.chat.postMessage({token, channel, text, blocks})
+    return bot.chat.postMessage({token: botToken, channel, text, blocks})
   },
-  botInfo: async () => {
-    return await bot.bots.info({token})
+  botInfo: () => {
+    return bot.bots.info({token: botToken})
   }
 }

@@ -6,7 +6,7 @@ const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
 
 server.get('/employees', async (req, res) => {
-  let result = await employeesController.getNotifiableEmployees()
+  let result = await employeesController.getAll()
   console.log(result)
   res.status(200).json(result)
 })
