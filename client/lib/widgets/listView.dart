@@ -74,18 +74,76 @@ class ListViewSlackUsers extends StatelessWidget {
   selectList(index, filter, list) {
     return filter == null || filter == ""
         ? Card(
-            child: Text(
-              list[index],
-              style: TextStyle(fontSize: 40.0),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    
+                  children: <Widget>[
+                    CircleAvatar(
+                        radius: 15,
+                        backgroundImage: NetworkImage(
+                            'https://randomuser.me/api/portraits/med/men/65.jpg')),
+                    Text(
+                      list[index],
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    Text(
+                      'Rs.',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ],
             ),
           )
         : list[index].toLowerCase().contains(filter.toLowerCase())
             ? Card(
-                child: Text(
-                  list[index],
-                  style: TextStyle(fontSize: 40.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        CircleAvatar(
+                            radius: 40,
+                            backgroundImage: NetworkImage(
+                                'https://randomuser.me/api/portraits/med/men/65.jpg')),
+                        Text(
+                          list[index],
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        Text(
+                          'Rs.',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               )
             : Container();
   }
 }
+
+// Row(
+//     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//     children: [
+//       // Image.network(
+//       //   'https://randomuser.me/api/portraits/med/men/65.jpg',
+//       // ),
+//       Text(
+//         list[index],
+//         style: TextStyle(fontSize: 20.0),
+//       ),
+//       Container(
+//         decoration: BoxDecoration(
+//           color: Colors.white,
+//           image: backgroundImage != null
+//               ? new DecorationImage(
+//                   image: backgroundImage, fit: BoxFit.cover)
+//               : null,
+//           shape: BoxShape.circle,
+//         ),
+//       )
+//     ],
+//   )

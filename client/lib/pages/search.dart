@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import '../widgets/searchableList.dart';
 import '../widgets/listView.dart';
+import '../widgets/appBar.dart';
+
 
 class SearchPage extends StatelessWidget {
   String option;
 
   SearchPage(this.option);
 
-
   @override
   Widget build(BuildContext context) {
     print(option);
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(70.0),
+          child: DynamicAppBar(),
+        ),
         body: Center(
           child: Container(
             margin: EdgeInsets.all(10.0),

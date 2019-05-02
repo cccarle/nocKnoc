@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './search.dart';
+import '../widgets/appBar.dart';
 
 class HomePage extends StatelessWidget {
   List<String> options = ["Leverans", "Besökare", "Affärspatner", "Anställd"];
@@ -7,6 +8,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.0),
+        child: DynamicAppBar(),
+      ),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './pages/home.dart';
+import './widgets/appBar.dart';
 import './bloc/provider.dart';
 
 void main() {
@@ -19,9 +20,7 @@ class Main extends StatelessWidget {
             brightness: Brightness.light,
             primaryColor: meridiumBlue,
             accentColor: meridiumRed),
-        routes: {
-          '/': (BuildContext context) => HomePage(),
-        },
+        home: HomePage(),
       ),
     );
   }
