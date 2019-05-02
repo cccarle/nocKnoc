@@ -3,7 +3,6 @@ import '../widgets/searchableList.dart';
 import '../widgets/listView.dart';
 
 class SearchPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +20,16 @@ class SearchPage extends StatelessWidget {
                       style: TextStyle(fontSize: 80.0, color: Colors.white),
                     ),
                   ),
-                  SearchableList(),
-                  ListViewSlackUsers()
+                  Container(
+                    width: 400,
+                    child: SearchableList(),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    width: 600,
+                    color: Colors.transparent,
+                    child: ListViewSlackUsers(),
+                  ),
                 ],
               ),
             ),

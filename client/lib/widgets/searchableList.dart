@@ -6,15 +6,7 @@ class SearchableList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
-
-    // getUserList() async {
-    //   final list = await api.fecthUserList();
-    //   print(list);
-    //   return list;
-    // }
-
-    // getUserList();
-
+    
     return Material(
       child: Column(
         children: <Widget>[

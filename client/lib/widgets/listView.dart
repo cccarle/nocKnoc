@@ -11,19 +11,30 @@ class ListViewSlackUsers extends StatelessWidget {
         child: new SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[renderListView(bloc)],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            color: Theme.of(context).primaryColor,
+            height: 600.0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: createFutureList(bloc),
+            ),
+          ),
+        ],
       ),
     ));
   }
 
-  renderListView(Bloc bloc) {
+  createFutureList(Bloc bloc) {
     final Future<List<String>> list = fecthUserList();
-    print(list);
     return StreamBuilder(
       stream: bloc.searchedUserStream,
       builder: (context, snapshot) {
-        if (snapshot.data != null && list != null) {
+        // if (snapshot.data != null) {
           return FutureBuilder<List<String>>(
             future: list,
             builder: (BuildContext context,
@@ -42,25 +53,28 @@ class ListViewSlackUsers extends StatelessWidget {
                       style: TextStyle(color: Colors.red),
                     );
                   } else {
-                    return new ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: asyncsnapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return selectList(
-                              index, snapshot.data, asyncsnapshot.data);
-                        });
+                    return buildList(asyncsnapshot.data, snapshot.data);
                   }
               }
             },
           );
-        } else {
-          return Container(
-            child: Text('No searech field'),
-          );
-        }
+        // } else {
+        //   return Container(
+        //     height: 200,
+        //   );
+        // }
       },
     );
+  }
+
+  buildList(asyncsnapshot, snapshot) {
+    return new ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: asyncsnapshot.length,
+        itemBuilder: (BuildContext context, int index) {
+          return selectList(index, snapshot, asyncsnapshot);
+        });
   }
 
   selectList(index, filter, list) {
