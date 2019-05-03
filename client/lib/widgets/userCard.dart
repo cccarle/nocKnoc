@@ -5,6 +5,9 @@ import './alertIcon.dart';
 import './slackUserImage.dart';
 import './slackUsername.dart';
 
+//Api
+import '../API/api.dart';
+
 class UserCard extends StatelessWidget {
   final String user;
 
@@ -14,7 +17,7 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
-        onTap: () => {print('Notifi $user')},
+        onTap: () => {},
         child: Row(
           children: <Widget>[
             SlackUserImage(),

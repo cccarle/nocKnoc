@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import '../bloc/bloc.dart';
 import '../bloc/provider.dart';
 
-
 // Widgets
-import '../widgets/alertIcon.dart';
-import '../widgets/slackUsername.dart';
-import '../widgets/slackUserImage.dart';
-
 import '../API/api.dart';
 
+//Api
 import '../widgets/userCard.dart';
 
 class ListViewSlackUsers extends StatelessWidget {
@@ -25,7 +21,7 @@ class ListViewSlackUsers extends StatelessWidget {
           children: <Widget>[
             Container(
               height: 600,
-              child: createFutureList(bloc),
+              child: _createFutureList(bloc),
             ),
           ],
         ),
@@ -33,12 +29,11 @@ class ListViewSlackUsers extends StatelessWidget {
     );
   }
 
-  createFutureList(Bloc bloc) {
+  _createFutureList(Bloc bloc) {
     final Future<List<String>> list = fecthUserList();
     return StreamBuilder(
       stream: bloc.searchedUserStream,
       builder: (context, snapshot) {
-
         return FutureBuilder<List<String>>(
           future: list,
           builder: (BuildContext context,
@@ -57,7 +52,7 @@ class ListViewSlackUsers extends StatelessWidget {
                     style: TextStyle(color: Colors.red),
                   );
                 } else {
-                  return buildList(asyncsnapshot.data, snapshot.data);
+                  return _buildList(asyncsnapshot.data, snapshot.data);
                 }
             }
           },
@@ -66,34 +61,32 @@ class ListViewSlackUsers extends StatelessWidget {
     );
   }
 
-
-  buildList(asyncsnapshot, snapshot) {
+  _buildList(asyncsnapshot, snapshot) {
     return ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: asyncsnapshot.length,
         itemBuilder: (BuildContext context, int index) {
-          return selectList(index, snapshot, asyncsnapshot);
+          return _selectList(index, snapshot, asyncsnapshot);
         });
   }
 
-
-  selectList(index, filter, list) {
+  _selectList(index, filter, list) {
     return filter == null
-        ? slackUserListItem(index, list)
+        ? _slackUserListItem(index, list)
         : list[index].toLowerCase().contains(filter.toLowerCase())
-            ? slackUserListItem(index, list)
+            ? _slackUserListItem(index, list)
             : Container();
   }
-}
 
-slackUserListItem(index, list) {
-  return Column(
-    children: <Widget>[
-      SizedBox(
-        height: 10.0,
-      ),
-      UserCard(list[index])
-    ],
-  );
+  _slackUserListItem(index, list) {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 10.0,
+        ),
+        UserCard(list[index])
+      ],
+    );
+  }
 }

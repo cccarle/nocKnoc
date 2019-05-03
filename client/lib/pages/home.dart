@@ -19,12 +19,12 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[headLineText(), _buildOptionsList(context, options)],
+        children: <Widget>[_headLineText(), _buildOptionsList(context, options)],
       ),
     );
   }
 
-  Widget headLineText() {
+  Widget _headLineText() {
     return Column(
       children: <Widget>[
         Container(
