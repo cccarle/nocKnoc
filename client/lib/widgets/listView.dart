@@ -8,6 +8,8 @@ import '../widgets/alertIcon.dart';
 import '../widgets/slackUsername.dart';
 import '../widgets/slackUserImage.dart';
 
+import '../API/api.dart';
+
 import '../widgets/userCard.dart';
 
 class ListViewSlackUsers extends StatelessWidget {
@@ -86,7 +88,6 @@ class ListViewSlackUsers extends StatelessWidget {
 }
 
 slackUserListItem(index, list) {
-  final String user = list[index];
   return Column(
     children: <Widget>[
       SizedBox(
