@@ -6,9 +6,9 @@ const bodyParser = require('body-parser')
 const io = require('socket.io')
 let apiRoutes = require('./routes/apiRoutes')
 
-io.on('connection', socket => {
-  console.log('Websocket is connected')
-})
+// io.on('connection', socket => {
+//   console.log('Websocket is connected')
+// })
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())

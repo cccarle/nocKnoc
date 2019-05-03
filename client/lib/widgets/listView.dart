@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../bloc/bloc.dart';
 import '../bloc/provider.dart';
-import '../API/api.dart';
+
 
 class ListViewSlackUsers extends StatelessWidget {
   @override
@@ -53,6 +53,7 @@ class ListViewSlackUsers extends StatelessWidget {
                   }
               }
             },
+
           );
         } else {
           return Container(
@@ -62,6 +63,7 @@ class ListViewSlackUsers extends StatelessWidget {
       },
     );
   }
+
 
   selectList(index, filter, list) {
     return filter == null || filter == ""

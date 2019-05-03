@@ -1,0 +1,11 @@
+{
+    "settings": {
+        "fallbackChannel": "",
+        "secondsToFallback": 30
+    },
+    "deviceInfo": {
+        "tags": ["<@ke222pf>", "<@ds22cx>"],
+        "channel": "CHK464ERK"
+    },
+    "teamBlacklist": ["SFGEA3LM9"]
+}

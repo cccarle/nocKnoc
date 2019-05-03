@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import '../model/user_model.dart';
 
+
 import 'package:flutter/foundation.dart';
 
 final _apiEndpoint = "https://jsonplaceholder.typicode.com/users";

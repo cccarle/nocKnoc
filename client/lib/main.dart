@@ -3,7 +3,6 @@ import './pages/search.dart';
 import './widgets/appBar.dart';
 import './pages/home.dart';
 import './bloc/provider.dart';
-import 'API/api.dart'; 
 
 void main() {
   runApp(Main());
