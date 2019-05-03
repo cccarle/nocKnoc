@@ -12,10 +12,8 @@ module.exports = {
     )
     return channels
   },
-  sendAcceptDecline: async (visitor, userId, channelId) => {
-    let user = await api.getUserById(userId)
-    let userName = user.name
-    let text = `${userName} is wanted at the door by ${visitor}`
+  sendAcceptDecline: async (visitor, name, channelId) => {
+    let text = `${name} is wanted at the door by ${visitor}`
     let result = await api.sendFormToChannel(channelId, text)
     return result
   }

@@ -33,7 +33,7 @@ server.get('/teams', async (req, res) => {
 server.post('/notify', async (req, res) => {
   try {
     if (req.body.channelId) {
-      let result = await channelsController.sendAcceptDecline(req.body.visitor, req.body.userId, req.body.channelId)
+      let result = await channelsController.sendAcceptDecline(req.body.visitor, req.body.name, req.body.channelId)
       console.log(result)
       res.status(200).json(result)
     } else if (req.body.employeeId) {
