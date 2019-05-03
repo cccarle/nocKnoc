@@ -24,8 +24,13 @@ const getWhiteListedTeams = async () => {
   return whiteListedTeams
 }
 
+const extractChannelsFromTeamArray = (teamArray) => {
+  return teamArray.map(({channels}) => (channels).join(','))
+}
+
 module.exports = {
   getAll,
   getTeamUsersById,
-  getWhiteListedTeams
+  getWhiteListedTeams,
+  extractChannelsFromTeamArray
 }

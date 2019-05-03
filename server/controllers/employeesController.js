@@ -23,7 +23,8 @@ const getNotifiableEmployees = async () => {
     let employeeTeams = teams.filter(team => team.users.includes(employee.id))
     console.log(employeeTeams)
     if (employeeTeams.length > 0) {
-      employee.teams = employeeTeams
+      employee.channels = teamsController.extractChannelsFromTeamArray(employeeTeams)
+      // employee.teams = employeeTeams
       employeeArray.push(employee)
     }
   })
