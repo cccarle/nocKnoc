@@ -86,12 +86,13 @@ class ListViewSlackUsers extends StatelessWidget {
 }
 
 slackUserListItem(index, list) {
+  final String user = list[index];
   return Column(
     children: <Widget>[
       SizedBox(
         height: 10.0,
       ),
-      UserCard()
+      UserCard(list[index])
     ],
   );
 }
