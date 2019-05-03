@@ -4,9 +4,9 @@ import '../widgets/listView.dart';
 import '../widgets/appBar.dart';
 
 class SearchPage extends StatelessWidget {
-  final String option;
+  final String visitor;
 
-  SearchPage(this.option);
+  SearchPage(this.visitor);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class SearchPage extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: ListViewSlackUsers(),
+      child: ListViewSlackUsers(visitor),
     );
   }
 }

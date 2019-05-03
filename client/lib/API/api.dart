@@ -7,6 +7,7 @@ import '../model/post_model.dart';
 import 'package:flutter/foundation.dart';
 
 final _apiEndpoint = "https://jsonplaceholder.typicode.com/users";
+final _apiExitpoint = "http://webhook.site/8320d5c3-c0da-471e-8953-3391ca3c9b7e";
 // final _apiEndpoint = "https://randomuser.me/api/";
 
 Future<List<String>> fecthUserList() async {
@@ -25,8 +26,8 @@ List<String> parseUsers(String responseBody) {
   return parsed.map<String>((json) => UserModel.fromJSON(json).name).toList();
 }
 
-Future<Post> createPost(String url, {Map body}) async {
-  return http.post(url, body: body).then((http.Response response) {
+Future<Post> createPost({Map body}) async {
+  return http.post(_apiExitpoint, body: body).then((http.Response response) {
     final int statusCode = response.statusCode;
 
     if (statusCode < 200 || statusCode > 400 || json == null) {

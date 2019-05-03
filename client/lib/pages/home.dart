@@ -3,7 +3,7 @@ import './search.dart';
 import '../widgets/appBar.dart';
 
 class HomePage extends StatelessWidget {
-  final List<String> options = [
+  final List<String> visitors = [
     "Leverans",
     "Besökare",
     "Affärspatner",
@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_headLineText(), _buildOptionsList(context, options)],
+        children: <Widget>[_headLineText(), _buildOptionsList(context, visitors)],
       ),
     );
   }
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildOptionsList(context, options) {
+  Widget _buildOptionsList(context, visitors) {
     return Expanded(
       child: GridView.count(
         primary: true,
@@ -56,9 +56,9 @@ class HomePage extends StatelessWidget {
         padding: EdgeInsets.only(top: 20.0),
         childAspectRatio: 12.0 / 9.0,
         children: List.generate(
-          options.length,
+          visitors.length,
           (index) {
-            return _buildOptionItem(context, index, options);
+            return _buildOptionItem(context, index, visitors);
           },
         ),
       ),
@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Widget _buildOptionItem(context, index, options) {
+Widget _buildOptionItem(context, index, visitors) {
   return Padding(
     padding: EdgeInsets.all(25.0),
     child: GestureDetector(
@@ -74,7 +74,7 @@ Widget _buildOptionItem(context, index, options) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SearchPage(options[index]),
+                builder: (context) => SearchPage(visitors[index]),
               ),
             ),
           },
@@ -85,7 +85,7 @@ Widget _buildOptionItem(context, index, options) {
         ),
         child: Center(
           child: Text(
-            options[index],
+            visitors[index],
             style: TextStyle(fontSize: 40.0, fontFamily: 'Avenir'),
           ),
         ),

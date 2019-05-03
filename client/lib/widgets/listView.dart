@@ -9,6 +9,11 @@ import '../API/api.dart';
 import '../widgets/userCard.dart';
 
 class ListViewSlackUsers extends StatelessWidget {
+
+  final String visitor;
+
+  ListViewSlackUsers(this.visitor);
+
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
@@ -85,7 +90,7 @@ class ListViewSlackUsers extends StatelessWidget {
         SizedBox(
           height: 10.0,
         ),
-        UserCard(list[index])
+        UserCard(list[index], visitor)
       ],
     );
   }
