@@ -17,11 +17,12 @@ const getNotifiableEmployees = async () => {
   let employeeArray = []
   let teams = await teamsController.getWhiteListedTeams()
   let employees = await getAll()
+  console.log(teams)
   employees.forEach(employee => {
     console.log(employee.id)
     let employeeTeams = teams.filter(team => team.users.includes(employee.id))
     console.log(employeeTeams)
-    if (employeeTeams > 0) {
+    if (employeeTeams.length > 0) {
       employee.teams = employeeTeams
       employeeArray.push(employee)
     }
