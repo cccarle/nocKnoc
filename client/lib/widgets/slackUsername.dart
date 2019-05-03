@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SlackUsername extends StatelessWidget {
-  final dynamic list;
-  final dynamic index;
+  final String user;
 
-  SlackUsername(this.index, this.list);
+  SlackUsername(this.user);
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -15,7 +14,7 @@ class SlackUsername extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Text(
-              list[index],
+              user,
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w200,

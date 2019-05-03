@@ -21,6 +21,5 @@ Future<List<String>> fecthUserList() async {
 
 List<String> parseUsers(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  print(parsed);
   return parsed.map<String>((json) => UserModel.fromJSON(json).name).toList();
 }

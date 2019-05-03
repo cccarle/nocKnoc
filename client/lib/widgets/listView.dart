@@ -8,6 +8,8 @@ import '../widgets/alertIcon.dart';
 import '../widgets/slackUsername.dart';
 import '../widgets/slackUserImage.dart';
 
+import '../widgets/userCard.dart';
+
 class ListViewSlackUsers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   selectList(index, filter, list) {
-    return filter == null || filter == ""
+    return filter == null
         ? slackUserListItem(index, list)
         : list[index].toLowerCase().contains(filter.toLowerCase())
             ? slackUserListItem(index, list)
@@ -86,13 +88,7 @@ slackUserListItem(index, list) {
       SizedBox(
         height: 10.0,
       ),
-      Row(
-        children: <Widget>[
-          SlackUserImage(),
-          SlackUsername(index, list),
-          AlertIcon()
-        ],
-      )
+      UserCard()
     ],
   );
 }

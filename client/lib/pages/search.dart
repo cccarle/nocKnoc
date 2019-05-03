@@ -10,7 +10,6 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(option);
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         appBar: PreferredSize(
