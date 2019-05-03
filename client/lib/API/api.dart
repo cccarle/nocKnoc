@@ -7,6 +7,7 @@ import '../model/user_model.dart';
 import 'package:flutter/foundation.dart';
 
 final _apiEndpoint = "https://jsonplaceholder.typicode.com/users";
+// final _apiEndpoint = "https://randomuser.me/api/";
 
 Future<List<String>> fecthUserList() async {
   http.Response response = await http.get(Uri.encodeFull(_apiEndpoint),
@@ -21,6 +22,5 @@ Future<List<String>> fecthUserList() async {
 
 List<String> parseUsers(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
   return parsed.map<String>((json) => UserModel.fromJSON(json).name).toList();
 }

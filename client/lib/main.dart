@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import './pages/search.dart';
-import './widgets/appBar.dart';
 import './pages/home.dart';
+import './widgets/appBar.dart';
 import './bloc/provider.dart';
 
 void main() {
@@ -21,12 +20,7 @@ class Main extends StatelessWidget {
             brightness: Brightness.light,
             primaryColor: meridiumBlue,
             accentColor: meridiumRed),
-        home: Scaffold(
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(70.0), // here the desired height
-              child: DynamicAppBar()),
-          body: SearchPage(),
-        ),
+        home: HomePage(),
       ),
     );
   }
