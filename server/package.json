@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "slack API",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "server": "nodemon index.js"
+  },
+  "author": "karl, joel, carl, david, marcus",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "jest": "^24.7.1",
+    "slack": "^11.0.2",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
