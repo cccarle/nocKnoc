@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../bloc/bloc.dart';
 import '../bloc/provider.dart';
-import '../API/api.dart';
+
 
 // Widgets
 import '../widgets/alertIcon.dart';
@@ -36,6 +36,7 @@ class ListViewSlackUsers extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.searchedUserStream,
       builder: (context, snapshot) {
+
         return FutureBuilder<List<String>>(
           future: list,
           builder: (BuildContext context,
@@ -63,6 +64,7 @@ class ListViewSlackUsers extends StatelessWidget {
     );
   }
 
+
   buildList(asyncsnapshot, snapshot) {
     return ListView.builder(
         scrollDirection: Axis.vertical,
@@ -72,6 +74,7 @@ class ListViewSlackUsers extends StatelessWidget {
           return selectList(index, snapshot, asyncsnapshot);
         });
   }
+
 
   selectList(index, filter, list) {
     return filter == null
