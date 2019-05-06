@@ -4,9 +4,9 @@ import '../widgets/listView.dart';
 import '../widgets/appBar.dart';
 
 class SearchPage extends StatelessWidget {
-  final String option;
+  final String visitor;
 
-  SearchPage(this.option);
+  SearchPage(this.visitor);
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +22,17 @@ class SearchPage extends StatelessWidget {
             width: 700.0,
             child: Column(
               children: <Widget>[
-                headlineText(),
-                searchInput(),
+                _headlineText(),
+                _searchInput(),
                 SizedBox(height: 30),
-                listViewSlackUsers()
+                _listViewSlackUsers()
               ],
             ),
           ),
         ));
   }
 
-  Widget headlineText() {
+  Widget _headlineText() {
     return Center(
       child: Text(
         'Vem söker du ?',
@@ -42,20 +42,20 @@ class SearchPage extends StatelessWidget {
     );
   }
 
-  Widget searchInput() {
+  Widget _searchInput() {
     return Container(
       width: 440,
       child: SearchInputField(),
     );
   }
 
-  Widget listViewSlackUsers() {
+  Widget _listViewSlackUsers() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: ListViewSlackUsers(),
+      child: ListViewSlackUsers(visitor),
     );
   }
 }
