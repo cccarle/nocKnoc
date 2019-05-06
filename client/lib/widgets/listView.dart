@@ -9,7 +9,6 @@ import '../API/api.dart';
 import '../widgets/userCard.dart';
 
 class ListViewSlackUsers extends StatelessWidget {
-
   final String visitor;
 
   ListViewSlackUsers(this.visitor);
@@ -68,12 +67,13 @@ class ListViewSlackUsers extends StatelessWidget {
 
   _buildList(asyncsnapshot, snapshot) {
     return ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: asyncsnapshot.length,
-        itemBuilder: (BuildContext context, int index) {
-          return _selectList(index, snapshot, asyncsnapshot);
-        });
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: asyncsnapshot.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _selectList(index, snapshot, asyncsnapshot);
+      },
+    );
   }
 
   _selectList(index, filter, list) {
