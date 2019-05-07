@@ -2,10 +2,10 @@ var Slack = require('slack')
 require('dotenv').config()
 let {acceptDeclineMessage} = require('../../resources/blocks.js')
 
-// const botToken = process.env.Bot_User_OAuth_Access_Token
-// const userToken = process.env.User_OAuth_Access_Token
-const botToken = process.env.Bot_Meridium_OAuth_Access_Token
-const userToken = process.env.User_Meridium_OAuth_Access_Token
+const botToken = process.env.Bot_User_OAuth_Access_Token
+const userToken = process.env.User_OAuth_Access_Token
+// const botToken = process.env.Bot_Meridium_OAuth_Access_Token
+// const userToken = process.env.User_Meridium_OAuth_Access_Token
 
 let bot = new Slack({botToken})
 let user = new Slack({userToken})
@@ -40,5 +40,10 @@ module.exports = {
   },
   botInfo: () => {
     return bot.bots.info({token: botToken})
+  },
+
+  updateMessage: (channel, name, ts) => {
+    let text = `${name} is on his way to open the door!`
+    return  bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks: []})
   }
 }
