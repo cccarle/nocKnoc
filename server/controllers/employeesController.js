@@ -19,11 +19,9 @@ const getNotifiableEmployees = async () => {
   let employees = await getAll()
   console.log(teams)
   employees.forEach(employee => {
-    console.log(employee.id)
     let employeeTeams = teams.filter(team => team.users.includes(employee.id))
-    console.log(employeeTeams)
     if (employeeTeams.length > 0) {
-      employee.teams = employeeTeams
+      employee.channels = teamsController.extractChannelsFromTeamArray(employeeTeams)
       employeeArray.push(employee)
     }
   })
@@ -48,14 +46,6 @@ const _filterImagesFromProfile = profile => {
     icon: profile.image_24,
     pic: profile.image_72
   }
-}
-
-const employesAsObject = (employees) => {
-  let object = {}
-  employees.forEach(employee => {
-    object[employee.id] = employee
-  })
-  return object
 }
 
 module.exports = {
