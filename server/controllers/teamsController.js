@@ -3,6 +3,18 @@ const settings = require('../resources/settings.json')
 
 const getAll = async () => {
   let result = await api.getAllTeams()
+  let teams = result.usergroups.map(
+      async ({ id, name, handle, prefs }) => ({
+        id,
+        name,
+        handle,
+        channels: prefs.channels
+      })
+    )
+  return Promise.all(teams)
+}
+const getAllWithUsers = async () => {
+  let result = await api.getAllTeams()
   let teams = await result.usergroups.map(
       async ({ id, name, handle, prefs }) => ({
         id,
@@ -16,11 +28,10 @@ const getAll = async () => {
 }
 const getWhiteListedTeams = async () => {
   let teams = await getAll()
-  let whiteListedTeams = extractWhitelistedTeams(teams)
-  return whiteListedTeams.map(({id, name, handle, channels}) => ({id, name, handle, channels}))
+  return extractWhitelistedTeams(teams)
 }
 const getWhiteListedTeamsAndUsers = async () => {
-  let teams = await getAll()
+  let teams = await getAllWithUsers()
   return extractWhitelistedTeams(teams)
 }
 
