@@ -6,13 +6,18 @@ const bodyParser = require('body-parser')
 const io = require('socket.io')
 let apiRoutes = require('./routes/apiRoutes')
 
-// io.on('connection', socket => {
-//   console.log('Websocket is connected')
-// })
+io.on('connection', socket => {
+  console.log('Websocket is connected')
+})
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/api', apiRoutes)
+
+app.use(function(req, res, next) {
+  req.io = io
+  next()
+})
 
 http.createServer(app).listen(PORT, function () {
   console.log('Express started on Port: ' + PORT)

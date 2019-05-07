@@ -6,6 +6,7 @@ const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
 const usersObject = require('../resources/usersObject')
 const answerController = require('../controllers/answerController.js')
+const validate = require('../middleware/validateSecret')
 require('dotenv').config()
 
 server.get('/employees', async (req, res) => {
@@ -65,11 +66,13 @@ server.get('/botinfo', async (req, res) => {
   res.status(200).json(result)
 })
 
-server.post('/payload', async (req, res, next) => {
+server.post('/payload', validate, async (req, res, next) => {
+
   let parsed = JSON.parse(req.body.payload)
   if (parsed.actions[0].value === 'true') {
+    console.log(req.headers)
     let result = await answerController.answerHandler(parsed)
-    res.status(200).json(result)
+    res.status(200)
 } else {
   console.log(req.body)
   res.status(200)
