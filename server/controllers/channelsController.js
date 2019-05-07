@@ -13,7 +13,7 @@ module.exports = {
     return channels
   },
   sendAcceptDecline: async (visitor, name, channelId) => {
-    let text = `${name} is wanted at the door by ${visitor}`
+    let text = `${name} is wanted at the door by ${visitor} (OBS! TEST! Ingen står vid dörren!)`
     let result = await api.sendFormToChannel(channelId, text)
     return result
   }

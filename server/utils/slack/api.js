@@ -40,5 +40,10 @@ module.exports = {
   },
   botInfo: () => {
     return bot.bots.info({token: botToken})
+  },
+
+  updateMessage: (channel, name, ts) => {
+    let text = `${name} is on his way to open the door!`
+    return  bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks: []})
   }
 }

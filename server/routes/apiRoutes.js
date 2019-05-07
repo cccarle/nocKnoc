@@ -6,6 +6,8 @@ const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
 const errorHandling = require('../utils/errorHandling')
 // const usersObject = require('../resources/usersObject')
+const answerController = require('../controllers/answerController.js')
+const validate = require('../middleware/validateSecret')
 require('dotenv').config()
 
 server.get('/employees', async (req, res) => {
@@ -58,7 +60,7 @@ server.get('/teams', async (req, res) => {
 
 server.post('/notify', async (req, res) => {
   try {
-    if (req.body.channelId) {
+    if (req.body.channelId && req.body.visitor && req.body.name) {
       let result = await channelsController.sendAcceptDecline(req.body.visitor, req.body.name, req.body.channelId)
       console.log(result)
       res.status(200).json(result)
@@ -95,16 +97,22 @@ server.get('/botinfo', async (req, res) => {
   }
 })
 
-server.post('/payload', (req, res, next) => {
+server.post('/payload', validate, async (req, res, next) => {
   try {
-  // let payload = JSON.parse(req.body.payload)
-    console.log(req.body)
-  // console.log(payload.actions[0].value)
+  let parsed = JSON.parse(req.body.payload)
+  if (parsed.actions[0].value === 'true') {
+    console.log(req.headers)
+    let result = await answerController.answerHandler(parsed)
     res.status(200)
+} else {
+  console.log(req.body)
+  res.status(200)
+}
   } catch (e) {
     let handledError = errorHandling(e)
     res.status(handledError.code).json(handledError.message)
   }
+
 })
 
 module.exports = server

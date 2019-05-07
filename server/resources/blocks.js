@@ -19,14 +19,6 @@ exports.acceptDeclineMessage = (message) => {
           },
           value: 'true'
         },
-        {
-          type: 'button',
-          text: {
-            type: 'plain_text',
-            text: 'Decline'
-          },
-          value: 'false'
-        }
       ]
     }
 
