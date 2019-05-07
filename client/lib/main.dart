@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './pages/home.dart';
-import './widgets/appBar.dart';
 import './bloc/provider.dart';
+import './widgets/swipe_page.dart';
 
 void main() {
   runApp(Main());

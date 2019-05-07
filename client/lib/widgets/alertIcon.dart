@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AlertIcon extends StatelessWidget {
-  final String user;
-
-  AlertIcon(this.user);
 
   @override
   Widget build(BuildContext context) {

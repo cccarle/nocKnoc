@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SlackUserImage extends StatelessWidget {
+  final String image;
+  SlackUserImage(this.image);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -8,7 +10,7 @@ class SlackUserImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: Container(
           child: Image.network(
-            'https://randomuser.me/api/portraits/med/men/65.jpg',
+            image,
             fit: BoxFit.fill,
             height: 70.0,
             width: 70.0,
@@ -18,5 +20,3 @@ class SlackUserImage extends StatelessWidget {
     );
   }
 }
-
-

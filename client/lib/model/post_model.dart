@@ -1,26 +1,22 @@
 class Post {
-  final String user;
+  final String name;
   final String visitor;
-  // final int userId;
-  // final int chanelId;
+  final String channelId;
 
-  Post({this.user, this.visitor/*, this.userId*/});
+  Post({this.name, this.visitor, this.channelId});
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      user: json['user'],
-      visitor: json['visitor'],
-      /*userId: json['userId'],*/
-      /*chanelId: json['channelId'] */
-    );
+        name: json['name'],
+        visitor: json['visitor'],
+        channelId: json['channelId']);
   }
 
   Map toMap() {
     var map = new Map<String, dynamic>();
-    map["user"] = user;
+    map["name"] = name;
     map["visitor"] = visitor;
-    /*map["userId"] = userId;
-    map["chanelId"] = chanelId; */
+    map["channelId"] = channelId;
     return map;
   }
 }

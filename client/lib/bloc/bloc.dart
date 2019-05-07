@@ -2,9 +2,12 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'helper_functions.dart';
 
+import '../model/user_model.dart';
+
 class Bloc with HelperFunctions {
   final _searchedUser = BehaviorSubject<String>();
   final _showFlippedCard = BehaviorSubject<bool>();
+  // final _userList = BehaviorSubject<UserModel>();
 /* 
   Add to stream
  */
@@ -14,6 +17,8 @@ class Bloc with HelperFunctions {
 
   Stream<bool> get showFlippedCardStream =>
       _showFlippedCard.stream.transform(validateFlippedCard);
+
+  // Stream<UserModel> get showUserListStream => _userList.stream.transform(validateUserList)
 /* 
   Change data
  */

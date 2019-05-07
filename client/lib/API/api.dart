@@ -6,11 +6,10 @@ import '../model/post_model.dart';
 
 import 'package:flutter/foundation.dart';
 
-final _apiEndpoint = "https://jsonplaceholder.typicode.com/users";
-final _apiExitpoint = "http://webhook.site/8320d5c3-c0da-471e-8953-3391ca3c9b7e";
-// final _apiEndpoint = "https://randomuser.me/api/";
+final _apiEndpoint = "https://ce25196f.ngrok.io/api/employeestest";
+final _apiExitpoint = "https://ce25196f.ngrok.io/api/notify";
 
-Future<List<String>> fecthUserList() async {
+Future<List<UserModel>> fecthUserList() async {
   http.Response response = await http.get(Uri.encodeFull(_apiEndpoint),
       headers: {"Accept": "application/json"});
 
@@ -21,9 +20,9 @@ Future<List<String>> fecthUserList() async {
   return compute(parseUsers, response.body);
 }
 
-List<String> parseUsers(String responseBody) {
+List<UserModel> parseUsers(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<String>((json) => UserModel.fromJSON(json).name).toList();
+  return parsed.map<UserModel>((json) => UserModel.fromJSON(json)).toList();
 }
 
 Future<Post> createPost({Map body}) async {
@@ -36,5 +35,3 @@ Future<Post> createPost({Map body}) async {
     return Post.fromJson(json.decode(response.body));
   });
 }
-
- 

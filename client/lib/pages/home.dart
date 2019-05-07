@@ -19,7 +19,10 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_headLineText(), _buildOptionsList(context, visitors)],
+        children: <Widget>[
+          _headLineText(),
+          _buildOptionsList(context, visitors)
+        ],
       ),
     );
   }
@@ -73,8 +76,8 @@ Widget _buildOptionItem(context, index, visitors) {
       onTap: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => SearchPage(visitors[index]),
+              MaterialPageRoute<bool>(
+                builder: (BuildContext context) => SearchPage(visitors[index]),
               ),
             ),
           },
