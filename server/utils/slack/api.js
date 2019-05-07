@@ -28,7 +28,7 @@ module.exports = {
   getAllTeams: () => {
     return user.usergroups.list({token: userToken})
   },
-  getTeamUsersByTeamId: (usergroup) => {
+  getTeamUsersByTeamId: async (usergroup) => {
     return user.usergroups.users.list({token: userToken, usergroup})
   },
   sendMessageToChannel: (channel, message) => {
