@@ -19,17 +19,17 @@ const getWhiteListedTeams = async () => {
 }
 const getWhiteListedTeamsAndUsers = async () => {
   let whiteListedTeams = await getWhiteListedTeams()
-  let whiteListedTeamsAndUsers = await addUsersToTeams(whiteListedTeams)
+  let whiteListedTeamsAndUsers = addUsersToTeams(whiteListedTeams)
   return whiteListedTeamsAndUsers
 }
 
-const addUsersToTeams = async (teams) => {
+const addUsersToTeams = (teams) => {
   teams.forEach((team) => {
     api.getTeamUsersByTeamId(team.id).then(userData => {
       team.users = userData.users || []
     })
   })
-  return (teams)
+  return teams
 }
 
 const extractWhitelistedTeams = (teams) => {
