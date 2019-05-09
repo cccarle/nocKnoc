@@ -92,5 +92,7 @@ usersObject.json
 usersObject.js
 answer.json
 answer.js
+testUsers.js
+testUsers.json
 
 # End of https://www.gitignore.io/api/node
