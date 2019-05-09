@@ -14,12 +14,22 @@ const getAll = async () => {
     )
   return Promise.all(teams)
 }
+const getWhiteListedTeams = async () => {
+  let teams = await getAll()
+  let whiteListedTeams = extractWhitelistedTeams(teams)
+  return whiteListedTeams.map(({id, name, handle, channels}) => ({id, name, handle, channels}))
+}
+const getWhiteListedTeamsAndUsers = async () => {
+  let teams = await getAll()
+  return extractWhitelistedTeams(teams)
+}
+
 const getTeamUsersById = async (id) => {
   let result = await api.getTeamUsersByTeamId(id)
   return result.users
 }
-const getWhiteListedTeams = async () => {
-  let teams = await getAll()
+
+const extractWhitelistedTeams = (teams) => {
   let whiteListedTeams = teams.filter((team) => !settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
   return whiteListedTeams
 }
@@ -32,5 +42,6 @@ module.exports = {
   getAll,
   getTeamUsersById,
   getWhiteListedTeams,
+  getWhiteListedTeamsAndUsers,
   extractChannelsFromTeamArray
 }

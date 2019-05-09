@@ -4,6 +4,8 @@ const channelsController = require('../controllers/channelsController')
 const teamsController = require('../controllers/teamsController')
 const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
+const usersObject = require('../resources/usersObject')
+require('dotenv').config()
 
 server.get('/employees', async (req, res) => {
   let result = await employeesController.getNotifiableEmployees()
@@ -22,9 +24,13 @@ server.get('/channels', async (req, res) => {
   console.log(result)
   res.status(200).json(result)
 })
+server.get('/employeestest', (req, res) => {
+let users = usersObject
+res.status(200).json(users)
+})
 
 server.get('/teams', async (req, res) => {
-  let teams = await teamsController.getAll()
+  let teams = await teamsController.getWhiteListedTeams()
   console.log(teams)
   res.status(200).json(teams)
 })

@@ -15,7 +15,7 @@ const getAll = async () => {
 }
 const getNotifiableEmployees = async () => {
   let employeeArray = []
-  let teams = await teamsController.getWhiteListedTeams()
+  let teams = await teamsController.getWhiteListedTeamsAndUsers()
   let employees = await getAll()
   console.log(teams)
   employees.forEach(employee => {
