@@ -10,19 +10,20 @@ class SearchInputField extends StatelessWidget {
     return Material(
       child: Column(
         children: <Widget>[
-          renderTextInput(bloc),
+          _renderTextInput(bloc),
         ],
       ),
     );
   }
 
-  Widget renderTextInput(Bloc bloc) {
+  Widget _renderTextInput(Bloc bloc) {
     return StreamBuilder(
       stream: bloc.searchedUserStream,
       builder: (context, snapshot) {
         return Container(
           color: Theme.of(context).primaryColor,
           child: TextField(
+            autofocus: true,
             decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),

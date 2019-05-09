@@ -1,3 +1,4 @@
 # nocKnoc
 
-##### [Installation](https://github.com/cccarle/nocKnoc/wiki/Flutter-Installation)
+[Dokumentation](https://github.com/cccarle/nocKnoc/wiki)
+
