@@ -5,7 +5,7 @@ import './sockets/connectSocket.dart';
 
 void main() {
   runApp(Main());
-  connect();
+  socket.connectSocket();
 }
 
 class Main extends StatelessWidget {

@@ -15,6 +15,7 @@ import '../model/post_model.dart';
 //Statemanagement
 import '../model/user_model.dart';
 import '../widgets/dialog.dart';
+import '../sockets/connectSocket.dart';
 
 class UserCard extends StatelessWidget {
   final UserModel user;
@@ -23,13 +24,18 @@ class UserCard extends StatelessWidget {
   UserCard(this.user, this.visitor);
 
   _handleEvent() {
-    Post newPost = new Post(name: user.name, visitor: visitor);
-    createPost(body: newPost.toMap());
-  }
+    final String name = user.name;
+    final String channelId = user.channels;
+    Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
 
+    createPost(body: newPost.toMap());
+
+    // socket.listenOnSocket();
+  }
   // dialog.getDialog(context, user).then((onValue) {
   //   // print(onValue);
   // })
+
   @override
   Widget build(BuildContext context) {
     return Container(

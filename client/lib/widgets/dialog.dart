@@ -8,9 +8,6 @@ class Dialog {
   get getDialog => _showDialog;
 
   Future<bool> _showDialog(BuildContext context, UserModel user) {
-    // final WebSocketChannel channel =
-    //     IOWebSocketChannel.connect('wss://https://7673c650.ngrok.io');
-    //     print(channel);
     return showDialog(
       context: context,
       builder: (BuildContext context) {
