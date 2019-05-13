@@ -106,7 +106,8 @@ server.post('/payload', validate, async (req, res, next) => {
   if (parsed.actions[0].value === 'true') {
     console.log(req.headers)
     let result = await answerController.answerHandler(parsed)
-    req.io.sockets.emit('answer', 'sho')
+    req.io.emit('answer', 'sho')
+    console.log('emit ska skickats')
     res.status(200)
 } else {
   console.log(req.body)
@@ -121,10 +122,11 @@ server.post('/payload', validate, async (req, res, next) => {
 
 server.post('/teamshandler', async (req, res, next) => {
   try {
-    let parsed = JSON.parse(req.body)
+    // let parsed = JSON.parse(req.body.payload)
     console.log(req.body)
-    let result = await teamSettingsController.sendSelectionBlock(parsed)
-    res.status(200).json({text: "testing slash command"})
+    let answer = await teamSettingsController.sendSelectionBlock(req.body)
+    // let parsed = JSON.parse(result)
+    res.status(200).json(JSON.stringify(answer))
   } catch (e) {
 
     console.log(e)

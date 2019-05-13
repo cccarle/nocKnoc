@@ -7,9 +7,7 @@ let apiRoutes = require('./routes/apiRoutes')
 
 
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-app.use('/api', apiRoutes)
+
 
 
 
@@ -28,6 +26,10 @@ io.on('connection', socket => {
     socket.disconnect()
   })
 })
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use('/api', apiRoutes)
 
 app.use(function(req, res, next) {
   req.io = io
