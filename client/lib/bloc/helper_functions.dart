@@ -10,7 +10,6 @@ class HelperFunctions {
 
   final validateFlippedCard = StreamTransformer<bool, bool>.fromHandlers(
     handleData: (open, sink) {
-      print(open);
       sink.add(open);
     },
   );

@@ -6,10 +6,10 @@ import './slackUserImage.dart';
 import './slackUsername.dart';
 
 //Api
-// import '../API/api.dart';
+import '../API/api.dart';
 
 //Model
-// import '../model/post_model.dart';
+import '../model/post_model.dart';
 // import '../widgets/contact_modal.dart';
 
 //Statemanagement
@@ -22,25 +22,19 @@ class UserCard extends StatelessWidget {
 
   UserCard(this.user, this.visitor);
 
-  // _handleEvent(bloc) {
-  //   // print('eeje');
-  //   // Post newPost = new Post(user: user, visitor: visitor);
-  //   // createPost(body: newPost.toMap());
-  //   new ContactModal();
+  _handleEvent() {
+    Post newPost = new Post(name: user.name, visitor: visitor);
+    createPost(body: newPost.toMap());
+  }
 
-  // }
-
+  // dialog.getDialog(context, user).then((onValue) {
+  //   // print(onValue);
+  // })
   @override
   Widget build(BuildContext context) {
-    // Post newPost = new Post(user: user, visitor: visitor);
-
     return Container(
       child: GestureDetector(
-        onTap: () => {
-              dialog.getDialog(context, user).then((onValue) {
-                print(onValue);
-              })
-            },
+        onTap: () => _handleEvent(),
         child: Row(
           children: <Widget>[
             SlackUserImage(user.image),

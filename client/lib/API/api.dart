@@ -17,7 +17,6 @@ Future<List<UserModel>> fecthUserList() async {
     throw Exception('error getting users');
   }
 
-  print(response.body);
   return compute(parseUsers, response.body);
 }
 

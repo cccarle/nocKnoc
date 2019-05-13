@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import './pages/home.dart';
 import './bloc/provider.dart';
-// import './widgets/swipe_page.dart';
+import './sockets/connectSocket.dart';
 
 void main() {
   runApp(Main());
+  connect();
 }
 
 class Main extends StatelessWidget {

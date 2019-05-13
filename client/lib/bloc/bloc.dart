@@ -27,7 +27,6 @@ class Bloc with HelperFunctions {
   Function(bool) get changeFlippedState => _showFlippedCard.sink.add;
 
   changeBool() {
-    print('hello');
     bool asd = true;
     changeFlippedState(asd);
   }
