@@ -25,10 +25,10 @@ const getUsersFromApi = () => {
 
 const isTimeUp = (cachedTime) => {
   let saveTime = saveTimeInMinutes * 60000
-  if (cachedTime) {
-    return cachedTime + saveTime < Date.now()
-  }
-  return true
+  return cachedTime + saveTime < Date.now()
 }
 
-module.exports = {getAllUsers}
+module.exports = {
+  getAllUsers,
+  getAllTeams
+}
