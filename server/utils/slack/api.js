@@ -17,7 +17,7 @@ module.exports = {
     return bot.users.list({token: botToken})
   },
   getAllChannels: () => {
-    return bot.channels.list()
+    return bot.channels.list({token: botToken})
   },
   getUserById: (userId) => {
     return bot.users.info({token: botToken, userId})
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   updateMessage: (channel, name, ts) => {
-    let text = `${name} is on his way to open the door!`
+    let text = `${name} är på väg att öppna.`
     return  bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks: []})
   }
 }

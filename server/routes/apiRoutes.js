@@ -5,9 +5,10 @@ const teamsController = require('../controllers/teamsController')
 const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
 const errorHandling = require('../utils/errorHandling')
-// const usersObject = require('../resources/usersObject')
+const testUsers = require('../resources/testUsers')
 const answerController = require('../controllers/answerController.js')
 const validate = require('../middleware/validateSecret')
+const teamSettingsController = require('../controllers/teamSettingsController')
 require('dotenv').config()
 
 server.get('/employees', async (req, res) => {
@@ -42,10 +43,11 @@ server.get('/channels', async (req, res) => {
     res.status(handledError.code).json(handledError.message)
   }
 })
-// server.get('/employeestest', (req, res) => {
-// let users = usersObject
-// res.status(200).json(users)
-// })
+
+server.get('/employeestest', (req, res) => {
+let users = testUsers
+res.status(200).json(users)
+})
 
 server.get('/teams', async (req, res) => {
   try {
@@ -54,6 +56,7 @@ server.get('/teams', async (req, res) => {
     res.status(200).json(teams)
   } catch (e) {
     let handledError = errorHandling(e)
+    console.log(e)
     res.status(handledError.code).json(handledError.message)
   }
 })
@@ -103,6 +106,7 @@ server.post('/payload', validate, async (req, res, next) => {
   if (parsed.actions[0].value === 'true') {
     console.log(req.headers)
     let result = await answerController.answerHandler(parsed)
+    req.io.sockets.emit('answer', 'sho')
     res.status(200)
 } else {
   console.log(req.body)
@@ -113,6 +117,19 @@ server.post('/payload', validate, async (req, res, next) => {
     res.status(handledError.code).json(handledError.message)
   }
 
+})
+
+server.post('/teamshandler', async (req, res, next) => {
+  try {
+    let parsed = JSON.parse(req.body)
+    console.log(req.body)
+    let result = await teamSettingsController.sendSelectionBlock(parsed)
+    res.status(200).json({text: "testing slash command"})
+  } catch (e) {
+
+    console.log(e)
+    
+  }
 })
 
 module.exports = server
