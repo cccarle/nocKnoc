@@ -55,6 +55,7 @@ server.get('/teams', async (req, res) => {
     res.status(200).json(teams)
   } catch (e) {
     let handledError = errorHandling(e)
+    console.log(e)
     res.status(handledError.code).json(handledError.message)
   }
 })
@@ -104,6 +105,7 @@ server.post('/payload', validate, async (req, res, next) => {
   if (parsed.actions[0].value === 'true') {
     console.log(req.headers)
     let result = await answerController.answerHandler(parsed)
+    req.io.sockets.emit('answer', 'sho')
     res.status(200)
 } else {
   console.log(req.body)
@@ -114,6 +116,11 @@ server.post('/payload', validate, async (req, res, next) => {
     res.status(handledError.code).json(handledError.message)
   }
 
+})
+
+server.post('/teamshandler', async (req, res, next) => {
+  console.log(req.body)
+  res.status(200).json({text: "testing slash command"})
 })
 
 module.exports = server
