@@ -8,6 +8,7 @@ const errorHandling = require('../utils/errorHandling')
 const testUsers = require('../resources/testUsers')
 const answerController = require('../controllers/answerController.js')
 const validate = require('../middleware/validateSecret')
+const teamSettingsController = require('../controllers/teamSettingsController')
 require('dotenv').config()
 
 server.get('/employees', async (req, res) => {
@@ -119,8 +120,16 @@ server.post('/payload', validate, async (req, res, next) => {
 })
 
 server.post('/teamshandler', async (req, res, next) => {
-  console.log(req.body)
-  res.status(200).json({text: "testing slash command"})
+  try {
+    let parsed = JSON.parse(req.body)
+    console.log(req.body)
+    let result = await teamSettingsController.sendSelectionBlock(parsed)
+    res.status(200).json({text: "testing slash command"})
+  } catch (e) {
+
+    console.log(e)
+    
+  }
 })
 
 module.exports = server
