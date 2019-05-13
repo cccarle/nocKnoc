@@ -5,13 +5,9 @@ const http = require('http')
 const bodyParser = require('body-parser')
 let apiRoutes = require('./routes/apiRoutes')
 
-
-
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/api', apiRoutes)
-
-
 
 let server = http.createServer(app).listen(PORT, function () {
   console.log('Express started on Port: ' + PORT)
@@ -29,7 +25,7 @@ io.on('connection', socket => {
   })
 })
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   req.io = io
   next()
 })
