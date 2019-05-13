@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 5000
 const http = require('http')
 const bodyParser = require('body-parser')
 let apiRoutes = require('./routes/apiRoutes')
+let apiWithCache = require('./utils/apiWithCache')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -24,6 +25,8 @@ io.on('connection', socket => {
     socket.disconnect()
   })
 })
+
+console.log(apiWithCache.getAllUsers())
 
 app.use(function (req, res, next) {
   req.io = io
