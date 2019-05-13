@@ -44,7 +44,7 @@ module.exports = {
 
   sendTeamsToChannel: (channel, blocks) => {
     console.log(blocks)
-    return bot.chat.postMessage({token: botToken, channel: "CHK464ERK", text: "TEST", blocks: JSON.stringify(blocks)})
+    return bot.chat.postMessage({token: botToken, channel: "CHK464ERK", text: "teamsetting", blocks: JSON.stringify(blocks)})
   },
 
   updateMessage: (channel, name, ts) => {
