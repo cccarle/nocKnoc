@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'helper_functions.dart';
 
-import '../model/user_model.dart';
+// import '../model/user_model.dart';
 
 class Bloc with HelperFunctions {
   final _searchedUser = BehaviorSubject<String>();
