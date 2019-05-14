@@ -11,6 +11,7 @@ const validate = require("../middleware/validateSecret")
 const teamSettingsController = require("../controllers/teamSettingsController")
 require("dotenv").config()
 
+
 server.get("/employees", async (req, res) => {
   try {
     let result = await employeesController.getNotifiableEmployees()
@@ -71,18 +72,13 @@ server.post("/notify", async (req, res) => {
       )
       console.log(result)
       res.status(200).json(result)
-    } else if (req.body.employeeId) {
-      console.log(`---------------`)
-      let result = await employeesController.sendAcceptDecline(
-        req.body.employeeId
-      )
-      res.status(200).json(result)
     } else {
-      res.status(400)
+      res.status(400).send('Missing Data')
     }
   } catch (e) {
-    console.log("something whent wrong")
-    res.status(500).send(e)
+    console.log(e)
+    let handledError = errorHandling(e)
+    res.status(handledError.code).json(handledError.message)
   }
 })
 
@@ -130,11 +126,10 @@ server.post("/payload", validate, async (req, res, next) => {
 
 server.post("/teamshandler", async (req, res, next) => {
   try {
-    // let parsed = JSON.parse(req.body.payload)
     console.log(req.body)
     let answer = await teamSettingsController.sendSelectionBlock(req.body)
-    // let parsed = JSON.parse(result)
     res.status(200)
+
   } catch (e) {
     console.log(e)
   }

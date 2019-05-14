@@ -1,5 +1,6 @@
 const api = require('../utils/slack/api')
 const teamsController = require('./teamsController')
+const apiWithCache = require('../utils/apiWithCache')
 
 const getAll = async () => {
   let result = await api.getAllUsers()

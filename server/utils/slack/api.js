@@ -49,6 +49,6 @@ module.exports = {
 
   updateMessage: (channel, name, ts) => {
     let text = `${name} är på väg att öppna.`
-    return  bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks: []})
+    return bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks: []})
   }
 }
