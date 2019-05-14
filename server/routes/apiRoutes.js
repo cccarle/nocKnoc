@@ -11,7 +11,7 @@ const validate = require('../middleware/validateSecret')
 const teamSettingsController = require('../controllers/teamSettingsController')
 require('dotenv').config()
 
-server.get('/employees', async (req, res) => {
+server.get("/employees", async (req, res) => {
   try {
     let result = await employeesController.getNotifiableEmployees()
     res.status(200).json(result)
@@ -131,6 +131,7 @@ server.post('/teamshandler', async (req, res, next) => {
     console.log(req.body)
     let answer = await teamSettingsController.sendSelectionBlock(req.body)
     res.status(200)
+
   } catch (e) {
     console.log(e)
   }
