@@ -21,7 +21,6 @@ const getAllUsers = () => {
     userCache.data = getUsersFromApi()
   } else {
     console.log('Using Cache for users')
-    console.log('GITHUB????')
   }
   return userCache.data
 }
