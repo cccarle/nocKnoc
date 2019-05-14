@@ -5,7 +5,7 @@ const teamsController = require('../controllers/teamsController')
 const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
 const errorHandling = require('../utils/errorHandling')
-// const testUsers = require('../resources/testUsers')
+const testUsers = require('../resources/testUsers')
 const answerController = require('../controllers/answerController.js')
 const validate = require('../middleware/validateSecret')
 const teamSettingsController = require('../controllers/teamSettingsController')
@@ -44,15 +44,15 @@ server.get('/channels', async (req, res) => {
   }
 })
 
-// server.get('/employeestest', (req, res) => {
-//   let users = testUsers
-//   res.status(200).json(users)
-// })
+server.get('/employeestest', (req, res) => {
+  let users = testUsers
+  res.status(200).json(users)
+})
 
 server.get('/teams', async (req, res) => {
   try {
     let teams = await teamsController.getWhiteListedTeams()
-    console.log(teams)
+    // console.log(teams)
     res.status(200).json(teams)
   } catch (e) {
     let handledError = errorHandling(e)
@@ -69,7 +69,7 @@ server.post('/notify', async (req, res) => {
         req.body.name,
         req.body.channelId
       )
-      console.log(result)
+      // console.log(result)
       res.status(200).json(result)
     } else {
       res.status(400).send('Missing Data')
@@ -108,7 +108,6 @@ server.post('/payload', validate, async (req, res, next) => {
     if (parsed.message.text === "teamsetting") {
       let result = await teamSettingsController.teamSettingsHandler(parsed)
       console.log("TEAM SETTING")
-      console.log(block.text.text)
       res.status(200)
     // Accept-svar från anställd när någon söks hamnar här
     } else if (parsed.actions[0].value === "true" && parsed.message.text !== "teamsetting") {
@@ -117,7 +116,6 @@ server.post('/payload', validate, async (req, res, next) => {
       console.log('emit ska skickats')
       res.status(200)
     } else {
-      console.log(req.body)
       res.status(200)
     }
   } catch (e) {
@@ -128,7 +126,6 @@ server.post('/payload', validate, async (req, res, next) => {
 
 server.post('/teamshandler', async (req, res, next) => {
   try {
-    console.log(req.body)
     let answer = await teamSettingsController.sendSelectionBlock(req.body)
     res.status(200)
 

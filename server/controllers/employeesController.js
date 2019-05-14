@@ -27,10 +27,10 @@ const getNotifiableEmployees = async () => {
   })
   return employeeArray
 }
-const getEmployeeById = async (id) => {
-  let result = await api.getUserById(id)
-  return result
-}
+// const getEmployeeById = async (id) => {
+  // let result = await api.getUserById(id)
+//   return result
+// }
 
 const _filterImagesFromProfile = profile => {
   return {
@@ -41,6 +41,6 @@ const _filterImagesFromProfile = profile => {
 
 module.exports = {
   getAll,
-  getNotifiableEmployees,
-  getEmployeeById
+  getNotifiableEmployees
+  // getEmployeeById
 }
