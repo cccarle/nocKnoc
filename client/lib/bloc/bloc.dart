@@ -7,6 +7,7 @@ import 'helper_functions.dart';
 class Bloc with HelperFunctions {
   final _searchedUser = BehaviorSubject<String>();
   final _showFlippedCard = BehaviorSubject<bool>();
+  final _userFromSocket = BehaviorSubject<String>();
   // final _userList = BehaviorSubject<UserModel>();
 /* 
   Add to stream
@@ -18,6 +19,9 @@ class Bloc with HelperFunctions {
   Stream<bool> get showFlippedCardStream =>
       _showFlippedCard.stream.transform(validateFlippedCard);
 
+  Stream<String> get userFromSocketStream =>
+      _userFromSocket.stream.transform(validateSocketUser);
+
   // Stream<UserModel> get showUserListStream => _userList.stream.transform(validateUserList)
 /* 
   Change data
@@ -25,6 +29,7 @@ class Bloc with HelperFunctions {
 
   Function(String) get changeSearchBarInput => _searchedUser.sink.add;
   Function(bool) get changeFlippedState => _showFlippedCard.sink.add;
+  Function(String) get getUserFromSocket => _userFromSocket.sink.add;
 
   changeBool() {
     bool asd = true;
@@ -38,5 +43,6 @@ Close streams
   dispose() {
     _searchedUser.close();
     _showFlippedCard.close();
+    _userFromSocket.close();
   }
 }

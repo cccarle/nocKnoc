@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import './search.dart';
 import '../widgets/appBar.dart';
 
-
-
 class HomePage extends StatelessWidget {
   final List<String> visitors = [
     "Leverans",

@@ -23,24 +23,24 @@ class UserCard extends StatelessWidget {
 
   UserCard(this.user, this.visitor);
 
-  _handleEvent() {
+  _handleEvent(BuildContext context, UserModel user) {
     final String name = user.name;
     final String channelId = user.channels;
     Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
 
     createPost(body: newPost.toMap());
 
+    dialog.getDialog(context, user).then((onValue) {
+      print(onValue);
+    });
     // socket.listenOnSocket();
   }
-  // dialog.getDialog(context, user).then((onValue) {
-  //   // print(onValue);
-  // })
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
-        onTap: () => _handleEvent(),
+        onTap: () => _handleEvent(context, user),
         child: Row(
           children: <Widget>[
             SlackUserImage(user.image),

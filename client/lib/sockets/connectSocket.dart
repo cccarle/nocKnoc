@@ -1,38 +1,22 @@
 // import './adhara_socket_io.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
+import '../bloc/bloc.dart';
 
-class Socket {
-  get accesSocket => _instanciateSocket;
-  get connectSocket => _connectSocket;
-  get listenOnSocket => _listenOnSocket;
+SocketIOManager manager = SocketIOManager();
 
-  SocketIOManager manager = SocketIOManager();
+startSocketConnection() async {
+  SocketIO socket = await manager.createInstance('https://3298db41.ngrok.io');
+  socket.onConnect((data) {
+    print("connected...");
+    print(data);
+  });
 
-  _instanciateSocket() async {
-    SocketIO socket = await manager.createInstance('https://5fb4b410.ngrok.io');
-    return socket.connect();
-  }
+  socket.on("answer", (data) {
+    print(data);
+    
 
-  _connectSocket() async {
-    SocketIO socket = await _instanciateSocket();
-    socket.connect();
-    socket.onConnect((data) {
-      print("connected...");
-      print(data);
-    });
-  }
+    getUserFromSocket(data);
+  });
 
-  _listenOnSocket() async {
-    SocketIO socket = await _instanciateSocket();
-    socket.connect();
-    socket.on("answer", (data) {
-      //sample event
-      print("answer6");
-      print(data);
-    });
-  }
+  socket.connect();
 }
-
-Socket socket = new Socket();
-
-//

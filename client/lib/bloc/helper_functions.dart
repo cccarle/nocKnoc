@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../sockets/connectSocket.dart';
 // import '../model/user_model.dart';
 
 class HelperFunctions {
@@ -14,8 +15,12 @@ class HelperFunctions {
     },
   );
 
-  // final validateUserList =
-  //     StreamTransformer<List, List<UserModel>>.fromHandlers(handleData: (list, sink) {
-  //   sink.add(list);
-  // });
+  final validateSocketUser = StreamTransformer<String, String>.fromHandlers(
+    handleData: (user, sink) {
+//socket ON
+      // startSocketConnection();
+
+      sink.add(user);
+    },
+  );
 }
