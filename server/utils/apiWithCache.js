@@ -1,6 +1,8 @@
 const api = require('./slack/api')
+
 const saveTimeInMinutes = 10
 let aTimestamp = 1557754195439
+
 let userCache = {
   timestamp: 0,
   data: []

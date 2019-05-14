@@ -30,16 +30,22 @@ class UserCard extends StatelessWidget {
 
     createPost(body: newPost.toMap());
 
+
     dialog.getDialog(context, user).then((onValue) {
       print(onValue);
     });
+
     // socket.listenOnSocket();
   }
+  // dialog.getDialog(context, user).then((onValue) {
+  //   // print(onValue);
+  // })
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
+
         onTap: () => _handleEvent(context, user),
         child: Row(
           children: <Widget>[

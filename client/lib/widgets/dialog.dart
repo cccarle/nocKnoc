@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../model/user_model.dart';
-
 import '../bloc/provider.dart';
+
 
 class Dialog {
   get getDialog => _showDialog;

@@ -19,6 +19,7 @@ class Bloc with HelperFunctions {
   Stream<bool> get showFlippedCardStream =>
       _showFlippedCard.stream.transform(validateFlippedCard);
 
+
   Stream<String> get userFromSocketStream =>
       _userFromSocket.stream.transform(validateSocketUser);
 
