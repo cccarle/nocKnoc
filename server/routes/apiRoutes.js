@@ -1,18 +1,17 @@
-const server = require("express").Router()
-const employeesController = require("../controllers/employeesController")
-const channelsController = require("../controllers/channelsController")
-const teamsController = require("../controllers/teamsController")
-const deviceInfoController = require("../controllers/deviceInfoController")
-const slack = require("../utils/slack/api")
-const errorHandling = require("../utils/errorHandling")
-const testUsers = require("../resources/testUsers")
-const answerController = require("../controllers/answerController.js")
-const validate = require("../middleware/validateSecret")
-const teamSettingsController = require("../controllers/teamSettingsController")
-require("dotenv").config()
+const server = require('express').Router()
+const employeesController = require('../controllers/employeesController')
+const channelsController = require('../controllers/channelsController')
+const teamsController = require('../controllers/teamsController')
+const deviceInfoController = require('../controllers/deviceInfoController')
+const slack = require('../utils/slack/api')
+const errorHandling = require('../utils/errorHandling')
+const testUsers = require('../resources/testUsers')
+const answerController = require('../controllers/answerController.js')
+const validate = require('../middleware/validateSecret')
+const teamSettingsController = require('../controllers/teamSettingsController')
+require('dotenv').config()
 
-
-server.get("/employees", async (req, res) => {
+server.get('/employees', async (req, res) => {
   try {
     let result = await employeesController.getNotifiableEmployees()
     res.status(200).json(result)
@@ -22,7 +21,7 @@ server.get("/employees", async (req, res) => {
   }
 })
 
-server.get("/employee/:id", async (req, res) => {
+server.get('/employee/:id', async (req, res) => {
   try {
     let id = req.params.id
     let result = await employeesController.getEmployeeById(id)
@@ -34,7 +33,7 @@ server.get("/employee/:id", async (req, res) => {
   }
 })
 
-server.get("/channels", async (req, res) => {
+server.get('/channels', async (req, res) => {
   try {
     let result = await channelsController.getAll()
     console.log(result)
@@ -45,12 +44,12 @@ server.get("/channels", async (req, res) => {
   }
 })
 
-server.get("/employeestest", (req, res) => {
+server.get('/employeestest', (req, res) => {
   let users = testUsers
   res.status(200).json(users)
 })
 
-server.get("/teams", async (req, res) => {
+server.get('/teams', async (req, res) => {
   try {
     let teams = await teamsController.getWhiteListedTeams()
     console.log(teams)
@@ -62,7 +61,7 @@ server.get("/teams", async (req, res) => {
   }
 })
 
-server.post("/notify", async (req, res) => {
+server.post('/notify', async (req, res) => {
   try {
     if (req.body.channelId && req.body.visitor && req.body.name) {
       let result = await channelsController.sendAcceptDecline(
@@ -82,7 +81,7 @@ server.post("/notify", async (req, res) => {
   }
 })
 
-server.post("/deviceinfo", async (req, res) => {
+server.post('/deviceinfo', async (req, res) => {
   try {
     let result = await deviceInfoController.sendDeviceMessage(req.body.message)
     res.status(200).json({ result: result })
@@ -92,7 +91,7 @@ server.post("/deviceinfo", async (req, res) => {
   }
 })
 
-server.get("/botinfo", async (req, res) => {
+server.get('/botinfo', async (req, res) => {
   try {
     let result = await slack.botInfo()
     res.status(200).json(result)
@@ -102,17 +101,17 @@ server.get("/botinfo", async (req, res) => {
   }
 })
 
-server.post("/payload", validate, async (req, res, next) => {
+server.post('/payload', validate, async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
-    if (parsed.actions[0].value === "true") {
+    if (parsed.actions[0].value === 'true') {
       console.log(req.headers)
       let result = await answerController.answerHandler(parsed)
-      req.io.emit("answer", "sho")
-      console.log("emit ska skickats")
+      req.io.emit('answer', 'sho')
+      console.log('emit ska skickats')
       res.status(200)
-    } else if (parsed.message.text === "teamsetting") {
-      console.log("TEAM SETTING")
+    } else if (parsed.message.text === 'teamsetting') {
+      console.log('TEAM SETTING')
       res.status(200)
     } else {
       console.log(req.body)
@@ -124,12 +123,11 @@ server.post("/payload", validate, async (req, res, next) => {
   }
 })
 
-server.post("/teamshandler", async (req, res, next) => {
+server.post('/teamshandler', async (req, res, next) => {
   try {
     console.log(req.body)
     let answer = await teamSettingsController.sendSelectionBlock(req.body)
     res.status(200)
-
   } catch (e) {
     console.log(e)
   }
