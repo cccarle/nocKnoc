@@ -3,6 +3,7 @@ import '../widgets/searchInputField.dart';
 import '../widgets/listView.dart';
 import '../widgets/appBar.dart';
 import '../bloc/provider.dart';
+import '../API/api.dart';
 
 class SearchPage extends StatelessWidget {
   final String visitor;
@@ -11,6 +12,8 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final Future<List<UserModel>> list = ;
+    
     final bloc = Provider.of(context);
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
@@ -57,7 +60,7 @@ class SearchPage extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: ListViewSlackUsers(visitor),
+      child: ListViewSlackUsers(visitor,  fecthUserList()),
     );
   }
 }

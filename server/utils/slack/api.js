@@ -7,9 +7,6 @@ const userToken = process.env.User_OAuth_Access_Token
 // const botToken = process.env.Bot_Meridium_OAuth_Access_Token
 // const userToken = process.env.User_Meridium_OAuth_Access_Token
 
-// const botToken = ''
-// const userToken = ''
-
 let bot = new Slack({botToken})
 let user = new Slack({userToken})
 module.exports = {
@@ -31,7 +28,7 @@ module.exports = {
   getAllTeams: () => {
     return user.usergroups.list({token: userToken})
   },
-  getTeamUsersByTeamId: async (usergroup) => {
+  getTeamUsersByTeamId: (usergroup) => {
     return user.usergroups.users.list({token: userToken, usergroup})
   },
   sendMessageToChannel: (channel, message) => {
@@ -43,6 +40,11 @@ module.exports = {
   },
   botInfo: () => {
     return bot.bots.info({token: botToken})
+  },
+
+  sendTeamsToChannel: (channel, blocks) => {
+    console.log(blocks)
+    return bot.chat.postMessage({token: botToken, channel: "CHK464ERK", text: "teamsetting", blocks: JSON.stringify(blocks)})
   },
 
   updateMessage: (channel, name, ts) => {

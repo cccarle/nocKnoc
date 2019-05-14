@@ -12,8 +12,9 @@ import '../model/user_model.dart';
 
 class ListViewSlackUsers extends StatelessWidget {
   final String visitor;
+  final Future<List<UserModel>> list;
 
-  ListViewSlackUsers(this.visitor);
+  ListViewSlackUsers(this.visitor, this.list);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,6 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _createFutureList(Bloc bloc) {
-    final Future<List<UserModel>> list = fecthUserList();
     return StreamBuilder(
       stream: bloc.searchedUserStream,
       builder: (context, snapshot) {

@@ -1,5 +1,5 @@
 import 'dart:async';
-import '../model/user_model.dart';
+// import '../model/user_model.dart';
 
 class HelperFunctions {
   final validateSearchedUser = StreamTransformer<String, String>.fromHandlers(
@@ -10,7 +10,6 @@ class HelperFunctions {
 
   final validateFlippedCard = StreamTransformer<bool, bool>.fromHandlers(
     handleData: (open, sink) {
-      print(open);
       sink.add(open);
     },
   );

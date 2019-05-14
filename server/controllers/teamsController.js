@@ -36,6 +36,10 @@ const extractWhitelistedTeams = (teams) => {
   return teams.filter((team) => !settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
 }
 
+const extractBlacklistedTeams = (teams) => {
+  return teams.filter((team) => settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
+}
+
 const extractChannelsFromTeamArray = (teamArray) => {
   return teamArray.map(({channels}) => (channels).join(','))
 }
@@ -44,5 +48,7 @@ module.exports = {
   getAll,
   getWhiteListedTeams,
   getWhiteListedTeamsAndUsers,
-  extractChannelsFromTeamArray
+  extractChannelsFromTeamArray,
+  extractWhitelistedTeams,
+  extractBlacklistedTeams
 }
