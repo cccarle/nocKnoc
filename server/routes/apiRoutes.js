@@ -109,15 +109,21 @@ server.get("/botinfo", async (req, res) => {
 server.post("/payload", validate, async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
-    if (parsed.actions[0].value === "true") {
-      console.log(req.headers)
+
+    //Ändringar av teamsettings hamnar här
+    if (parsed.message.text === "teamsetting") {
+      console.log(parsed.message.blocks)
+      console.log("TEAM SETTING")
+      console.log(parsed.actions[0].block_id)
+      res.status(200)
+
+    // Accept-svar från anställd när någon söks hamnar här
+    } else if (parsed.actions[0].value === "true" && parsed.message.text !== "teamsetting") {
       let result = await answerController.answerHandler(parsed)
       req.io.emit("answer", "sho")
       console.log("emit ska skickats")
       res.status(200)
-    } else if (parsed.message.text === "teamsetting") {
-      console.log("TEAM SETTING")
-      res.status(200)
+
     } else {
       console.log(req.body)
       res.status(200)
