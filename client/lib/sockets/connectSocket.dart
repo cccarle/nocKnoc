@@ -3,8 +3,8 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 class Socket {
   get accesSocket => _instanciateSocket;
-  // get connectSocket => _connectSocket;
-  // get listenOnSocket => _listenOnSocket;
+  get connectSocket => _connectSocket;
+  get listenOnSocket => _listenOnSocket;
 
   SocketIOManager manager = SocketIOManager();
 
@@ -13,24 +13,24 @@ class Socket {
     return socket.connect();
   }
 
-  // _connectSocket() async {
-  //   SocketIO socket = await _instanciateSocket();
-  //   socket.connect();
-  //   socket.onConnect((data) {
-  //     print("connected...");
-  //     print(data);
-  //   });
-  // }
+  _connectSocket() async {
+    SocketIO socket = await _instanciateSocket();
+    socket.connect();
+    socket.onConnect((data) {
+      print("connected...");
+      print(data);
+    });
+  }
 
-  // _listenOnSocket() async {
-  //   SocketIO socket = await _instanciateSocket();
-  //   socket.connect();
-  //   socket.on("answer", (data) {
-  //     //sample event
-  //     print("answer6");
-  //     print(data);
-  //   });
-  // }
+  _listenOnSocket() async {
+    SocketIO socket = await _instanciateSocket();
+    socket.connect();
+    socket.on("answer", (data) {
+      //sample event
+      print("answer6");
+      print(data);
+    });
+  }
 }
 
 Socket socket = new Socket();

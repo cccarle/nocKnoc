@@ -11,6 +11,7 @@ void main() {
 class Main extends StatelessWidget {
   final meridiumBlue = const Color(0xFF09384E);
   final meridiumRed = const Color(0xFFDC3E2A);
+  final String test = "asd";
 
   @override
   Widget build(BuildContext context) {
