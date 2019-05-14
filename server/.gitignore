@@ -94,5 +94,7 @@ answer.json
 answer.js
 testUsers.js
 testUsers.json
+allTeams.js
+AllTeams.json
 
 # End of https://www.gitignore.io/api/node
