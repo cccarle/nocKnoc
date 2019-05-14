@@ -6,3 +6,4 @@ class Validator {
     sink.add(word);
   });
 }
+   

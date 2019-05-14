@@ -1,8 +1,9 @@
 const api = require('../utils/slack/api')
 const teamsController = require('./teamsController')
+const apiWithCache = require('../utils/apiWithCache')
 
 const getAll = async () => {
-  let result = await api.getAllUsers()
+  let result = await apiWithCache.getAllUsers()
   let employees = result.members.map(
       ({ id, team_id, real_name, profile }) => ({
         id,

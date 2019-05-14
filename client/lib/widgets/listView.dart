@@ -8,10 +8,13 @@ import '../API/api.dart';
 //Api
 import '../widgets/userCard.dart';
 
+import '../model/user_model.dart';
+
 class ListViewSlackUsers extends StatelessWidget {
   final String visitor;
+  final Future<List<UserModel>> list;
 
-  ListViewSlackUsers(this.visitor);
+  ListViewSlackUsers(this.visitor, this.list);
 
   @override
   Widget build(BuildContext context) {
@@ -34,21 +37,20 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _createFutureList(Bloc bloc) {
-    final Future<List<String>> list = fecthUserList();
     return StreamBuilder(
       stream: bloc.searchedUserStream,
       builder: (context, snapshot) {
-        return FutureBuilder<List<String>>(
+        return FutureBuilder<List<UserModel>>(
           future: list,
           builder: (BuildContext context,
-              AsyncSnapshot<List<String>> asyncsnapshot) {
+              AsyncSnapshot<List<UserModel>> asyncsnapshot) {
             switch (asyncsnapshot.connectionState) {
               case ConnectionState.none:
                 return Text('input a url');
               case ConnectionState.waiting:
                 return Center(child: CircularProgressIndicator());
               case ConnectionState.active:
-                return Text('');
+                return Text('loadinf');
               case ConnectionState.done:
                 if (asyncsnapshot.hasError) {
                   return Text(
@@ -76,21 +78,21 @@ class ListViewSlackUsers extends StatelessWidget {
     );
   }
 
-  _selectList(index, filter, list) {
+  _selectList(index, filter, userObject) {
     return filter == null
-        ? _slackUserListItem(index, list)
-        : list[index].toLowerCase().contains(filter.toLowerCase())
-            ? _slackUserListItem(index, list)
+        ? _slackUserListItem(index, userObject[index])
+        : userObject[index].name.toLowerCase().contains(filter.toLowerCase())
+            ? _slackUserListItem(index, userObject[index])
             : Container();
   }
 
-  _slackUserListItem(index, list) {
+  _slackUserListItem(index, userObject) {
     return Column(
       children: <Widget>[
         SizedBox(
           height: 10.0,
         ),
-        UserCard(list[index], visitor)
+        UserCard(userObject, visitor)
       ],
     );
   }

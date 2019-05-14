@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import './pages/home.dart';
-import './widgets/appBar.dart';
 import './bloc/provider.dart';
+import './sockets/connectSocket.dart';
 
 void main() {
   runApp(Main());
+  socket.connectSocket();
 }
 
 class Main extends StatelessWidget {

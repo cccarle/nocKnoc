@@ -10,37 +10,42 @@ import '../API/api.dart';
 
 //Model
 import '../model/post_model.dart';
+// import '../widgets/contact_modal.dart';
 
 //Statemanagement
-import '../bloc/bloc.dart';
-import '../bloc/provider.dart';
+import '../model/user_model.dart';
+import '../widgets/dialog.dart';
+import '../sockets/connectSocket.dart';
 
 class UserCard extends StatelessWidget {
-  final String user;
+  final UserModel user;
   final String visitor;
 
   UserCard(this.user, this.visitor);
 
-  _handleEvent(bloc) {
-    print('eeje');
-    Post newPost = new Post(user: user, visitor: visitor);
+  _handleEvent() {
+    final String name = user.name;
+    final String channelId = user.channels;
+    Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
+
     createPost(body: newPost.toMap());
-    // bloc.changeFlippedState(true);
+
+    // socket.listenOnSocket();
   }
+  // dialog.getDialog(context, user).then((onValue) {
+  //   // print(onValue);
+  // })
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
-
-    // Post newPost = new Post(user: user, visitor: visitor);
     return Container(
       child: GestureDetector(
-        onTap: () => {print('hej')},
+        onTap: () => _handleEvent(),
         child: Row(
           children: <Widget>[
-            SlackUserImage(),
-            SlackUsername(user),
-            AlertIcon(user)
+            SlackUserImage(user.image),
+            SlackUsername(user.name),
+            AlertIcon()
           ],
         ),
       ),

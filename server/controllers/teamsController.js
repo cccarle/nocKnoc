@@ -1,8 +1,9 @@
 const api = require('../utils/slack/api')
 const settings = require('../resources/settings.json')
+const apiWithCache = require('../utils/apiWithCache')
 
 const getAll = async () => {
-  let result = await api.getAllTeams()
+  let result = await apiWithCache.getAllTeams()
   let teams = result.usergroups.map(({ id, name, handle, prefs }) => ({
     id,
     name,
@@ -25,7 +26,7 @@ const getWhiteListedTeamsAndUsers = async () => {
 
 const addUsersToTeams = (teams) => {
   teams.forEach((team) => {
-    api.getTeamUsersByTeamId(team.id).then(userData => {
+    apiWithCache.getTeamUsersByTeamId(team.id).then(userData => {
       team.users = userData.users || []
     })
   })
