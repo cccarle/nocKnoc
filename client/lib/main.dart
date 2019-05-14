@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import './pages/home.dart';
 import './bloc/provider.dart';
 import './sockets/connectSocket.dart';
+import 'package:adhara_socket_io/adhara_socket_io.dart';
 
-void main() {
+void main() async {
   runApp(Main());
-  startSocketConnection();
 }
 
 class Main extends StatelessWidget {

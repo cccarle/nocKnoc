@@ -16,6 +16,9 @@ import '../model/post_model.dart';
 import '../model/user_model.dart';
 import '../widgets/dialog.dart';
 import '../sockets/connectSocket.dart';
+import 'package:adhara_socket_io/adhara_socket_io.dart';
+
+import '../widgets/dialog_content.dart';
 
 class UserCard extends StatelessWidget {
   final UserModel user;
@@ -23,17 +26,20 @@ class UserCard extends StatelessWidget {
 
   UserCard(this.user, this.visitor);
 
-  _handleEvent(BuildContext context, UserModel user) {
+  _handleEvent(BuildContext context, UserModel user) async {
     final String name = user.name;
     final String channelId = user.channels;
     Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
 
     createPost(body: newPost.toMap());
+    SocketIOManager manager = SocketIOManager();
+    SocketIO socket = await manager.createInstance('https://3298db41.ngrok.io');
 
+    
     dialog.getDialog(context, user).then((onValue) {
       print(onValue);
     });
-    // socket.listenOnSocket();
+
   }
 
   @override

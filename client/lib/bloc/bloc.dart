@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'helper_functions.dart';
+import 'package:adhara_socket_io/adhara_socket_io.dart';
+import '../sockets/connectSocket.dart';
 
 // import '../model/user_model.dart';
 
@@ -29,11 +31,12 @@ class Bloc with HelperFunctions {
 
   Function(String) get changeSearchBarInput => _searchedUser.sink.add;
   Function(bool) get changeFlippedState => _showFlippedCard.sink.add;
-  Function(String) get getUserFromSocket => _userFromSocket.sink.add;
+  StreamSink<String> get getUserFromSocket => _userFromSocket.sink;
 
-  changeBool() {
-    bool asd = true;
-    changeFlippedState(asd);
+  changeBool() async {
+ 
+  
+
   }
 
 /* 

@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
         Container(
           height: 125.0,
           child: Padding(
-            padding: EdgeInsets.only(left: 20.0, top: 55.0),
+            padding: EdgeInsets.only(left: 20.0, top: 35.0),
             child: Text(
               'Välkommen!',
               style: TextStyle(fontSize: 90.0, color: Colors.white),

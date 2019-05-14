@@ -17,9 +17,7 @@ class HelperFunctions {
 
   final validateSocketUser = StreamTransformer<String, String>.fromHandlers(
     handleData: (user, sink) {
-//socket ON
-      // startSocketConnection();
-
+      print(user);
       sink.add(user);
     },
   );
