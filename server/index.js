@@ -12,14 +12,21 @@ let server = http.createServer(app).listen(PORT, function() {
 
 const io = require("socket.io")(server)
 
+let socketClient = []
 io.on("connection", socket => {
-  console.log("Websocket is connected")
-  console.log(socket.id)
+  if (socketClient.length > 0) {
+    socketClient.forEach(client => {
+      client.disconnect(true)
+      console.log('socket has disconnected')
+    })
+  }
+  socketClient = []
+  socketClient.push(socket)
+  console.log("Websocket is connected", socket.id, 'Connected: ', socketClient.length)
 
   socket.on("disconnect", () => {
-    console.log("Socket has disconnected.")
+    console.log("Socket has disconnected.", socket.id)
     socket.disconnect()
-    console.log(socket.id)
   })
 })
 app.use(function(req, res, next) {
@@ -30,4 +37,3 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use("/api", apiRoutes)
-
