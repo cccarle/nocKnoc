@@ -112,9 +112,9 @@ server.post("/payload", validate, async (req, res, next) => {
 
     //Ändringar av teamsettings hamnar här
     if (parsed.message.text === "teamsetting") {
-      console.log(parsed.message.blocks)
+      let result = await teamSettingsController.teamSettingsHandler(parsed)
       console.log("TEAM SETTING")
-      console.log(parsed.actions[0].block_id)
+      console.log(block.text.text)
       res.status(200)
 
     // Accept-svar från anställd när någon söks hamnar här

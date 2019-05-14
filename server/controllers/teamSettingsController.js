@@ -20,7 +20,7 @@ const allTeamsObject = require('../resources/allTeams')
   const getWhiteListedTeams = async (whitelistedTeams) => {
     let unhiddenTeams = []
     whitelistedTeams.forEach(team => {
-        unhiddenTeams.push(selectBlock.selectBlock(team.handle, "false", 'Hide team', 'Visible'))
+        unhiddenTeams.push(selectBlock.selectBlock(team.handle, "false", 'Hide team'))
       })
       return unhiddenTeams
   }
@@ -28,14 +28,22 @@ const allTeamsObject = require('../resources/allTeams')
   const getBlackListedTeams = async (blacklistedTeams) => {
     let hiddenTeams = []
     blacklistedTeams.forEach(team => {
-        hiddenTeams.push(selectBlock.selectBlock(team.handle, "true", 'Show team', 'Hidden'))
+        hiddenTeams.push(selectBlock.selectBlock(team.handle, "true", 'Show team'))
       })
       return hiddenTeams
-  
+
 }
+  const teamSettingsHandler = async (payload) => {
+    let block = payload.message.blocks.find(x => x.block_id === payload.actions[0].block_id)
+    // console.log(block)
+    let teamChannelId = allTeamsObject.find(x => x.handle === block.text.text)
+    console.log(teamChannelId.channels)
+
+  }
 
 module.exports = {
   sendSelectionBlock,
   getWhiteListedTeams,
-  getBlackListedTeams
+  getBlackListedTeams,
+  teamSettingsHandler
 }
