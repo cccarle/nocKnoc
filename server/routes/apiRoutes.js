@@ -5,7 +5,7 @@ const teamsController = require('../controllers/teamsController')
 const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
 const errorHandling = require('../utils/errorHandling')
-const testUsers = require('../resources/testUsers')
+// const testUsers = require('../resources/testUsers')
 const answerController = require('../controllers/answerController.js')
 const validate = require('../middleware/validateSecret')
 const teamSettingsController = require('../controllers/teamSettingsController')
@@ -44,10 +44,10 @@ server.get('/channels', async (req, res) => {
   }
 })
 
-server.get('/employeestest', (req, res) => {
-  let users = testUsers
-  res.status(200).json(users)
-})
+// server.get('/employeestest', (req, res) => {
+//   let users = testUsers
+//   res.status(200).json(users)
+// })
 
 server.get('/teams', async (req, res) => {
   try {

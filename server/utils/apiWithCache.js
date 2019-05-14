@@ -1,6 +1,5 @@
 const api = require('./slack/api')
-const saveTimeInMinutes = 10
-let aTimestamp = 1557754195439
+const saveTimeInMinutes = 30
 
 let userCache = {
   timestamp: 0,
@@ -17,11 +16,11 @@ let teamUsersCache = {
 // USERS
 const getAllUsers = () => {
   if (isTimeUp(userCache.timestamp) || userCache.data.length <= 0) {
-    console.log('Fetching new Data')
+    console.log('Fetching new Data for users')
     userCache.timestamp = Date.now()
     userCache.data = getUsersFromApi()
   } else {
-    console.log('Using Cache')
+    console.log('Using Cache for users')
   }
   return userCache.data
 }
@@ -41,11 +40,11 @@ const getUsersFromApi = () => {
 // TEAMS
 const getAllTeams = () => {
   if (isTimeUp(teamsCache.timestamp) || teamsCache.data.length <= 0) {
-    console.log('Fetching new Data')
+    console.log('Fetching new data for teams')
     teamsCache.timestamp = Date.now()
     teamsCache.data = getTeamsFromApi()
   } else {
-    console.log('Using Cache')
+    console.log('Using Cache for teams')
   }
   return teamsCache.data
 }
@@ -67,6 +66,7 @@ const getTeamsFromApi = () => {
 const getTeamUsersByTeamId = (usergroup) => {
   if (!teamUsersCache[usergroup] || isTimeUp(teamUsersCache[usergroup].timestamp)) {
     console.log('Updating users in team ' + usergroup)
+    teamUsersCache[usergroup] = {}
     teamUsersCache[usergroup].timestamp = Date.now()
     teamUsersCache[usergroup].data = getTeamsUsersFromApi(usergroup)
   }
