@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../bloc/bloc.dart';
 import '../bloc/provider.dart';
-import 'package:flutter/foundation.dart';
-import 'dart:io';
+
 // Widgets
 import '../API/api.dart';
 
@@ -25,13 +24,8 @@ class ListViewSlackUsers extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.all(30.0),
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 600,
-              child: _createFutureList(bloc),
-            ),
-          ],
+        child: Container(
+          child: _createFutureList(bloc),
         ),
       ),
     );
@@ -71,6 +65,7 @@ class ListViewSlackUsers extends StatelessWidget {
   _buildList(asyncsnapshot, snapshot) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
+      
       shrinkWrap: true,
       itemCount: asyncsnapshot.length,
       itemBuilder: (BuildContext context, int index) {
@@ -88,13 +83,11 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _slackUserListItem(index, userObject) {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 10.0,
-        ),
-        UserCard(userObject, visitor)
-      ],
-    );
+    return Column( children: <Widget>[
+      SizedBox(
+        height: 10.0,
+      ),
+      UserCard(userObject, visitor)
+    ]);
   }
 }

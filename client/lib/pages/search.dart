@@ -13,9 +13,10 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final Future<List<UserModel>> list = ;
-    
+
     final bloc = Provider.of(context);
     return Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: Theme.of(context).primaryColor,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.0),
@@ -40,7 +41,7 @@ class SearchPage extends StatelessWidget {
   Widget _headlineText() {
     return Center(
       child: Text(
-        'Vem söker du ?',
+        'Vem söker du?',
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 80.0, color: Colors.white),
       ),
@@ -56,11 +57,12 @@ class SearchPage extends StatelessWidget {
 
   Widget _listViewSlackUsers(context, bloc) {
     return Container(
+      height: 600,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: ListViewSlackUsers(visitor,  fecthUserList()),
+      child: ListViewSlackUsers(visitor, fecthUserList()),
     );
   }
 }

@@ -35,7 +35,7 @@ class SearchInputField extends StatelessWidget {
                 labelStyle: TextStyle(color: Colors.black),
                 filled: true,
                 fillColor: Colors.white),
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.text,
             onChanged: bloc.changeSearchBarInput,
           ),
         );

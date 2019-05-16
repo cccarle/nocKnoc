@@ -42,59 +42,59 @@ class Dialog {
       context: context,
       builder: (BuildContext context) {
         return StreamBuilder(
-            stream: bloc.userFromSocketStream,
-            builder: (context, snapshot) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                  Radius.circular(40.0),
-                )),
-                contentPadding: EdgeInsets.only(top: 10.0),
-                content: new Container(
-                  height: 400.0,
-                  width: 600.0,
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: <Widget>[
-                        Center(
-                        child: new Stack(
-                          // fit: StackFit.loose,
-                          children: <Widget>[
-                            new Positioned(
-                              // top: 5.0,
-                              // left: MediaQuery.of(context).size.width * 0.50,
-                              child: Center(
-                                child:
-                                    SpinKitRing(color: Colors.red, size: 78.0),
-                              ),
+          stream: bloc.userFromSocketStream,
+          builder: (context, snapshot) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                Radius.circular(40.0),
+              )),
+              contentPadding: EdgeInsets.only(top: 10.0),
+              content: new Container(
+                height: 400.0,
+                width: 600.0,
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: new Stack(
+                        // fit: StackFit.loose,
+                        children: <Widget>[
+                          new Positioned(
+                            // top: 5.0,
+                            // left: MediaQuery.of(context).size.width * 0.50,
+                            child: Center(
+                              child: SpinKitRing(color: Colors.red, size: 78.0),
                             ),
-                            new Positioned(
-                              // left: MediaQuery.of(context).size.width * 0.40,
-                              child: Center(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  child: Container(
-                                    child: Image.network(
-                                      user.image,
-                                      fit: BoxFit.fill,
-                                      height: 70.0,
-                                      width: 70.0,
-                                    ),
+                          ),
+                          new Positioned(
+                            // left: MediaQuery.of(context).size.width * 0.40,
+                            child: Center(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50.0),
+                                child: Container(
+                                  child: Image.network(
+                                    user.image,
+                                    fit: BoxFit.fill,
+                                    height: 70.0,
+                                    width: 70.0,
                                   ),
                                 ),
                               ),
                             ),
-                            Container()
-                          ],
-                        ),
+                          ),
+                          Container()
+                        ],
                       ),
-                      SizedBox(height: 10.0),
-                      DialogContent(socket, user.name),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 10.0),
+                    DialogContent(socket, user.name),
+                  ],
                 ),
-              );
-            });
+              ),
+            );
+          },
+        );
       },
     );
   }
