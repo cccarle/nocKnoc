@@ -25,7 +25,6 @@ server.get('/employee/:id', async (req, res) => {
   try {
     let id = req.params.id
     let result = await employeesController.getEmployeeById(id)
-    console.log(result)
     res.status(200).json(result)
   } catch (e) {
     let handledError = errorHandling(e)
@@ -36,7 +35,6 @@ server.get('/employee/:id', async (req, res) => {
 server.get('/channels', async (req, res) => {
   try {
     let result = await channelsController.getAll()
-    console.log(result)
     res.status(200).json(result)
   } catch (e) {
     let handledError = errorHandling(e)
@@ -52,7 +50,6 @@ server.get('/employeestest', (req, res) => {
 server.get('/teams', async (req, res) => {
   try {
     let teams = await teamsController.getWhiteListedTeams()
-    // console.log(teams)
     res.status(200).json(teams)
   } catch (e) {
     let handledError = errorHandling(e)
@@ -69,7 +66,6 @@ server.post('/notify', async (req, res) => {
         req.body.name,
         req.body.channelId
       )
-      // console.log(result)
       res.status(200).json(result)
     } else {
       res.status(400).send('Missing Data')
@@ -107,7 +103,6 @@ server.post('/payload', validate, async (req, res, next) => {
     //Ändringar av teamsettings hamnar här
     if (parsed.message.text === "teamsetting") {
       let result = await teamSettingsController.teamSettingsHandler(parsed)
-      console.log("TEAM SETTING")
       res.status(200)
     // Accept-svar från anställd när någon söks hamnar här
     } else if (parsed.actions[0].value === "true" && parsed.message.text !== "teamsetting") {

@@ -1,5 +1,4 @@
 const api = require('../utils/slack/api')
-// const settings = require('../resources/settings.json')
 const apiWithCache = require('../utils/apiWithCache')
 const settingsObject = require('../utils/readSettingsFile')
 
@@ -36,14 +35,12 @@ const addUsersToTeams = (teams) => {
 
 const extractWhitelistedTeams = async (teams) => {
   let settings = await settingsObject.readFile()
-  console.log(settings, 'TEAM CONTROLLER')
   let parsed = JSON.parse(settings)
   return teams.filter((team) => !parsed.teamBlacklist.includes(team.id) && team.channels.length > 0)
 }
 
 const extractBlacklistedTeams = async (teams) => {
   let settings = await settingsObject.readFile()
-  console.log(settings, 'TEAM CONTROLLER')
   let parsed = JSON.parse(settings)
   return teams.filter((team) => parsed.teamBlacklist.includes(team.id) && team.channels.length > 0)
 }
