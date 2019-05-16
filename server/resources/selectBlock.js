@@ -1,4 +1,4 @@
-exports.selectBlock = (teamName, value, option, status) => {
+exports.selectBlock = (teamName, value, option) => {
   // let blockObject =
   //   {
   // 	type: "section",
@@ -29,7 +29,7 @@ exports.selectBlock = (teamName, value, option, status) => {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: teamName + " - " + status
+      text: teamName
     },
     accessory: {
       type: "button",

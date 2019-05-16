@@ -45,7 +45,7 @@ class Dialog {
             builder: (context, snapshot) {
               return AlertDialog(
                 title: DialogContent(socket),
-                content: new Text("Alert Dialog body"),
+                content: new Text("Alert Dialog body"), 
                 actions: <Widget>[
                   new FlatButton(
                     child: new Text("Close"),

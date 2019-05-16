@@ -9,7 +9,6 @@ import 'package:flutter/foundation.dart';
 final _apiEndpoint = 'https://3298db41.ngrok.io/api/employeestest';
 final _apiExitpoint = 'https://3298db41.ngrok.io/api/notify';
 
-
 Future<List<UserModel>> fecthUserList() async {
   http.Response response = await http.get(Uri.encodeFull(_apiEndpoint),
       headers: {"Accept": "application/json"});
