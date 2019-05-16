@@ -102,6 +102,7 @@ server.post('/payload', validate, async (req, res, next) => {
     let parsed = JSON.parse(req.body.payload)
     //Ändringar av teamsettings hamnar här
     if (parsed.message.text === "teamsetting") {
+      console.log(parsed.channel.id)
       let result = await teamSettingsController.teamSettingsHandler(parsed)
       res.status(200)
     // Accept-svar från anställd när någon söks hamnar här
@@ -122,6 +123,7 @@ server.post('/payload', validate, async (req, res, next) => {
 server.post('/teamshandler', async (req, res, next) => {
   try {
     let answer = await teamSettingsController.sendSelectionBlock(req.body)
+    console.log(req.body.channel_id)
     res.status(200)
 
   } catch (e) {

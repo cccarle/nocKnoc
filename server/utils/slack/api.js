@@ -43,6 +43,7 @@ module.exports = {
   },
 
   sendTeamsToChannel: (channel, blocks) => {
+    console.log(channel)
     return bot.chat.postMessage({token: botToken, channel: channel, text: 'teamsetting', blocks: JSON.stringify(blocks)})
   },
 
@@ -51,6 +52,7 @@ module.exports = {
     return bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks: []})
   },
   updateSettingsMessage: (channel, ts, blocks) => {
+    console.log(channel)
     return bot.chat.update({token: botToken, channel: channel, text: "teamsetting", ts, as_user: true, blocks})
   }
 }

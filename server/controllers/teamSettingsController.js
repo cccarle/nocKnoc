@@ -19,6 +19,7 @@ const createSettingsBlocks = async () => {
 
 const sendSelectionBlock = async payload => {
   let answer = await createSettingsBlocks()
+  console.log(payload.channel_id)
   let result = await api.sendTeamsToChannel(payload.channel_id, answer)
 
   return result
@@ -26,6 +27,7 @@ const sendSelectionBlock = async payload => {
 
 const updateSelectionBlock = async payload => {
   let answer = await createSettingsBlocks()
+  console.log(payload.channel.id)
   let result = await api.updateSettingsMessage(
     payload.channel.id,
     payload.message.ts,
