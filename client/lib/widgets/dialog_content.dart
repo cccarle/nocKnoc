@@ -9,8 +9,9 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 class DialogContent extends StatefulWidget {
   final SocketIO socket;
+  final String username;
 
-  DialogContent(this.socket);
+  DialogContent(this.socket, this.username);
 
   @override
   _DialogContentState createState() => _DialogContentState();
@@ -37,6 +38,6 @@ class _DialogContentState extends State<DialogContent> {
   }
 
   Widget build(BuildContext context) {
-    return Text("Alert Dialog title asd $_name");
+    return Text("Vi kontaktar " + widget.username);
   }
 }

@@ -87,9 +87,9 @@ class UserCard extends StatelessWidget {
   _handleEvent(BuildContext context, UserModel user) {
     final String name = user.name;
     final String channelId = user.channels;
-    Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
+    // Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
 
-    createPost(body: newPost.toMap());
+    // createPost(body: newPost.toMap());
 
 
     dialog.getDialog(context, user).then((onValue) {

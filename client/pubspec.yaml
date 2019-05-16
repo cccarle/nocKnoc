@@ -31,6 +31,8 @@ dependencies:
   socket_io_client: ^0.9.1
   flutter_socket_io: ^0.4.6
   adhara_socket_io: ^0.1.10
+  flutter_spinkit: "^3.1.0"
+
 
 
 
