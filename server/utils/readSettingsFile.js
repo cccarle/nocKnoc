@@ -14,8 +14,9 @@ const readFileTwo = () => {
 const readFile = () => {
   return fs.readFile("resources/settings.json", "utf8", (err, data) => {
     if (err) throw err
-    JSON.parse(data)
-  })
+    data
+  }).then(data => JSON.parse(data))
+  
 }
 
 const writeToFile = (settings) => {

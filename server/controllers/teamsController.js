@@ -35,14 +35,13 @@ const addUsersToTeams = (teams) => {
 
 const extractWhitelistedTeams = async (teams) => {
   let settings = await settingsObject.readFile()
-  let parsed = JSON.parse(settings)
-  return teams.filter((team) => !parsed.teamBlacklist.includes(team.id) && team.channels.length > 0)
+  return teams.filter((team) => !settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
 }
 
 const extractBlacklistedTeams = async (teams) => {
   let settings = await settingsObject.readFile()
-  let parsed = JSON.parse(settings)
-  return teams.filter((team) => parsed.teamBlacklist.includes(team.id) && team.channels.length > 0)
+  // let parsed = JSON.parse(settings)
+  return teams.filter((team) => settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
 }
 
 const extractChannelsFromTeamArray = (teamArray) => {
