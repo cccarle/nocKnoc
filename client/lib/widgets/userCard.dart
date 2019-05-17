@@ -9,7 +9,7 @@ import './slackUsername.dart';
 import '../API/api.dart';
 
 //Model
-// import '../model/post_model.dart';
+import '../model/post_model.dart';
 // import '../widgets/contact_modal.dart';
 
 //Statemanagement
@@ -19,19 +19,17 @@ import '../widgets/dialog.dart';
 class UserCard extends StatelessWidget {
   final UserModel user;
   final String visitor;
-
-  UserCard(this.user, this.visitor);
+  final BuildContext context;
+  UserCard(this.user, this.visitor, this.context);
 
   _handleEvent(BuildContext context, UserModel user) {
     final String name = user.name;
     final String channelId = user.channels;
-    // Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
+    Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
 
-    // createPost(body: newPost.toMap());
+    createPost(body: newPost.toMap());
 
-    dialog.getDialog(context, user).then((onValue) {
-      print(onValue);
-    });
+    dialog.getDialog(context, user).then((onValue) {});
 
     // socket.listenOnSocket();
   }
@@ -40,7 +38,7 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
-        onTap: () => _handleEvent(context, user),
+        onTap: () => _handleEvent(this.context, user),
         child: Row(
           children: <Widget>[
             SlackUserImage(user.image),

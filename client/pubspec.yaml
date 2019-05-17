@@ -32,7 +32,7 @@ dependencies:
   flutter_socket_io: ^0.4.6
   adhara_socket_io: ^0.1.10
   flutter_spinkit: "^3.1.0"
-
+  keyboard_visibility: ^0.5.2
 
 
 

@@ -13,19 +13,25 @@ import '../model/user_model.dart';
 class ListViewSlackUsers extends StatelessWidget {
   final String visitor;
   final Future<List<UserModel>> list;
+  final double number;
+  final BuildContext context;
 
-  ListViewSlackUsers(this.visitor, this.list);
+  ListViewSlackUsers(this.visitor, this.list, this.number, this.context);
 
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
-
     return Container(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.all(30.0),
-        child: Container(
-          child: _createFutureList(bloc),
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: number,
+              child: _createFutureList(bloc),
+            ),
+          ],
         ),
       ),
     );
@@ -64,9 +70,8 @@ class ListViewSlackUsers extends StatelessWidget {
 
   _buildList(asyncsnapshot, snapshot) {
     return ListView.builder(
-      scrollDirection: Axis.vertical,
-      
       shrinkWrap: true,
+      scrollDirection: Axis.vertical,
       itemCount: asyncsnapshot.length,
       itemBuilder: (BuildContext context, int index) {
         return _selectList(index, snapshot, asyncsnapshot);
@@ -83,11 +88,11 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _slackUserListItem(index, userObject) {
-    return Column( children: <Widget>[
+    return Column(children: <Widget>[
       SizedBox(
         height: 10.0,
       ),
-      UserCard(userObject, visitor)
+      UserCard(userObject, visitor, context),
     ]);
   }
 }

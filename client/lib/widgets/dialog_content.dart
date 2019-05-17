@@ -27,11 +27,9 @@ class _DialogContentState extends State<DialogContent> {
 
     widget.socket.onConnect((data) {
       print("connected...");
-      print(data);
     });
 
     widget.socket.on('answer', (data) {
-      print(data);
       print('du är inne');
       this.setState(() => {_name = data});
     });
