@@ -1,0 +1,35 @@
+[
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "Pick an item from the dropdown list"
+    },
+    "accessory": {
+      "type": "static_select",
+      "placeholder": {
+        "type": "plain_text",
+        "text": "Select an item",
+        "emoji": true
+      },
+      "options": [
+        {
+          "text": {
+            "type": "plain_text",
+            "text": "Choice 1",
+            "emoji": true
+          },
+          "value": "value-0"
+				},
+				{
+          "text": {
+            "type": "plain_text",
+            "text": "Choice 1",
+            "emoji": true
+          },
+          "value": "value-0"
+        }
+      ]
+    }
+  }
+]
