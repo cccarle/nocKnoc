@@ -9,13 +9,13 @@ import '../widgets/dialog_content.dart';
 
 class Dialog {
   get getDialog => _showDialog;
+  get getCancelDialog => _cancelDialog;
 
   Future<bool> _showDialog(BuildContext context, UserModel user) async {
     final bloc = Provider.of(context);
     SocketIOManager manager = SocketIOManager();
     final SocketIO socket =
         await manager.createInstance('https://58e41034.ngrok.io');
-
     return showDialog(
       barrierDismissible: true,
       context: context,
@@ -72,11 +72,6 @@ class Dialog {
                     ),
                     SizedBox(height: 10.0),
                     DialogContent(socket, user.name),
-                    FlatButton(
-                        child: new Text(''),
-                        onPressed: () {
-                          Navigator.of(context).pop(false);
-                        })
                   ],
                 ),
               ),
@@ -85,6 +80,25 @@ class Dialog {
         );
       },
     );
+  }
+
+  Future<bool> _cancelDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+                child: Column(
+              children: <Widget>[
+                FlatButton(
+                    child: new Text('Avbryt'),
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    }),
+              ],
+            )),
+          );
+        });
   }
 }
 
