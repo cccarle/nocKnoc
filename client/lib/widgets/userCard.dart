@@ -22,55 +22,47 @@ class UserCard extends StatefulWidget {
   final UserModel user;
   final String visitor;
   final BuildContext context;
-  Timer _timer;
-  int _start;
-  UserCard(this.user, this.visitor, this.context);
+  Timer timer;
+
+  UserCard(this.user, this.visitor, this.context, this.timer);
   _UserCardState createState() => _UserCardState();
 }
 
 class _UserCardState extends State<UserCard> {
-  void initState() {
-    super.initState();
-  }
+  int _start = 3000;
+
 
   _handleEvent(BuildContext context, UserModel user) {
     startTimer(context);
   }
 
-  void handleCancelDialog(time) {
+  void handleCancelDialog(time, BuildContext context) {
     print(time);
     if (time == 3000) {
       dialog.getCancelDialog(context).then((onValue) {});
-    } else if (time == 600) {
+    } else if (time == 300) {
       Navigator.of(context).pop(true);
-      // Post newPost = new Post(
-      //     name: widget.user.name,
-      //     visitor: widget.visitor,
-      //     channelId: widget.user.channels);
+      Post newPost = new Post(
+          name: widget.user.name,
+          visitor: widget.visitor,
+          channelId: widget.user.channels);
 
-      // createPost(body: newPost.toMap());
+      createPost(body: newPost.toMap());
     }
   }
 
   void startTimer(BuildContext context) {
-    widget._start = 3000;
     const oneSec = const Duration(milliseconds: 100);
-    print(widget._start);
-    widget._timer = new Timer.periodic(
+    widget.timer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(
             () {
-              if (widget._start < 500) {
-                timer.cancel();
+              if (_start < 100) {
                 dialog.getDialog(context, widget.user).then((onValue) {});
-
-
-                // riktiga modal
-                // http anrop
+                timer.cancel();
               } else {
-                handleCancelDialog(widget._start);
-                widget._start -= 100;
-                // ladndingknappen
+                handleCancelDialog(_start, context);
+                _start = _start - 100;
               }
             },
           ),
@@ -78,6 +70,11 @@ class _UserCardState extends State<UserCard> {
   }
 
   @override
+  void dispose() {
+    widget.timer.cancel();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
@@ -91,10 +88,5 @@ class _UserCardState extends State<UserCard> {
         ),
       ),
     );
-  }
-
-  void dispose() {
-    widget._timer.cancel();
-    super.dispose();
   }
 }

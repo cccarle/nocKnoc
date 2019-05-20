@@ -5,6 +5,8 @@ import '../bloc/provider.dart';
 // Widgets
 import '../API/api.dart';
 
+import 'dart:async';
+
 //Api
 import '../widgets/userCard.dart';
 
@@ -88,11 +90,12 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _slackUserListItem(index, userObject) {
+    Timer timer;
     return Column(children: <Widget>[
       SizedBox(
         height: 10.0,
       ),
-      UserCard(userObject, visitor, context),
+      UserCard(userObject, visitor, context, timer),
     ]);
   }
 }

@@ -6,8 +6,9 @@ import '../model/post_model.dart';
 
 import 'package:flutter/foundation.dart';
 
-final _apiStartpoint = 'https://58e41034.ngrok.io/api/employeestest';
-final _apiExitpoint = 'https://58e41034.ngrok.io/api/notify';
+final _apiStartpoint = 'https://51b5ed28.ngrok.io/api/employeestest';
+final _apiExitpoint = 'https://51b5ed28.ngrok.io/api/notify';
+
 
 Future<List<UserModel>> fecthUserList() async {
   http.Response response = await http.get(Uri.encodeFull(_apiStartpoint),
