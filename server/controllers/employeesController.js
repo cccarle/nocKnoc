@@ -23,5 +23,4 @@ const getNotifiableEmployees = async () => {
 
 module.exports = {
   getNotifiableEmployees
-  // getEmployeeById
 }

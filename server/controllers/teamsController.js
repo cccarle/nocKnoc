@@ -28,7 +28,6 @@ const extractWhitelistedTeams = async (teams) => {
 
 const extractBlacklistedTeams = async (teams) => {
   let settings = await settingsObject.readFile()
-  // let parsed = JSON.parse(settings)
   return teams.filter((team) => settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
 }
 

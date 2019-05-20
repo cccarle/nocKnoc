@@ -1,12 +1,10 @@
 const server = require('express').Router()
 const employeesController = require('../controllers/employeesController')
-const channelsController = require('../controllers/messageController')
+const messageController = require('../controllers/messageController')
 const teamsController = require('../controllers/teamsController')
-const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
 const errorHandling = require('../utils/errorHandling')
 // const testUsers = require('../resources/testUsers')
-const answerController = require('../controllers/answerController.js')
 const validate = require('../middleware/validateSecret')
 const settingsController = require('../controllers/settingsController')
 require('dotenv').config()
@@ -24,16 +22,6 @@ server.get('/employee/:id', async (req, res) => {
   try {
     let id = req.params.id
     let result = await employeesController.getEmployeeById(id)
-    res.status(200).json(result)
-  } catch (e) {
-    let handledError = errorHandling(e)
-    res.status(handledError.code).json(handledError.message)
-  }
-})
-
-server.get('/channels', async (req, res) => {
-  try {
-    let result = await channelsController.getAll()
     res.status(200).json(result)
   } catch (e) {
     let handledError = errorHandling(e)
@@ -60,7 +48,7 @@ server.get('/teams', async (req, res) => {
 server.post('/notify', async (req, res) => {
   try {
     if (req.body.channelId && req.body.visitor && req.body.name) {
-      let result = await channelsController.sendAcceptDecline(
+      let result = await messageController.sendAccept(
         req.body.visitor,
         req.body.name,
         req.body.channelId
@@ -78,7 +66,7 @@ server.post('/notify', async (req, res) => {
 
 server.post('/deviceinfo', async (req, res) => {
   try {
-    let result = await deviceInfoController.sendDeviceMessage(req.body.message)
+    let result = await messageController.sendDeviceMessage(req.body.message)
     res.status(200).json({ result: result })
   } catch (e) {
     let handledError = errorHandling(e)
@@ -106,7 +94,7 @@ server.post('/payload', validate, async (req, res, next) => {
       res.status(200)
     // Accept-svar från anställd när någon söks hamnar här
     } else if (parsed.actions[0].value === "true" && parsed.message.text !== "teamsetting") {
-      let result = await answerController.answerHandler(parsed)
+      let result = await messageController.answerHandler(parsed)
       console.log(parsed)
       req.io.emit('answer', result)
       console.log('emit ska skickats')

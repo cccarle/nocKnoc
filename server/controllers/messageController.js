@@ -3,7 +3,7 @@ const settingsFile = require('../utils/readSettingsFile')
 
 let timer
 module.exports = {
-  sendAcceptDecline: async (visitor, name, channelId) => {
+  sendAccept: async (visitor, name, channelId) => {
     clearTimeout(timer)
     let settings = await settingsFile.readFile()
     let timeToFallback = settings.settings.secondsToFallback * 1000
@@ -14,11 +14,28 @@ module.exports = {
     return response
   },
   answerHandler: async (answer) => {
+    clearTimeout(timer)
     let channel = answer.container.channel_id
     let ts = answer.container.message_ts
     let name = answer.user.name
     return api.updateMessage(channel, name, ts)
-}
+  },
+  sendDeviceMessage: async message => {
+    try {
+      let settings = await settingsFile.readFile()
+      let channel = settings.settings.deviceInfo.channel
+      let tags = '' //Måste vara tom sträng från början
+      resource.deviceInfo.tags.forEach(element => {
+        tags += element + ' '
+      })
+      message += '\n'
+      let string = message + tags
+      let result = await api.sendMessageToChannel(channel, string)
+      return result
+    } catch (err) {
+      return err.message
+    }
+  }
 }
 
 
