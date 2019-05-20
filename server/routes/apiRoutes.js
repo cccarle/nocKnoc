@@ -108,7 +108,8 @@ server.post('/payload', validate, async (req, res, next) => {
     // Accept-svar från anställd när någon söks hamnar här
     } else if (parsed.actions[0].value === "true" && parsed.message.text !== "teamsetting") {
       let result = await answerController.answerHandler(parsed)
-      req.io.emit('answer', 'sho')
+      console.log(parsed)
+      req.io.emit('answer', result)
       console.log('emit ska skickats')
       res.status(200)
     } else {

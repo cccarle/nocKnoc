@@ -24,7 +24,6 @@ const createSettingsBlocks = async () => {
 
 const sendSelectionBlock = async payload => {
   let answer = await createSettingsBlocks()
-  console.log(payload.channel_id)
   let result = await api.sendTeamsToChannel(payload.channel_id, answer)
 
   return result
@@ -34,7 +33,6 @@ const channelsToBlock = async (channels) => {
   var block = JSON.parse(JSON.stringify(settingsBlock))
   let {accessory} = block
   let currentSettings = await settingsObject.readFile()
-  console.log(currentSettings)
   channels.forEach(channel => {
     let option = {
       text: {
@@ -55,7 +53,6 @@ const channelsToBlock = async (channels) => {
 
 const updateSelectionBlock = async payload => {
   let answer = await createSettingsBlocks()
-  console.log(payload.channel.id)
   let result = await api.updateSettingsMessage(
     payload.channel.id,
     payload.message.ts,
@@ -112,7 +109,6 @@ const handleBlacklistChange = async payload => {
 
 const handleFallbackChannel = async payload => {
   let object = await settingsObject.readFile()
-  console.log(object.settings)
   if(object.settings.fallbackChannel !== payload.actions[0].selected_option.value) {
     object.settings.fallbackChannel = payload.actions[0].selected_option.value
     await settingsObject.writeToFile(object)
