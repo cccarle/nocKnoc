@@ -8,12 +8,11 @@ const errorHandling = require('../utils/errorHandling')
 const testUsers = require('../resources/testUsers')
 const answerController = require('../controllers/answerController.js')
 const validate = require('../middleware/validateSecret')
-const teamSettingsController = require('../controllers/teamSettingsController')
+const settingsController = require('../controllers/settingsController')
 require('dotenv').config()
 
 server.get("/employees", async (req, res) => {
   try {
-    let result = await employeesController.getNotifiableEmployees()
     res.status(200).json(result)
   } catch (e) {
     let handledError = errorHandling(e)
@@ -100,10 +99,10 @@ server.get('/botinfo', async (req, res) => {
 server.post('/payload', validate, async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
-    //Ändringar av teamsettings hamnar här
+    //Ändringar av settings hamnar här
     if (parsed.message.text === "teamsetting") {
       console.log(parsed.channel.id)
-      let result = await teamSettingsController.teamSettingsHandler(parsed)
+      let result = await settingsController.settingsHandler(parsed)
       res.status(200)
     // Accept-svar från anställd när någon söks hamnar här
     } else if (parsed.actions[0].value === "true" && parsed.message.text !== "teamsetting") {
@@ -123,7 +122,7 @@ server.post('/payload', validate, async (req, res, next) => {
 
 server.post('/teamshandler', async (req, res, next) => {
   try {
-    let answer = await teamSettingsController.sendSelectionBlock(req.body)
+    let answer = await settingsController.sendSelectionBlock(req.body)
     console.log(req.body.channel_id)
     res.status(200)
 

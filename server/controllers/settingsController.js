@@ -1,6 +1,6 @@
 const api = require("../utils/slack/api")
 const selectBlock = require("../resources/selectBlock")
-const teamsController = require("../controllers/teamsController")
+const teamsController = require("./teamsController")
 // const settings = require("../resources/settings")
 const allTeamsObject = require("../resources/allTeams")
 const fs = require("fs")
@@ -78,7 +78,7 @@ const blackListedTeamsToBlock = async blacklistedTeams => {
   })
   return hiddenTeams
 }
-const teamSettingsHandler = async payload => {
+const settingsHandler = async payload => {
   if (payload.actions[0].type === 'static_select') {
     return handleFallbackChannel(payload)
   } else {
@@ -121,5 +121,5 @@ module.exports = {
   sendSelectionBlock,
   whiteListedTeamsToBlock,
   blackListedTeamsToBlock,
-  teamSettingsHandler
+  settingsHandler
 }
