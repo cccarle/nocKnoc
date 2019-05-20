@@ -3,17 +3,6 @@ const settingsFile = require('../utils/readSettingsFile')
 
 let timer
 module.exports = {
-
-  getAll: async () => {
-    let result = await api.getAllChannels()
-    let channels = result.channels.map(
-      ({ id, name }) => ({
-        id,
-        name
-      })
-    )
-    return channels
-  },
   sendAcceptDecline: async (visitor, name, channelId) => {
     clearTimeout(timer)
     let settings = await settingsFile.readFile()
@@ -23,7 +12,13 @@ module.exports = {
       sendAcceptFormToFallbackChannel(visitor, name)
     }, 5000)
     return response
-  }
+  },
+  answerHandler: async (answer) => {
+    let channel = answer.container.channel_id
+    let ts = answer.container.message_ts
+    let name = answer.user.name
+    return api.updateMessage(channel, name, ts)
+}
 }
 
 
@@ -39,3 +34,4 @@ const sendAcceptFormToFallbackChannel = async (visitor, name) => {
   let result = await api.sendFormToChannel(channelId, text)
   return result
 }
+

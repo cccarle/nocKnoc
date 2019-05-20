@@ -1,4 +1,4 @@
-const api = require('./slack/api')
+const api = require('./api')
 const saveTimeInMinutes = 30
 
 let userCache = {
