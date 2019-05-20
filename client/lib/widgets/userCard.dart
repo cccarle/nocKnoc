@@ -30,8 +30,6 @@ class UserCard extends StatelessWidget {
     createPost(body: newPost.toMap());
 
     dialog.getDialog(context, user).then((onValue) {});
-
-    // socket.listenOnSocket();
   }
 
   @override

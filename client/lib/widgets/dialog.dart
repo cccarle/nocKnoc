@@ -14,9 +14,10 @@ class Dialog {
     final bloc = Provider.of(context);
     SocketIOManager manager = SocketIOManager();
     final SocketIO socket =
-        await manager.createInstance('https://e1f35662.ngrok.io');
+        await manager.createInstance('https://58e41034.ngrok.io');
 
     return showDialog(
+      barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return StreamBuilder(
@@ -40,20 +41,26 @@ class Dialog {
                         children: <Widget>[
                           new Positioned(
                             child: Center(
-                              child: SpinKitRing(color: Colors.red, size: 78.0),
+                              child: SpinKitRing(
+                                  color: Theme.of(context).accentColor,
+                                  size: 135.0,
+                                  lineWidth: 15.0),
                             ),
                           ),
                           new Positioned(
                             // left: MediaQuery.of(context).size.width * 0.40,
-                            child: Center(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50.0),
-                                child: Container(
-                                  child: Image.network(
-                                    user.image,
-                                    fit: BoxFit.fill,
-                                    height: 70.0,
-                                    width: 70.0,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 13.0),
+                              child: Center(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  child: Container(
+                                    child: Image.network(
+                                      user.image,
+                                      fit: BoxFit.fill,
+                                      height: 110.0,
+                                      width: 110.0,
+                                    ),
                                   ),
                                 ),
                               ),

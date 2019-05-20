@@ -83,10 +83,6 @@ class _SearchPageState extends State<SearchPage> {
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: ListViewSlackUsers(
-          widget.visitor,
-          fecthUserList(),
-          _height,
-          context
-        ));
+            widget.visitor, fecthUserList(), (_height - 50), context));
   }
 }

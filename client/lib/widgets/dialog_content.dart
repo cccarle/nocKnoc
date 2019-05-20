@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // import '../bloc/provider.dart';
 // import 'package:flutter/foundation.dart';
 // import 'dart:io';
+import 'dart:convert';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 class DialogContent extends StatefulWidget {
@@ -19,23 +20,32 @@ class DialogContent extends StatefulWidget {
 
 class _DialogContentState extends State<DialogContent> {
   String _name;
+  String _message;
 
   @override
   void initState() {
     super.initState();
+    _setMessage();
+    _listenOnSocket();
     widget.socket.connect();
 
     widget.socket.onConnect((data) {
       print("connected...");
     });
+  }
 
+  void _listenOnSocket() {
     widget.socket.on('answer', (data) {
-      print('du är inne');
-      this.setState(() => {_name = data});
+      var _list = data.values.toList();
+      this.setState(() => {_message = _list[3]});
     });
   }
 
+  void _setMessage() {
+    _message = "Vi kontaktar ${widget.username}";
+  }
+
   Widget build(BuildContext context) {
-    return Text("Vi kontaktar " + widget.username);
+    return Text(_message);
   }
 }
