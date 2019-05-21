@@ -37,28 +37,37 @@ class _UserCardState extends State<UserCard> {
 
   void handleCancelDialog(time, BuildContext context, Timer timer) {
     if (time == 3000) {
-      dialog.getCancelDialog(context, skipTimer, timer).then((onValue) {});
+      dialog
+          .getCancelDialog(context, makeRequest, timer, setTimer)
+          .then((onValue) {});
     } else if (time == 300) {
+      makeRequest();
       Navigator.of(context).pop(true);
-      Post newPost = new Post(
-          name: widget.user.name,
-          visitor: widget.visitor,
-          channelId: widget.user.channels);
-
-      createPost(body: newPost.toMap());
     }
   }
-  void skipTimer() {
+
+  void setTimer(value) {
     setState(() {
-      _start = 0;
+      _start = value;
     });
   }
+
+
+  void makeRequest() {
+    Post newPost = new Post(
+        name: widget.user.name,
+        visitor: widget.visitor,
+        channelId: widget.user.channels);
+
+    createPost(body: newPost.toMap());
+  }
+
   void startTimer(BuildContext context) {
     const oneSec = const Duration(milliseconds: 100);
     timer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(
-            () {  
+            () {
               if (_start < 100) {
                 dialog.getDialog(context, widget.user).then((onValue) {});
                 timer.cancel();

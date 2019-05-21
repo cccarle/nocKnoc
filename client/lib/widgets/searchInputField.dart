@@ -23,7 +23,7 @@ class SearchInputField extends StatelessWidget {
         return Container(
           color: Theme.of(context).primaryColor,
           child: TextField(
-            autofocus: true,
+            autofocus: false,
             decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),

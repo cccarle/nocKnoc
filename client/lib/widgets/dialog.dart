@@ -75,7 +75,7 @@ class Dialog {
                       ),
                     ),
                     SizedBox(height: 10.0),
-                    DialogContent(socket, user.name),
+                    DialogContent(socket, user.name, context),
                   ],
                 ),
               ),
@@ -86,14 +86,17 @@ class Dialog {
     );
   }
 
-  Future<bool> _cancelDialog(BuildContext context, skipTimer, timer) async {
+  Future<bool> _cancelDialog(
+      BuildContext context, makeRequest, timer, setTimer) async {
     _handleOnTapEvent(BuildContext context) {
-      skipTimer();
+      makeRequest();
+      setTimer(0);
       Navigator.of(context).pop(true);
     }
 
     _handleCancelEvent(BuildContext context, timer) {
       timer.cancel();
+      setTimer(3000);
       Navigator.of(context).pop(true);
     }
 
@@ -107,7 +110,7 @@ class Dialog {
               new Positioned(
                 child: Center(
                   child: SpinKitRing1(
-                      duration: const Duration(milliseconds: 5400),
+                      duration: const Duration(milliseconds: 5500),
                       color: Theme.of(context).accentColor,
                       size: 135.0,
                       lineWidth: 6.0),

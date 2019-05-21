@@ -11,15 +11,15 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 class DialogContent extends StatefulWidget {
   final SocketIO socket;
   final String username;
+  BuildContext context;
 
-  DialogContent(this.socket, this.username);
+  DialogContent(this.socket, this.username, this.context);
 
   @override
   _DialogContentState createState() => _DialogContentState();
 }
 
 class _DialogContentState extends State<DialogContent> {
-  String _name;
   String _message;
 
   @override
@@ -38,6 +38,11 @@ class _DialogContentState extends State<DialogContent> {
     widget.socket.on('answer', (data) {
       var _list = data.values.toList();
       this.setState(() => {_message = _list[3]});
+      Future.delayed(const Duration(milliseconds: 500), () {
+// Here you can write your code
+
+        Navigator.of(widget.context).popUntil((route) => route.isFirst);
+      });
     });
   }
 
