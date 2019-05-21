@@ -18,7 +18,7 @@ module.exports = {
     let ts = answer.container.message_ts
     let name = answer.user.name
     let text = `${name} är på väg att öppna.`
-    return api.updateMessage(channel, text, ts)
+    return setTemporaryMessage(channel, text, ts)
   },
     sendDeviceMessage: async message => {
     try {
@@ -46,7 +46,19 @@ const setFallbackTimeout = async (firstTimestamp, channelId, visitor, name) => {
     sendAcceptFormToFallbackChannel(visitor, name, fallbackChannelId)
     let fallbackChannel = await api.getChannelById(fallbackChannelId)
     let message = `Förfrågan har gått ut till kanal "${fallbackChannel.channel.name}"`
-    await api.updateMessage(channelId, message, firstTimestamp)
+    setTemporaryMessage(channelId, message, firstTimestamp)
+  }, 5000)
+}
+
+const setTemporaryMessage = async (channelId, message, timestamp = null) => {
+  let result
+  if (timestamp) {
+    result = await api.updateMessage(channelId, message, timestamp)
+  } else {
+    result = await api.sendMessageToChannel(channelId, string)    
+  }
+  setTimeout(() => {
+    api.deleteMessage(result.channel, result.ts)
   }, 5000)
 }
 

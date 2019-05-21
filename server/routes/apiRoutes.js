@@ -41,7 +41,6 @@ server.get('/teams', async (req, res) => {
     res.status(200).json(teams)
   } catch (e) {
     let handledError = errorHandling(e)
-    console.log(e)
     res.status(handledError.code).json(handledError.message)
   }
 })
@@ -59,7 +58,6 @@ server.post('/notify', async (req, res) => {
       res.status(400).send('Missing Data')
     }
   } catch (e) {
-    console.log(e)
     let handledError = errorHandling(e)
     res.status(handledError.code).json(handledError.message)
   }
@@ -116,7 +114,6 @@ server.post('/teamshandler', async (req, res, next) => {
 
   } catch (e) {
     res.status(500)
-    console.log(e)
   }
 })
 

@@ -49,6 +49,9 @@ module.exports = {
   updateMessage: (channel, text, ts, blocks = []) => {
     return bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks})
   },
+  deleteMessage: (channel, ts) => {
+    return bot.chat.delete({token: botToken, channel, ts})
+  },
   updateSettingsMessage: (channel, ts, blocks) => {
     console.log(channel)
     return bot.chat.update({token: botToken, channel: channel, text: "settings", ts, as_user: true, blocks})
