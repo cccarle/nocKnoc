@@ -34,9 +34,8 @@ module.exports = {
   sendMessageToChannel: (channel, message) => {
     return bot.chat.postMessage({token: botToken, channel: channel, text: message})
   },
-  sendFormToChannel: (channel, text) => {
-    let blocks = acceptDeclineMessage(text)
-    return bot.chat.postMessage({token: botToken, channel, text, blocks})
+  sendFormToChannel: (channel, blocks, text = '') => {
+    return bot.chat.postMessage({token: botToken, channel, text , blocks})
   },
   botInfo: () => {
     return bot.bots.info({token: botToken})
@@ -44,15 +43,14 @@ module.exports = {
 
   sendTeamsToChannel: (channel, blocks) => {
     console.log(channel)
-    return bot.chat.postMessage({token: botToken, channel: channel, text: 'teamsetting', blocks: JSON.stringify(blocks)})
+    return bot.chat.postMessage({token: botToken, channel: channel, text: 'settings', blocks: JSON.stringify(blocks)})
   },
 
-  updateMessage: (channel, name, ts) => {
-    let text = `${name} är på väg att öppna.`
-    return bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks: []})
+  updateMessage: (channel, text, ts, blocks = []) => {
+    return bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks})
   },
   updateSettingsMessage: (channel, ts, blocks) => {
     console.log(channel)
-    return bot.chat.update({token: botToken, channel: channel, text: "teamsetting", ts, as_user: true, blocks})
+    return bot.chat.update({token: botToken, channel: channel, text: "settings", ts, as_user: true, blocks})
   }
 }

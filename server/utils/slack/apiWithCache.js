@@ -14,6 +14,7 @@ let teamUsersCache = {
 }
 
 // USERS
+
 const getAllUsers = () => {
   if (isTimeUp(userCache.timestamp) || userCache.data.length <= 0) {
     console.log('Fetching new Data for users')

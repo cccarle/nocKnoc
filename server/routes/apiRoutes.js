@@ -4,13 +4,14 @@ const messageController = require('../controllers/messageController')
 const teamsController = require('../controllers/teamsController')
 const slack = require('../utils/slack/api')
 const errorHandling = require('../utils/errorHandling')
-// const testUsers = require('../resources/testUsers')
+const testUsers = require('../resources/testUsers')
 const validate = require('../middleware/validateSecret')
 const settingsController = require('../controllers/settingsController')
 require('dotenv').config()
 
 server.get("/employees", async (req, res) => {
   try {
+    let result = await employeesController.getNotifiableEmployees()
     res.status(200).json(result)
   } catch (e) {
     let handledError = errorHandling(e)
@@ -30,8 +31,8 @@ server.get('/employee/:id', async (req, res) => {
 })
 
 server.get('/employeestest', (req, res) => {
-  // let users = testUsers
-  // res.status(200).json(users)
+  let users = testUsers
+  res.status(200).json(users)
 })
 
 server.get('/teams', async (req, res) => {
@@ -88,14 +89,13 @@ server.post('/payload', validate, async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
     //Ändringar av settings hamnar här
-    if (parsed.message.text === "teamsetting") {
-      console.log(parsed.channel.id)
+    if (parsed.message.text === "settings") {
       let result = await settingsController.settingsHandler(parsed)
       res.status(200)
     // Accept-svar från anställd när någon söks hamnar här
-    } else if (parsed.actions[0].value === "true" && parsed.message.text !== "teamsetting") {
+    } else if (parsed.message.text !== "settings") {
       let result = await messageController.answerHandler(parsed)
-      console.log(parsed)
+      console.log('User som acceptat:', parsed.user.id)
       req.io.emit('answer', result)
       console.log('emit ska skickats')
       res.status(200)
@@ -111,10 +111,11 @@ server.post('/payload', validate, async (req, res, next) => {
 server.post('/teamshandler', async (req, res, next) => {
   try {
     let answer = await settingsController.sendSelectionBlock(req.body)
-    console.log(req.body.channel_id)
-    res.status(200)
+    console.log(req.body.channel_id, 'I routes')
+    res.status(200).json()
 
   } catch (e) {
+    res.status(500)
     console.log(e)
   }
 })

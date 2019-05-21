@@ -2,16 +2,17 @@ const api = require("../utils/slack/api")
 const selectBlock = require("../resources/selectBlock")
 const teamsController = require("./teamsController")
 // const settings = require("../resources/settings")
-// const allTeamsObject = require("../resources/allTeams")
+const allTeamsObject = require("../resources/allTeams")
 const fs = require("fs")
 const settingsObject = require("../utils/readSettingsFile")
 const channels = require('./messageController')
 const settingsBlock = require('../resources/settingsBlock')
+const workspace = require('../utils/workspace')
 
 const createSettingsBlocks = async () => {
-  let allTeams = await teamsController.getAll()
-  // let allTeams = allTeamsObject
-  let allChannels = await channels.getAll()
+  // let allTeams = await teamsController.getAll()
+  let allTeams = allTeamsObject
+  let allChannels = await workspace.getChannels()
   let whitelistedTeams = await teamsController.extractWhitelistedTeams(allTeams)
   let blacklistedTeams = await teamsController.extractBlacklistedTeams(allTeams)
   let unHiddenTeams = await whiteListedTeamsToBlock(whitelistedTeams)
