@@ -91,6 +91,7 @@ class Dialog {
       skipTimer();
       Navigator.of(context).pop(true);
     }
+
     _handleCancelEvent(BuildContext context, timer) {
       timer.cancel();
       Navigator.of(context).pop(true);
@@ -106,7 +107,7 @@ class Dialog {
               new Positioned(
                 child: Center(
                   child: SpinKitRing1(
-                      duration: const Duration(milliseconds: 3000),
+                      duration: const Duration(milliseconds: 5400),
                       color: Theme.of(context).accentColor,
                       size: 135.0,
                       lineWidth: 6.0),
@@ -119,7 +120,7 @@ class Dialog {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50.0),
                       child: GestureDetector(
-                          onTap: () => {_handleOnTapEvent(context)},
+                          onTap: () => _handleOnTapEvent(context),
                           child: AlertIcon(size: 80, color: Colors.white)),
                     ),
                   ),
@@ -132,7 +133,7 @@ class Dialog {
             child: RaisedButton.icon(
                 color: Colors.white,
                 textColor: Colors.black,
-                onPressed: () => { _handleCancelEvent(context, timer)},
+                onPressed: () => _handleCancelEvent(context, timer),
                 icon: Icon(
                   Icons.close,
                   color: Colors.black,

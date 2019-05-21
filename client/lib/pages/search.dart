@@ -4,6 +4,7 @@ import '../widgets/listView.dart';
 import '../widgets/appBar.dart';
 import '../bloc/provider.dart';
 import '../API/api.dart';
+import '../model/user_model.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class SearchPage extends StatefulWidget {
@@ -15,10 +16,12 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  Future<List<UserModel>> list;
   double _height = 650;
   @protected
   void initState() {
     super.initState();
+    returnList();
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
         if (visible) {
@@ -29,6 +32,14 @@ class _SearchPageState extends State<SearchPage> {
         print(visible);
       },
     );
+  }
+
+  returnList() {
+    if (list == null) {
+      setState(() {
+        list = fecthUserList();
+      });
+    }
   }
 
   @override
@@ -83,6 +94,6 @@ class _SearchPageState extends State<SearchPage> {
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: ListViewSlackUsers(
-            widget.visitor, fecthUserList(), (_height - 50), context));
+            widget.visitor, list, (_height - 50), context));
   }
 }

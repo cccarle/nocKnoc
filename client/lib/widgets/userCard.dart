@@ -29,15 +29,14 @@ class UserCard extends StatefulWidget {
 
 class _UserCardState extends State<UserCard> {
   Timer timer;
-  int _start = 300000;
+  int _start = 3000;
 
   _handleEvent(BuildContext context, UserModel user) {
     startTimer(context);
   }
 
   void handleCancelDialog(time, BuildContext context, Timer timer) {
-    print(time);
-    if (time == 300000) {
+    if (time == 3000) {
       dialog.getCancelDialog(context, skipTimer, timer).then((onValue) {});
     } else if (time == 300) {
       Navigator.of(context).pop(true);

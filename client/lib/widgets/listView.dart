@@ -39,6 +39,8 @@ class ListViewSlackUsers extends StatelessWidget {
     );
   }
 
+
+
   _createFutureList(Bloc bloc) {
     return StreamBuilder(
       stream: bloc.searchedUserStream,

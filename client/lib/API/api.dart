@@ -9,8 +9,8 @@ import 'package:flutter/foundation.dart';
 final _apiStartpoint = 'https://d2a087b1.ngrok.io/api/employeestest';
 final _apiExitpoint = 'https://d2a087b1.ngrok.io/api/notify';
 
-
 Future<List<UserModel>> fecthUserList() async {
+  print('du är inne');
   http.Response response = await http.get(Uri.encodeFull(_apiStartpoint),
       headers: {"Accept": "application/json"});
 
