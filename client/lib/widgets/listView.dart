@@ -53,7 +53,7 @@ class ListViewSlackUsers extends StatelessWidget {
               case ConnectionState.waiting:
                 return Center(child: CircularProgressIndicator());
               case ConnectionState.active:
-                return Text('loadinf');
+                return Text('loading');
               case ConnectionState.done:
                 if (asyncsnapshot.hasError) {
                   return Text(
@@ -90,12 +90,11 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _slackUserListItem(index, userObject) {
-    Timer timer;
     return Column(children: <Widget>[
       SizedBox(
         height: 10.0,
       ),
-      UserCard(userObject, visitor, context, timer),
+      UserCard(userObject, visitor, context),
     ]);
   }
 }

@@ -4,8 +4,12 @@ import 'dart:async';
 import '../model/user_model.dart';
 import '../bloc/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import './alertIcon.dart';
+import './spinner.dart';
+import 'dart:math';
+import 'dart:ui';
 import '../widgets/dialog_content.dart';
+import './my_painter.dart';
 
 class Dialog {
   get getDialog => _showDialog;
@@ -15,7 +19,7 @@ class Dialog {
     final bloc = Provider.of(context);
     SocketIOManager manager = SocketIOManager();
     final SocketIO socket =
-        await manager.createInstance('https://51b5ed28.ngrok.io');
+        await manager.createInstance('https://d2a087b1.ngrok.io');
     return showDialog(
       barrierDismissible: true,
       context: context,
@@ -82,23 +86,66 @@ class Dialog {
     );
   }
 
-  Future<bool> _cancelDialog(BuildContext context) async {
+  Future<bool> _cancelDialog(BuildContext context, skipTimer, timer) async {
+    _handleOnTapEvent(BuildContext context) {
+      skipTimer();
+      Navigator.of(context).pop(true);
+    }
+    _handleCancelEvent(BuildContext context, timer) {
+      timer.cancel();
+      Navigator.of(context).pop(true);
+    }
+
+    _onTapImage(BuildContext context) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              new Positioned(
+                child: Center(
+                  child: SpinKitRing1(
+                      duration: const Duration(milliseconds: 3000),
+                      color: Theme.of(context).accentColor,
+                      size: 135.0,
+                      lineWidth: 6.0),
+                ),
+              ),
+              new Positioned(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 25.0),
+                  child: Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50.0),
+                      child: GestureDetector(
+                          onTap: () => {_handleOnTapEvent(context)},
+                          child: AlertIcon(size: 80, color: Colors.white)),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: RaisedButton.icon(
+                color: Colors.white,
+                textColor: Colors.black,
+                onPressed: () => { _handleCancelEvent(context, timer)},
+                icon: Icon(
+                  Icons.close,
+                  color: Colors.black,
+                ),
+                label: Text('Avbryt')),
+          ),
+        ],
+      );
+    }
+
     return showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Container(
-                child: Column(
-              children: <Widget>[
-                FlatButton(
-                    child: new Text('Avbryt'),
-                    onPressed: () {
-                      Navigator.of(context).pop(false);
-                    }),
-              ],
-            )),
-          );
-        });
+        builder: (BuildContext context) => _onTapImage(context));
   }
 }
 
