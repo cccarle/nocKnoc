@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import './search.dart';
 import '../widgets/appBar.dart';
-
-
+import '../model/language_model.dart';
 
 class HomePage extends StatelessWidget {
-  final List<String> visitors = [
-    "Leverans",
-    "Besökare",
-    "Affärspatner",
-    "Anställd"
-  ];
+  String a = "Leverans";
+  String b = "Besökare";
+  String c = "Affärspatner";
+  String d = "Anställd";
 
   Widget build(BuildContext context) {
+    final List<String> visitors = [a, b, c, d];
+
+    print(visitors);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: PreferredSize(

@@ -52,7 +52,6 @@ class _UserCardState extends State<UserCard> {
     });
   }
 
-
   void makeRequest() {
     Post newPost = new Post(
         name: widget.user.name,
@@ -82,7 +81,9 @@ class _UserCardState extends State<UserCard> {
 
   @override
   void dispose() {
-    timer.cancel();
+    if (timer != null) {
+      timer.cancel();
+    }
     super.dispose();
   }
 

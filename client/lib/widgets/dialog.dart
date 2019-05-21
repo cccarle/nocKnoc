@@ -21,7 +21,7 @@ class Dialog {
     final SocketIO socket =
         await manager.createInstance('https://d2a087b1.ngrok.io');
     return showDialog(
-      barrierDismissible: true,
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return StreamBuilder(
