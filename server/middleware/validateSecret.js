@@ -32,11 +32,11 @@ const slack = (req, res, next) => {
   }
 }
 const client = (req, res, next) => {
-  console.log('validate')
-  console.log('INNAN STRINGIFY: ', req.headers['client-signature'])
-  let clientHeader = qs.stringify(req.headers['client-signature'])
-  console.log(typeof clientHeader)
-  hash = crypto.createHmac('sha256', process.env.client_signature).digest('hex')
+  // console.log('validate')
+  // console.log('INNAN STRINGIFY: ', req.headers['client-signature'])
+  let clientHeader = req.headers['client-signature']
+  let signature = process.env.client_signature
+  let hash = crypto.createHmac('sha256', signature).update('foobar').digest('hex')
   if(hash === clientHeader) {
     console.log('DA MATCH:', hash, clientHeader)
     next()

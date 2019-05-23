@@ -33,6 +33,7 @@ server.get('/employee/:id', async (req, res) => {
 server.get('/employeestest', validate.client, (req, res) => {
   let users = testUsers
   res.status(200).json(users)
+
 })
 
 server.get('/teams', async (req, res) => {
@@ -45,7 +46,7 @@ server.get('/teams', async (req, res) => {
   }
 })
 
-server.post('/notify', async (req, res) => {
+server.post('/notify', validate.client, async (req, res) => {
   try {
     if (req.body.channelId && req.body.visitor && req.body.name) {
       let result = await messageController.sendAccept(
@@ -53,6 +54,9 @@ server.post('/notify', async (req, res) => {
         req.body.name,
         req.body.channelId
       )
+      res.status(200).json(result)
+    } else if (!req.body.channelId && req.body.visitor && !req.body.name) {
+      let result = await messageController.sendToFallback(req.body.visitor)
       res.status(200).json(result)
     } else {
       res.status(400).send('Bad Format')
@@ -64,7 +68,7 @@ server.post('/notify', async (req, res) => {
 })
 
 server.post('/notifyall', async (req, res) => {
-  
+   
  })
 
 server.post('/deviceinfo', async (req, res) => {
@@ -101,7 +105,7 @@ server.post('/payload', validate.slack, async (req, res, next) => {
     // Accept-svar från anställd när någon söks hamnar här
     } else if (parsed.message.text !== "settings") {
       let result = await messageController.answerHandler(parsed)
-      console.log('User som acceptat:', parsed.user.id)
+      console.log('User som acceptat:', result)
       req.io.emit('answer', result)
       console.log('emit ska skickats')
       res.status(200)
