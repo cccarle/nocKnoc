@@ -1,0 +1,17 @@
+
+{
+  "type": "section",
+  "text": {
+    "type": "mrkdwn",
+    "text": "Choose fallback channel: "
+  },
+  "accessory": {
+    "type": "static_select",
+    "placeholder": {
+      "type": "plain_text",
+      "text": "Select a channel",
+      "emoji": true
+    },
+    "options": []
+  }
+  }

@@ -2,10 +2,10 @@ var Slack = require('slack')
 require('dotenv').config()
 let {acceptDeclineMessage} = require('../../resources/blocks.js')
 
-// const botToken = process.env.Bot_User_OAuth_Access_Token
-// const userToken = process.env.User_OAuth_Access_Token
-const botToken = process.env.Bot_Meridium_OAuth_Access_Token
-const userToken = process.env.User_Meridium_OAuth_Access_Token
+const botToken = process.env.Bot_User_OAuth_Access_Token
+const userToken = process.env.User_OAuth_Access_Token
+// const botToken = process.env.Bot_Meridium_OAuth_Access_Token
+// const userToken = process.env.User_Meridium_OAuth_Access_Token
 
 let bot = new Slack({botToken})
 let user = new Slack({userToken})
@@ -34,21 +34,26 @@ module.exports = {
   sendMessageToChannel: (channel, message) => {
     return bot.chat.postMessage({token: botToken, channel: channel, text: message})
   },
-  sendFormToChannel: (channel, text) => {
-    let blocks = acceptDeclineMessage(text)
-    return bot.chat.postMessage({token: botToken, channel, text, blocks})
+  sendFormToChannel: (channel, blocks, text = '') => {
+    return bot.chat.postMessage({token: botToken, channel, text , blocks})
   },
   botInfo: () => {
     return bot.bots.info({token: botToken})
   },
 
   sendTeamsToChannel: (channel, blocks) => {
-    console.log(blocks)
-    return bot.chat.postMessage({token: botToken, channel: 'CHK464ERK', text: 'teamsetting', blocks: JSON.stringify(blocks)})
+    console.log(channel)
+    return bot.chat.postMessage({token: botToken, channel: channel, text: 'settings', blocks: JSON.stringify(blocks)})
   },
 
-  updateMessage: (channel, name, ts) => {
-    let text = `${name} är på väg att öppna.`
-    return bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks: []})
+  updateMessage: (channel, text, ts, blocks = []) => {
+    return bot.chat.update({token: botToken, channel, text, ts, as_user: true, blocks})
+  },
+  deleteMessage: (channel, ts) => {
+    return bot.chat.delete({token: botToken, channel, ts})
+  },
+  updateSettingsMessage: (channel, ts, blocks) => {
+    console.log(channel)
+    return bot.chat.update({token: botToken, channel: channel, text: "settings", ts, as_user: true, blocks})
   }
 }

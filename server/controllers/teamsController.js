@@ -1,21 +1,9 @@
-const api = require('../utils/slack/api')
-const settings = require('../resources/settings.json')
-const apiWithCache = require('../utils/apiWithCache')
-
-const getAll = async () => {
-  let result = await apiWithCache.getAllTeams()
-  let teams = result.usergroups.map(({ id, name, handle, prefs }) => ({
-    id,
-    name,
-    handle,
-    channels: prefs.channels
-  })
-    )
-  return teams
-}
+const apiWithCache = require('../utils/slack/apiWithCache')
+const settingsObject = require('../utils/readSettingsFile')
+const workspace = require('../utils/workspace')
 
 const getWhiteListedTeams = async () => {
-  let teams = await getAll()
+  let teams = await workspace.getTeams()
   return extractWhitelistedTeams(teams)
 }
 const getWhiteListedTeamsAndUsers = async () => {
@@ -33,11 +21,13 @@ const addUsersToTeams = (teams) => {
   return teams
 }
 
-const extractWhitelistedTeams = (teams) => {
+const extractWhitelistedTeams = async (teams) => {
+  let settings = await settingsObject.readFile()
   return teams.filter((team) => !settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
 }
 
-const extractBlacklistedTeams = (teams) => {
+const extractBlacklistedTeams = async (teams) => {
+  let settings = await settingsObject.readFile()
   return teams.filter((team) => settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
 }
 
@@ -46,7 +36,6 @@ const extractChannelsFromTeamArray = (teamArray) => {
 }
 
 module.exports = {
-  getAll,
   getWhiteListedTeams,
   getWhiteListedTeamsAndUsers,
   extractChannelsFromTeamArray,

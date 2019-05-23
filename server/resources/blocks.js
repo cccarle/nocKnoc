@@ -1,4 +1,4 @@
-exports.acceptDeclineMessage = (message) => {
+exports.acceptDeclineMessage = (message, value = 'true', channel = 'true') => {
   let arr = [
     {
       type: 'section',
@@ -17,7 +17,7 @@ exports.acceptDeclineMessage = (message) => {
             type: 'plain_text',
             text: 'Accept'
           },
-          value: 'true'
+        value: `${value} ${channel}`
         },
       ]
     }

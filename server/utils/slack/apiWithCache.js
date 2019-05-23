@@ -1,12 +1,13 @@
-const api = require('./slack/api')
+const api = require('./api')
+const saveTimeInMinutes = 30
 
-const saveTimeInMinutes = 10
-let aTimestamp = 1557754195439
 
 let userCache = {
   timestamp: 0,
   data: []
 }
+
+// USERS
 
 const getAllUsers = () => {
   if (isTimeUp(userCache.timestamp) || userCache.data.length <= 0) {

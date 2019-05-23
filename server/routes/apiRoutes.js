@@ -1,14 +1,12 @@
 const server = require('express').Router()
 const employeesController = require('../controllers/employeesController')
-const channelsController = require('../controllers/channelsController')
+const messageController = require('../controllers/messageController')
 const teamsController = require('../controllers/teamsController')
-const deviceInfoController = require('../controllers/deviceInfoController')
 const slack = require('../utils/slack/api')
 const errorHandling = require('../utils/errorHandling')
-// const testUsers = require('../resources/testUsers')
-const answerController = require('../controllers/answerController.js')
+const testUsers = require('../resources/testUsers')
 const validate = require('../middleware/validateSecret')
-const teamSettingsController = require('../controllers/teamSettingsController')
+const settingsController = require('../controllers/settingsController')
 require('dotenv').config()
 
 server.get("/employees", async (req, res) => {
@@ -25,7 +23,6 @@ server.get('/employee/:id', async (req, res) => {
   try {
     let id = req.params.id
     let result = await employeesController.getEmployeeById(id)
-    console.log(result)
     res.status(200).json(result)
   } catch (e) {
     let handledError = errorHandling(e)
@@ -33,30 +30,17 @@ server.get('/employee/:id', async (req, res) => {
   }
 })
 
-server.get('/channels', async (req, res) => {
-  try {
-    let result = await channelsController.getAll()
-    console.log(result)
-    res.status(200).json(result)
-  } catch (e) {
-    let handledError = errorHandling(e)
-    res.status(handledError.code).json(handledError.message)
-  }
+server.get('/employeestest', validate.client, (req, res) => {
+  let users = testUsers
+  res.status(200).json(users)
 })
-
-// server.get('/employeestest', (req, res) => {
-//   let users = testUsers
-//   res.status(200).json(users)
-// })
 
 server.get('/teams', async (req, res) => {
   try {
     let teams = await teamsController.getWhiteListedTeams()
-    console.log(teams)
     res.status(200).json(teams)
   } catch (e) {
     let handledError = errorHandling(e)
-    console.log(e)
     res.status(handledError.code).json(handledError.message)
   }
 })
@@ -64,18 +48,16 @@ server.get('/teams', async (req, res) => {
 server.post('/notify', async (req, res) => {
   try {
     if (req.body.channelId && req.body.visitor && req.body.name) {
-      let result = await channelsController.sendAcceptDecline(
+      let result = await messageController.sendAccept(
         req.body.visitor,
         req.body.name,
         req.body.channelId
       )
-      console.log(result)
       res.status(200).json(result)
     } else {
-      res.status(400).send('Missing Data')
+      res.status(400).send('Bad Format')
     }
   } catch (e) {
-    console.log(e)
     let handledError = errorHandling(e)
     res.status(handledError.code).json(handledError.message)
   }
@@ -83,8 +65,12 @@ server.post('/notify', async (req, res) => {
 
 server.post('/deviceinfo', async (req, res) => {
   try {
-    let result = await deviceInfoController.sendDeviceMessage(req.body.message)
+    if (req.body.message) {
+    let result = await messageController.sendDeviceMessage(req.body.message)
     res.status(200).json({ result: result })
+  } else {
+    res.status(400).send('Bad Format')
+  }
   } catch (e) {
     let handledError = errorHandling(e)
     res.status(handledError.code).json(handledError.message)
@@ -101,24 +87,22 @@ server.get('/botinfo', async (req, res) => {
   }
 })
 
-server.post('/payload', validate, async (req, res, next) => {
+server.post('/payload', validate.slack, async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
-    //Ändringar av teamsettings hamnar här
-    if (parsed.message.text === "teamsetting") {
-      let result = await teamSettingsController.teamSettingsHandler(parsed)
-      console.log("TEAM SETTING")
-      console.log(block.text.text)
+    //Ändringar av settings hamnar här
+    if (parsed.message.text === "settings") {
+      let result = await settingsController.settingsHandler(parsed)
       res.status(200)
     // Accept-svar från anställd när någon söks hamnar här
-    } else if (parsed.actions[0].value === "true" && parsed.message.text !== "teamsetting") {
-      let result = await answerController.answerHandler(parsed)
-      req.io.emit('answer', 'sho')
+    } else if (parsed.message.text !== "settings") {
+      let result = await messageController.answerHandler(parsed)
+      console.log('User som acceptat:', parsed.user.id)
+      req.io.emit('answer', result)
       console.log('emit ska skickats')
       res.status(200)
     } else {
-      console.log(req.body)
-      res.status(200)
+      res.status(400).send('Bad Format')
     }
   } catch (e) {
     let handledError = errorHandling(e)
@@ -128,12 +112,12 @@ server.post('/payload', validate, async (req, res, next) => {
 
 server.post('/teamshandler', async (req, res, next) => {
   try {
-    console.log(req.body)
-    let answer = await teamSettingsController.sendSelectionBlock(req.body)
-    res.status(200)
+    let answer = await settingsController.sendSelectionBlock(req.body)
+    console.log(req.body.channel_id, 'I routes')
+    res.status(200).json()
 
   } catch (e) {
-    console.log(e)
+    res.status(500)
   }
 })
 
