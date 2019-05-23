@@ -21,9 +21,9 @@ module.exports = {
     return setTemporaryMessage(channel, text, ts)
   },
     sendDeviceMessage: async message => {
-    try {
-      let settings = await settingsFile.readFile()
-      let channel = settings.settings.deviceInfo.channel
+      let resource = await settingsFile.readFile()
+      console.log(resource.deviceInfo.channel)
+      let channel = resource.deviceInfo.channel
       let tags = '' //Måste vara tom sträng från början
       resource.deviceInfo.tags.forEach(element => {
         tags += element + ' '
@@ -32,9 +32,6 @@ module.exports = {
       let string = message + tags
       let result = await api.sendMessageToChannel(channel, string)
       return result
-    } catch (err) {
-      return err.message
-    }
   }
 }
 
