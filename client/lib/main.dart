@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import './pages/home.dart';
 import './bloc/provider.dart';
 import 'package:crypto/crypto.dart';
-import './env/config.dart';
+import 'env/config.dart';
 
 // void main() async {
 //   runApp(Main());
 // }
-import 'env/config.dart';
 import './env/dev.dart';
 
 void main() => runApp(

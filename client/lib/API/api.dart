@@ -6,12 +6,19 @@ import '../model/post_model.dart';
 
 import 'package:flutter/foundation.dart';
 
-final _apiStartpoint = 'https://1011783c.ngrok.io/api/employeestest';
-final _apiExitpoint = 'https://1011783c.ngrok.io/api/notify';
+import '../model/encryption.dart';
 
-Future<List<UserModel>> fecthUserList() async {
-  http.Response response = await http.get(Uri.encodeFull(_apiStartpoint),
-      headers: {"Accept": "application/json"});
+final _apiStartpoint = 'https://7e9bd39b.ngrok.io/api/employeestest';
+final _apiExitpoint = 'https://7e9bd39b.ngrok.io/api/notify';
+
+Future<List<UserModel>> fecthUserList(key) async {
+  var keys = encryption.encrypt(key);
+  print(keys);
+  http.Response response =
+      await http.get(Uri.encodeFull(_apiStartpoint), headers: {
+    "Accept": "application/json",
+    "client-signature": keys.toString()
+  });
 
   if (response.statusCode != 200) {
     throw Exception('error getting users');

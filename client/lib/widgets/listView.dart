@@ -17,7 +17,6 @@ class ListViewSlackUsers extends StatelessWidget {
   final Future<List<UserModel>> list;
   final double number;
   final BuildContext context;
-
   ListViewSlackUsers(this.visitor, this.list, this.number, this.context);
 
   @override

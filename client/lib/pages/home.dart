@@ -9,10 +9,9 @@ class HomePage extends StatelessWidget {
   String b = "Besökare";
   String c = "Affärspatner";
   String d = "Anställd";
-
   Widget build(BuildContext context) {
-    var api = ConfigWrapper.of(context).apiKey;
-    print(api);
+   var apiKey = ConfigWrapper.of(context).apiKey;
+
     final List<String> visitors = [a, b, c, d];
 
     return Scaffold(
@@ -25,7 +24,7 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _headLineText(),
-          _buildOptionsList(context, visitors)
+          _buildOptionsList(context, visitors, apiKey)
         ],
       ),
     );
@@ -55,7 +54,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildOptionsList(context, visitors) {
+  Widget _buildOptionsList(context, visitors, apiKey) {
     return Expanded(
       child: GridView.count(
         primary: true,
@@ -64,7 +63,7 @@ class HomePage extends StatelessWidget {
         children: List.generate(
           visitors.length,
           (index) {
-            return _buildOptionItem(context, index, visitors);
+            return _buildOptionItem(context, index, visitors, apiKey);
           },
         ),
       ),
@@ -72,7 +71,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Widget _buildOptionItem(context, index, visitors) {
+Widget _buildOptionItem(context, index, visitors, apiKey) {
   return Padding(
     padding: EdgeInsets.all(25.0),
     child: GestureDetector(
@@ -80,7 +79,8 @@ Widget _buildOptionItem(context, index, visitors) {
             Navigator.push(
               context,
               MaterialPageRoute<bool>(
-                builder: (BuildContext context) => SearchPage(visitors[index]),
+                builder: (BuildContext context) =>
+                    SearchPage(visitor: visitors[index], apiKey: apiKey),
               ),
             ),
           },
