@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import './search.dart';
 import '../widgets/appBar.dart';
-
-
+import '../model/language_model.dart';
 
 class HomePage extends StatelessWidget {
-  final List<String> visitors = [
-    "Leverans",
-    "Besökare",
-    "Affärspatner",
-    "Anställd"
-  ];
+  String a = "Leverans";
+  String b = "Besökare";
+  String c = "Affärspatner";
+  String d = "Anställd";
 
   Widget build(BuildContext context) {
+    final List<String> visitors = [a, b, c, d];
+
+    print(visitors);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: PreferredSize(
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: 80.0, top: 25.0),
+          padding: EdgeInsets.only(bottom: 40.0, top: 25.0),
           child: Text(
             'Vem är du?',
             style: TextStyle(fontSize: 70.0, color: Colors.white),
@@ -58,7 +58,6 @@ class HomePage extends StatelessWidget {
       child: GridView.count(
         primary: true,
         crossAxisCount: 2,
-        padding: EdgeInsets.only(top: 20.0),
         childAspectRatio: 12.0 / 9.0,
         children: List.generate(
           visitors.length,
@@ -86,7 +85,7 @@ Widget _buildOptionItem(context, index, visitors) {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(20.0),
         ),
         child: Center(
           child: Text(

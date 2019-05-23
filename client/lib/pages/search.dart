@@ -4,18 +4,50 @@ import '../widgets/listView.dart';
 import '../widgets/appBar.dart';
 import '../bloc/provider.dart';
 import '../API/api.dart';
+import '../model/user_model.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   final String visitor;
 
   SearchPage(this.visitor);
 
+  _SearchPageState createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  Future<List<UserModel>> list;
+  double _height = 650;
+  @protected
+  void initState() {
+    super.initState();
+    returnList();
+    KeyboardVisibilityNotification().addNewListener(
+      onChange: (bool visible) {
+        if (visible) {
+          _height = 300;
+        } else {
+          _height = 650;
+        }
+        print(visible);
+      },
+    );
+  }
+
+  returnList() {
+    if (list == null) {
+      setState(() {
+        list = fecthUserList();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // final Future<List<UserModel>> list = ;
-    
     final bloc = Provider.of(context);
     return Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: Theme.of(context).primaryColor,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.0),
@@ -29,7 +61,7 @@ class SearchPage extends StatelessWidget {
               children: <Widget>[
                 _headlineText(),
                 _searchInput(),
-                SizedBox(height: 30),
+                SizedBox(height: 25),
                 _listViewSlackUsers(context, bloc),
               ],
             ),
@@ -40,7 +72,7 @@ class SearchPage extends StatelessWidget {
   Widget _headlineText() {
     return Center(
       child: Text(
-        'Vem söker du ?',
+        'Vem söker du?',
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 80.0, color: Colors.white),
       ),
@@ -54,13 +86,14 @@ class SearchPage extends StatelessWidget {
     );
   }
 
-  Widget _listViewSlackUsers(context, bloc) {
+  Widget _listViewSlackUsers(BuildContext context, bloc) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: ListViewSlackUsers(visitor,  fecthUserList()),
-    );
+        height: _height,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: ListViewSlackUsers(
+            widget.visitor, list, (_height - 50), context));
   }
 }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../bloc/bloc.dart';
 import '../bloc/provider.dart';
-import 'package:flutter/foundation.dart';
-import 'dart:io';
+
 // Widgets
 import '../API/api.dart';
+
+import 'dart:async';
 
 //Api
 import '../widgets/userCard.dart';
@@ -14,13 +15,14 @@ import '../model/user_model.dart';
 class ListViewSlackUsers extends StatelessWidget {
   final String visitor;
   final Future<List<UserModel>> list;
+  final double number;
+  final BuildContext context;
 
-  ListViewSlackUsers(this.visitor, this.list);
+  ListViewSlackUsers(this.visitor, this.list, this.number, this.context);
 
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
-
     return Container(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -28,7 +30,7 @@ class ListViewSlackUsers extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              height: 600,
+              height: number,
               child: _createFutureList(bloc),
             ),
           ],
@@ -36,6 +38,8 @@ class ListViewSlackUsers extends StatelessWidget {
       ),
     );
   }
+
+
 
   _createFutureList(Bloc bloc) {
     return StreamBuilder(
@@ -51,7 +55,7 @@ class ListViewSlackUsers extends StatelessWidget {
               case ConnectionState.waiting:
                 return Center(child: CircularProgressIndicator());
               case ConnectionState.active:
-                return Text('loadinf');
+                return Text('loading');
               case ConnectionState.done:
                 if (asyncsnapshot.hasError) {
                   return Text(
@@ -70,8 +74,8 @@ class ListViewSlackUsers extends StatelessWidget {
 
   _buildList(asyncsnapshot, snapshot) {
     return ListView.builder(
-      scrollDirection: Axis.vertical,
       shrinkWrap: true,
+      scrollDirection: Axis.vertical,
       itemCount: asyncsnapshot.length,
       itemBuilder: (BuildContext context, int index) {
         return _selectList(index, snapshot, asyncsnapshot);
@@ -88,13 +92,11 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _slackUserListItem(index, userObject) {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 10.0,
-        ),
-        UserCard(userObject, visitor)
-      ],
-    );
+    return Column(children: <Widget>[
+      SizedBox(
+        height: 10.0,
+      ),
+      UserCard(userObject, visitor, context),
+    ]);
   }
 }

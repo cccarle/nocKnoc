@@ -6,11 +6,12 @@ import '../model/post_model.dart';
 
 import 'package:flutter/foundation.dart';
 
-final _apiEndpoint = 'https://f86e4075.ngrok.io/api/employees';
-final _apiExitpoint = 'https://f86e4075.ngrok.io/api/notify';
+final _apiStartpoint = 'https://d2a087b1.ngrok.io/api/employeestest';
+final _apiExitpoint = 'https://d2a087b1.ngrok.io/api/notify';
 
 Future<List<UserModel>> fecthUserList() async {
-  http.Response response = await http.get(Uri.encodeFull(_apiEndpoint),
+  print('du är inne');
+  http.Response response = await http.get(Uri.encodeFull(_apiStartpoint),
       headers: {"Accept": "application/json"});
 
   if (response.statusCode != 200) {

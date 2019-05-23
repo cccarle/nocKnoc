@@ -1,65 +1,4 @@
-// import 'package:flutter/material.dart';
-
-// //Widgets
-// import './alertIcon.dart';
-// import './slackUserImage.dart';
-// import './slackUsername.dart';
-
-// //Api
-// import '../API/api.dart';
-
-// //Model
-// import '../model/post_model.dart';
-// // import '../widgets/contact_modal.dart';
-
-// //Statemanagement
-// import '../model/user_model.dart';
-// import '../widgets/dialog.dart';
-// import 'package:adhara_socket_io/adhara_socket_io.dart';
-
-// import '../widgets/dialog_content.dart';
-// import '../widgets/dialog.dart';
-
-// class UserCard extends StatelessWidget {
-//   final UserModel user;
-//   final String visitor;
-
-//   UserCard(this.user, this.visitor);
-
-//   _handleEvent(BuildContext context, UserModel user) async {
-//     final String name = user.name;
-//     final String channelId = user.channels;
-//     Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
-
-//     createPost(body: newPost.toMap());
-//     SocketIOManager manager = SocketIOManager();
-//     SocketIO socket = await manager.createInstance('https://3298db41.ngrok.io');
-
-    
-//     dialog.getDialog(context, user).then((onValue) {
-//       print(onValue);
-//     });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//         return Container(
-//       child: GestureDetector(
-//         onTap: () => _handleEvent(context, user),
-//         child: Row(
-//           children: <Widget>[
-//             SlackUserImage(user.image),
-//             SlackUsername(user.name),
-//             AlertIcon()
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//   }
-
-
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 //Widgets
 import './alertIcon.dart';
@@ -76,40 +15,87 @@ import '../model/post_model.dart';
 //Statemanagement
 import '../model/user_model.dart';
 import '../widgets/dialog.dart';
-import '../sockets/connectSocket.dart';
 
-class UserCard extends StatelessWidget {
+import 'dart:async';
+
+class UserCard extends StatefulWidget {
   final UserModel user;
   final String visitor;
+  final BuildContext context;
 
-  UserCard(this.user, this.visitor);
+  UserCard(this.user, this.visitor, this.context);
+  _UserCardState createState() => _UserCardState();
+}
+
+class _UserCardState extends State<UserCard> {
+  Timer timer;
+  int _start = 3000;
 
   _handleEvent(BuildContext context, UserModel user) {
-    final String name = user.name;
-    final String channelId = user.channels;
-    // Post newPost = new Post(name: name, visitor: visitor, channelId: channelId);
+    startTimer(context);
+  }
 
-    // createPost(body: newPost.toMap());
+  void handleCancelDialog(time, BuildContext context, Timer timer) {
+    if (time == 3000) {
+      dialog
+          .getCancelDialog(context, makeRequest, timer, setTimer)
+          .then((onValue) {});
+    } else if (time == 300) {
+      makeRequest();
+      Navigator.of(context).pop(true);
+    }
+  }
 
-
-    dialog.getDialog(context, user).then((onValue) {
-      print(onValue);
+  void setTimer(value) {
+    setState(() {
+      _start = value;
     });
+  }
 
-    // socket.listenOnSocket();
+  void makeRequest() {
+    Post newPost = new Post(
+        name: widget.user.name,
+        visitor: widget.visitor,
+        channelId: widget.user.channels);
+
+    createPost(body: newPost.toMap());
+  }
+
+  void startTimer(BuildContext context) {
+    const oneSec = const Duration(milliseconds: 100);
+    timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+            () {
+              if (_start < 100) {
+                dialog.getDialog(context, widget.user).then((onValue) {});
+                timer.cancel();
+              } else {
+                handleCancelDialog(_start, context, timer);
+                _start = _start - 100;
+              }
+            },
+          ),
+    );
   }
 
   @override
+  void dispose() {
+    if (timer != null) {
+      timer.cancel();
+    }
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
-
-        onTap: () => _handleEvent(context, user),
+        onTap: () => _handleEvent(widget.context, widget.user),
         child: Row(
           children: <Widget>[
-            SlackUserImage(user.image),
-            SlackUsername(user.name),
-            AlertIcon()
+            SlackUserImage(widget.user.image),
+            SlackUsername(widget.user.name),
+            AlertIcon(size: 30.0, color: Colors.black)
           ],
         ),
       ),
