@@ -63,11 +63,15 @@ server.post('/notify', async (req, res) => {
   }
 })
 
+server.post('/notifyall', async (req, res) => {
+  
+ })
+
 server.post('/deviceinfo', async (req, res) => {
   try {
     if (req.body.message) {
     let result = await messageController.sendDeviceMessage(req.body.message)
-    res.status(200).json({ result: result })
+    res.status(200).json(result)
   } else {
     res.status(400).send('Bad Format')
   }

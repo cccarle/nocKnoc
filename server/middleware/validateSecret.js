@@ -35,9 +35,11 @@ const client = (req, res, next) => {
   let clientHeader = req.headers['client-signature']
   hash = crypto.createHmac('sha256', process.env.client_signature).digest('hex')
   if(hash === clientHeader) {
-    console.log('da match', hash, clientHeader)
+    console.log('DA MATCH:', hash, clientHeader)
+    next()
   } else {
     console.log('DA FAIL: ', hash, clientHeader)
+    res.status(403).send('No way, José!')
   }
 
 }
