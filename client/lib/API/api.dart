@@ -10,7 +10,6 @@ final _apiStartpoint = 'https://1011783c.ngrok.io/api/employeestest';
 final _apiExitpoint = 'https://1011783c.ngrok.io/api/notify';
 
 Future<List<UserModel>> fecthUserList() async {
-  print('du är inne');
   http.Response response = await http.get(Uri.encodeFull(_apiStartpoint),
       headers: {"Accept": "application/json"});
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './search.dart';
 import '../widgets/appBar.dart';
 import '../model/language_model.dart';
+import '../env/config.dart';
 
 class HomePage extends StatelessWidget {
   String a = "Leverans";
@@ -10,6 +11,8 @@ class HomePage extends StatelessWidget {
   String d = "Anställd";
 
   Widget build(BuildContext context) {
+    var api = ConfigWrapper.of(context).apiKey;
+    print(api);
     final List<String> visitors = [a, b, c, d];
 
     return Scaffold(

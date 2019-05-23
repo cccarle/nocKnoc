@@ -2,22 +2,16 @@ import 'package:flutter/material.dart';
 import './pages/home.dart';
 import './bloc/provider.dart';
 import 'package:crypto/crypto.dart';
-import 'dart:convert'; // for the utf8.encode method
-import 'dart:io' show Platform;
-import 'package:dotenv/dotenv.dart';
+import './env/config.dart';
 
-void main() async {
-  runApp(Main());
+// void main() async {
+//   runApp(Main());
+// }
+import 'env/config.dart';
+import './env/dev.dart';
 
-  String envVars = Platform.environment['secret'];
-  print(envVars);
-  var bytes = utf8.encode("foobar"); // data being hashed
-
-  var digest = sha1.convert(bytes);
-
-  print("Digest as bytes: ${digest.bytes}");
-  print("Digest as hex string: $digest");
-}
+void main() => runApp(
+    new ConfigWrapper(config: Config.fromJson(config), child: new Main()));
 
 class Main extends StatelessWidget {
   final meridiumBlue = const Color(0xFF09384E);
@@ -25,6 +19,8 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var config = ConfigWrapper.of(context).apiKey;
+    print(config);
     return Provider(
       child: MaterialApp(
         theme: ThemeData(
