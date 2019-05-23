@@ -55,7 +55,7 @@ server.post('/notify', async (req, res) => {
       )
       res.status(200).json(result)
     } else {
-      res.status(400).send('Missing Data')
+      res.status(400).send('Bad Format')
     }
   } catch (e) {
     let handledError = errorHandling(e)
@@ -65,8 +65,12 @@ server.post('/notify', async (req, res) => {
 
 server.post('/deviceinfo', async (req, res) => {
   try {
+    if (req.body.message) {
     let result = await messageController.sendDeviceMessage(req.body.message)
     res.status(200).json({ result: result })
+  } else {
+    res.status(400).send('Bad Format')
+  }
   } catch (e) {
     let handledError = errorHandling(e)
     res.status(handledError.code).json(handledError.message)
@@ -98,7 +102,7 @@ server.post('/payload', validate, async (req, res, next) => {
       console.log('emit ska skickats')
       res.status(200)
     } else {
-      res.status(200)
+      res.status(400).send('Bad Format')
     }
   } catch (e) {
     let handledError = errorHandling(e)

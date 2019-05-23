@@ -2,7 +2,8 @@ require('dotenv').config()
 const crypto = require('crypto')
 const qs = require('qs')
 
-module.exports = (req, res, next) => {
+
+const slack = (req, res, next) => {
   if (req.body) {
     let requestBody = qs.stringify(req.body, { format: 'RFC1738' })
     let timeStamp = req.headers['x-slack-request-timestamp']
@@ -29,4 +30,19 @@ module.exports = (req, res, next) => {
     }
 
   }
+}
+const client = (req, res, next) => {
+  let clientHeader = req.headers['client-signature']
+  hash = crypto.createHmac('sha256', process.env.client_signature).digest('hex')
+  if(hash === clientHeader) {
+    console.log('da match', hash, clientHeader)
+  } else {
+    console.log('DA FAIL: ', hash, clientHeader)
+  }
+
+}
+
+module.exports = {
+  slack,
+  client
 }
