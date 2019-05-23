@@ -47,7 +47,7 @@ const setFallbackTimeout = async (firstTimestamp, channelId, visitor, name) => {
     let fallbackChannel = await api.getChannelById(fallbackChannelId)
     let message = `Förfrågan har gått ut till kanal "${fallbackChannel.channel.name}"`
     setTemporaryMessage(channelId, message, firstTimestamp)
-  }, 5000)
+  }, timeToFallback)
 }
 
 const setTemporaryMessage = async (channelId, message, timestamp = null) => {

@@ -30,7 +30,7 @@ server.get('/employee/:id', async (req, res) => {
   }
 })
 
-server.get('/employeestest', (req, res) => {
+server.get('/employeestest', validate.client, (req, res) => {
   let users = testUsers
   res.status(200).json(users)
 })
@@ -87,7 +87,7 @@ server.get('/botinfo', async (req, res) => {
   }
 })
 
-server.post('/payload', validate, async (req, res, next) => {
+server.post('/payload', validate.slack, async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
     //Ändringar av settings hamnar här
