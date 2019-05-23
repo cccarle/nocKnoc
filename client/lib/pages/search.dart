@@ -5,6 +5,7 @@ import '../widgets/appBar.dart';
 import '../bloc/provider.dart';
 import '../API/api.dart';
 import '../model/user_model.dart';
+import '../widgets/alternative_contact.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class SearchPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   Future<List<UserModel>> list;
-  double _height = 650;
+  double _height = 630;
   @protected
   void initState() {
     super.initState();
@@ -25,11 +26,10 @@ class _SearchPageState extends State<SearchPage> {
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
         if (visible) {
-          _height = 300;
+          _height = 290;
         } else {
-          _height = 650;
+          _height = 610;
         }
-        print(visible);
       },
     );
   }
@@ -63,6 +63,7 @@ class _SearchPageState extends State<SearchPage> {
                 _searchInput(),
                 SizedBox(height: 25),
                 _listViewSlackUsers(context, bloc),
+                AlternativeContact()
               ],
             ),
           ),

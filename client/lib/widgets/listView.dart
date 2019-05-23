@@ -39,8 +39,6 @@ class ListViewSlackUsers extends StatelessWidget {
     );
   }
 
-
-
   _createFutureList(Bloc bloc) {
     return StreamBuilder(
       stream: bloc.searchedUserStream,
@@ -84,7 +82,7 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _selectList(index, filter, userObject) {
-    return filter == null
+    return filter == null || filter == ""
         ? _slackUserListItem(index, userObject[index])
         : userObject[index].name.toLowerCase().contains(filter.toLowerCase())
             ? _slackUserListItem(index, userObject[index])

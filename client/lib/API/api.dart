@@ -6,8 +6,8 @@ import '../model/post_model.dart';
 
 import 'package:flutter/foundation.dart';
 
-final _apiStartpoint = 'https://d2a087b1.ngrok.io/api/employeestest';
-final _apiExitpoint = 'https://d2a087b1.ngrok.io/api/notify';
+final _apiStartpoint = 'https://1011783c.ngrok.io/api/employeestest';
+final _apiExitpoint = 'https://1011783c.ngrok.io/api/notify';
 
 Future<List<UserModel>> fecthUserList() async {
   print('du är inne');

@@ -19,7 +19,7 @@ class Dialog {
     final bloc = Provider.of(context);
     SocketIOManager manager = SocketIOManager();
     final SocketIO socket =
-        await manager.createInstance('https://d2a087b1.ngrok.io');
+        await manager.createInstance('https://1011783c.ngrok.io');
     return showDialog(
       barrierDismissible: false,
       context: context,
