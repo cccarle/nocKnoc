@@ -37,5 +37,5 @@ Starta servern med kommandot “node index” stående i serverns rot
  "apiKey": <Samma key som client_signature på servern>
 ```
 * När detta är gjort skriv följande kommando i klientens rot:
-* ```Flutter packages pub run build_runner build --delete-conflicting-outputs”```
+* ```Flutter packages pub run build_runner build --delete-conflicting-outputs```
 * Starta programmet med debugger på vald IDE
