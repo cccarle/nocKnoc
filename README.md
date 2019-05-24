@@ -27,7 +27,7 @@ Starta servern med kommandot “node index” stående i serverns rot
 ### Tillvägagångssätt
 
 * Installera Android studio
-* (Installera)[https://github.com/cccarle/nocKnoc/wiki/Flutter-Installation] Flutter
+* [Installera](https://github.com/cccarle/nocKnoc/wiki/Flutter-Installation) Flutter
 * Skapa en Android/IOS emulator via Android studio
 * Ladda ner repotsitoriet
 * Skapa fil “dev.json” i “env” mappen, i denna i filen behövs följande
