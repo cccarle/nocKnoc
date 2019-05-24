@@ -55,6 +55,7 @@ class ListViewSlackUsers extends StatelessWidget {
                 return Text('loading');
               case ConnectionState.done:
                 if (asyncsnapshot.hasError) {
+                  // Navigator.pushReplacementNamed(context, '/error');
                   return Text(
                     '${asyncsnapshot.error}',
                     style: TextStyle(color: Colors.red),

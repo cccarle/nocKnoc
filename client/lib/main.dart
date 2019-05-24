@@ -3,7 +3,7 @@ import './pages/home.dart';
 import './bloc/provider.dart';
 import 'package:crypto/crypto.dart';
 import 'env/config.dart';
-
+import './pages/error_page.dart';
 // void main() async {
 //   runApp(Main());
 // }
@@ -28,6 +28,9 @@ class Main extends StatelessWidget {
             primaryColor: meridiumBlue,
             accentColor: meridiumRed),
         home: HomePage(),
+        routes: {
+          '/error': (BuildContext context) =>  ErrorPage()
+        },
       ),
     );
   }

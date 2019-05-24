@@ -36,11 +36,10 @@ class _DialogContentState extends State<DialogContent> {
 
   void _listenOnSocket() {
     widget.socket.on('answer', (data) {
+      print(data);
       var _list = data.values.toList();
       this.setState(() => {_message = _list[3]});
       Future.delayed(const Duration(milliseconds: 6000), () {
-// Here you can write your code
-
         Navigator.of(widget.context).popUntil((route) => route.isFirst);
       });
     });

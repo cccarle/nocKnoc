@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import '../API/api.dart';
+import '../env/config.dart';
+import '../model/post_model.dart';
 
 class AlternativeContact extends StatelessWidget {
+  String visitor;
+
+  AlternativeContact(this.visitor);
   @override
   Widget build(BuildContext context) {
+    var apiKey = ConfigWrapper.of(context).apiKey;
+    Post newPost = new Post(
+      visitor: visitor,
+    );
     return GestureDetector(
-      onTap: () => createPost(),
+      onTap: () => createPost(body: newPost.toMap(), key: apiKey),
       child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(

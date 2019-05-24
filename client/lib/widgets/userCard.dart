@@ -10,6 +10,8 @@ import '../API/api.dart';
 
 //Model
 import '../model/post_model.dart';
+import '../env/config.dart';
+
 // import '../widgets/contact_modal.dart';
 
 //Statemanagement
@@ -32,16 +34,19 @@ class _UserCardState extends State<UserCard> {
   int _start = 3000;
 
   _handleEvent(BuildContext context, UserModel user) {
+    print(user.name);
     startTimer(context);
   }
 
   void handleCancelDialog(time, BuildContext context, Timer timer) {
+    var apiKey = ConfigWrapper.of(context).apiKey;
+
     if (time == 3000) {
       dialog
-          .getCancelDialog(context, makeRequest, timer, setTimer)
+          .getCancelDialog(context, makeRequest, timer, setTimer, apiKey)
           .then((onValue) {});
     } else if (time == 300) {
-      makeRequest();
+      makeRequest(apiKey);
       Navigator.of(context).pop(true);
     }
   }
@@ -52,13 +57,13 @@ class _UserCardState extends State<UserCard> {
     });
   }
 
-  void makeRequest() {
+  void makeRequest(apiKey) {
     Post newPost = new Post(
         name: widget.user.name,
         visitor: widget.visitor,
         channelId: widget.user.channels);
 
-    createPost(body: newPost.toMap());
+    createPost(body: newPost.toMap(), key: apiKey);
   }
 
   void startTimer(BuildContext context) {

@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   String c = "Affärspatner";
   String d = "Anställd";
   Widget build(BuildContext context) {
-   var apiKey = ConfigWrapper.of(context).apiKey;
+    var apiKey = ConfigWrapper.of(context).apiKey;
 
     final List<String> visitors = [a, b, c, d];
 

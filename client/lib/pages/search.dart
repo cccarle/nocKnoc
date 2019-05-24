@@ -35,7 +35,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  returnList() {
+  returnList() { 
     if (list == null) {
       setState(() {
         list = fecthUserList(widget.apiKey);
@@ -45,6 +45,10 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Future.delayed(const Duration(milliseconds: 6000), () {
+    //   Navigator.of(context).popUntil((route) => route.isFirst);
+    // });
+
     final bloc = Provider.of(context);
     return Scaffold(
         resizeToAvoidBottomInset: true,
@@ -63,12 +67,15 @@ class _SearchPageState extends State<SearchPage> {
                 _searchInput(),
                 SizedBox(height: 25),
                 _listViewSlackUsers(context, bloc),
-                AlternativeContact()
+                AlternativeContact(widget.visitor)
               ],
             ),
           ),
         ));
   }
+
+
+
 
   Widget _headlineText() {
     return Center(
