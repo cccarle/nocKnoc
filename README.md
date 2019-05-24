@@ -6,8 +6,12 @@
 
 ### Förkrav
 Ett slack-workspace med en App med bot-funktionalitet
-I inställningar för boten på slack kommer en URL att tas emot. Denna url behöver vara den utgående adressen till servern. 
+I inställningar för boten på slack kommer en URL att tas emot. Denna url behöver vara den utgående adressen till servern.
 ### Tillvägagångssätt
+* utgående adressen till servern. “[din url]/api/payload”.
+* För inställningar via Slack används ett slash command, “/settings”. 
+* URL för att ta emot denna är “[din url]/api/settings”
+
 * Ladda ner repot
 * Installera beroende npm-paket 
 * I en .env-fil lokaliserat i serverns rot behövs följande:
