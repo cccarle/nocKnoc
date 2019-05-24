@@ -118,7 +118,7 @@ server.post('/payload', validate.slack, async (req, res, next) => {
   }
 })
 
-server.post('/teamshandler', async (req, res, next) => {
+server.post('/settings', async (req, res, next) => {
   try {
     let answer = await settingsController.sendSelectionBlock(req.body)
     console.log(req.body.channel_id, 'I routes')
