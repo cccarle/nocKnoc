@@ -5,19 +5,21 @@ import '../widgets/appBar.dart';
 import '../bloc/provider.dart';
 import '../API/api.dart';
 import '../model/user_model.dart';
+import '../widgets/alternative_contact.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import '../env/config.dart';
 
 class SearchPage extends StatefulWidget {
   final String visitor;
-
-  SearchPage(this.visitor);
+  final dynamic apiKey;
+  SearchPage({this.visitor, this.apiKey});
 
   _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
   Future<List<UserModel>> list;
-  double _height = 650;
+  double _height = 630;
   @protected
   void initState() {
     super.initState();
@@ -25,26 +27,28 @@ class _SearchPageState extends State<SearchPage> {
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
         if (visible) {
-          _height = 300;
+          _height = 290;
         } else {
-          _height = 650;
+          _height = 630;
         }
-        print(visible);
       },
     );
   }
 
-  returnList() {
+  returnList() { 
     if (list == null) {
       setState(() {
-        list = fecthUserList();
+        list = fecthUserList(widget.apiKey);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // final Future<List<UserModel>> list = ;
+    // Future.delayed(const Duration(milliseconds: 6000), () {
+    //   Navigator.of(context).popUntil((route) => route.isFirst);
+    // });
+
     final bloc = Provider.of(context);
     return Scaffold(
         resizeToAvoidBottomInset: true,
@@ -63,11 +67,15 @@ class _SearchPageState extends State<SearchPage> {
                 _searchInput(),
                 SizedBox(height: 25),
                 _listViewSlackUsers(context, bloc),
+                AlternativeContact(widget.visitor)
               ],
             ),
           ),
         ));
   }
+
+
+
 
   Widget _headlineText() {
     return Center(
@@ -93,7 +101,7 @@ class _SearchPageState extends State<SearchPage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(20.0),
         ),
-        child: ListViewSlackUsers(
-            widget.visitor, list, (_height - 50), context));
+        child:
+            ListViewSlackUsers(widget.visitor, list, (_height - 50), context));
   }
 }

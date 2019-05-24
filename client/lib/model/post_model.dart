@@ -3,7 +3,7 @@ class Post {
   final String visitor;
   final String channelId;
 
-  Post({this.name, this.visitor, this.channelId});
+  Post({this.name = "", this.visitor = "", this.channelId = ""});
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(

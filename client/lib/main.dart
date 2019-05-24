@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import './pages/home.dart';
 import './bloc/provider.dart';
+import 'package:crypto/crypto.dart';
+import 'env/config.dart';
+import './pages/error_page.dart';
+// void main() async {
+//   runApp(Main());
+// }
+import './env/dev.dart';
 
-void main() async {
-  runApp(Main());
-}
+void main() => runApp(
+    new ConfigWrapper(config: Config.fromJson(config), child: new Main()));
 
 class Main extends StatelessWidget {
   final meridiumBlue = const Color(0xFF09384E);
@@ -12,6 +18,8 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var config = ConfigWrapper.of(context).apiKey;
+    print(config);
     return Provider(
       child: MaterialApp(
         theme: ThemeData(
@@ -20,6 +28,9 @@ class Main extends StatelessWidget {
             primaryColor: meridiumBlue,
             accentColor: meridiumRed),
         home: HomePage(),
+        routes: {
+          '/error': (BuildContext context) =>  ErrorPage()
+        },
       ),
     );
   }

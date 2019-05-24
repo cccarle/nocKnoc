@@ -19,7 +19,7 @@ class Dialog {
     final bloc = Provider.of(context);
     SocketIOManager manager = SocketIOManager();
     final SocketIO socket =
-        await manager.createInstance('https://d2a087b1.ngrok.io');
+        await manager.createInstance('https://997cad89.ngrok.io');
     return showDialog(
       barrierDismissible: false,
       context: context,
@@ -87,9 +87,9 @@ class Dialog {
   }
 
   Future<bool> _cancelDialog(
-      BuildContext context, makeRequest, timer, setTimer) async {
+      BuildContext context, makeRequest, timer, setTimer, apiKey) async {
     _handleOnTapEvent(BuildContext context) {
-      makeRequest();
+      makeRequest(apiKey);
       setTimer(0);
       Navigator.of(context).pop(true);
     }

@@ -68,3 +68,8 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+/lib/env/dev.json
+/lib/env/prod.json
+/lib/env/dev.g.dart
+/lib/env/prod.g.dart

@@ -17,7 +17,6 @@ class ListViewSlackUsers extends StatelessWidget {
   final Future<List<UserModel>> list;
   final double number;
   final BuildContext context;
-
   ListViewSlackUsers(this.visitor, this.list, this.number, this.context);
 
   @override
@@ -39,8 +38,6 @@ class ListViewSlackUsers extends StatelessWidget {
     );
   }
 
-
-
   _createFutureList(Bloc bloc) {
     return StreamBuilder(
       stream: bloc.searchedUserStream,
@@ -58,6 +55,7 @@ class ListViewSlackUsers extends StatelessWidget {
                 return Text('loading');
               case ConnectionState.done:
                 if (asyncsnapshot.hasError) {
+                  // Navigator.pushReplacementNamed(context, '/error');
                   return Text(
                     '${asyncsnapshot.error}',
                     style: TextStyle(color: Colors.red),
@@ -84,7 +82,7 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _selectList(index, filter, userObject) {
-    return filter == null
+    return filter == null || filter == ""
         ? _slackUserListItem(index, userObject[index])
         : userObject[index].name.toLowerCase().contains(filter.toLowerCase())
             ? _slackUserListItem(index, userObject[index])

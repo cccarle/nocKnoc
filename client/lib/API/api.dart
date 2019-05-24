@@ -6,13 +6,19 @@ import '../model/post_model.dart';
 
 import 'package:flutter/foundation.dart';
 
-final _apiStartpoint = 'https://d2a087b1.ngrok.io/api/employeestest';
-final _apiExitpoint = 'https://d2a087b1.ngrok.io/api/notify';
+import '../model/encryption.dart';
 
-Future<List<UserModel>> fecthUserList() async {
-  print('du är inne');
+final _apiStartpoint = 'https://997cad89.ngrok.io/api/employeestest';
+final _apiExitpoint = 'https://997cad89.ngrok.io/api/notify';
+
+Future<List<UserModel>> fecthUserList(key) async {
+  var keys = encryption.encrypt(key);
+  print(keys);
   http.Response response = await http.get(Uri.encodeFull(_apiStartpoint),
-      headers: {"Accept": "application/json"});
+      headers: {
+        "Accept": "application/json",
+        "client-signature": keys.toString()
+      });
 
   if (response.statusCode != 200) {
     throw Exception('error getting users');
@@ -26,8 +32,12 @@ List<UserModel> parseUsers(String responseBody) {
   return parsed.map<UserModel>((json) => UserModel.fromJSON(json)).toList();
 }
 
-Future<Post> createPost({Map body}) async {
-  return http.post(_apiExitpoint, body: body).then((http.Response response) {
+Future<Post> createPost({Map body, key}) async {
+  print(body);
+  var keys = encryption.encrypt(key);
+  return http.post(_apiExitpoint, body: body, headers: {
+    "client-signature": keys.toString()
+  }).then((http.Response response) {
     final int statusCode = response.statusCode;
 
     if (statusCode < 200 || statusCode > 400 || json == null) {
