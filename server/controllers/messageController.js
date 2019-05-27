@@ -59,7 +59,7 @@ const setTemporaryMessage = async (channelId, message, timestamp = null) => {
   if (timestamp) {
     result = await api.updateMessage(channelId, message, timestamp)
   } else {
-    result = await api.sendMessageToChannel(channelId, string)    
+    result = await api.sendMessageToChannel(channelId, message)    
   }
   setTimeout(() => {
     api.deleteMessage(result.channel, result.ts)
