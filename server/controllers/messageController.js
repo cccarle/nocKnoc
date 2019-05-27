@@ -15,12 +15,13 @@ module.exports = {
   answerHandler: async (answer) => {
     clearTimeout(timer)
     let user = await workspace.getEmployeeById(answer.user.id)
+    let name = user.real_name
+    let pic = user.images.pic
     let channel = answer.container.channel_id
     let ts = answer.container.message_ts
-    let name = answer.user.name
     let text = `${name} är på väg att öppna.`
     setTemporaryMessage(channel, text, ts)
-    return {text, user}
+    return {text, pic}
   },
     sendDeviceMessage: async message => {
       let resource = await settingsFile.readFile()
