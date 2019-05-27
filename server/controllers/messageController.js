@@ -5,10 +5,9 @@ let {acceptDeclineMessage} = require('../resources/blocks.js')
 
 let timer
 module.exports = {
-  sendAccept: async (visitor, name, channelId) => {
+  sendAccept: async (visitor, name, userId, channelId) => {
     clearTimeout(timer)
-    
-    let response = await sendAcceptFormToChannel(visitor, name, channelId)
+    let response = await sendAcceptFormToChannel(visitor, name, userId, channelId)
     setFallbackTimeout(response.ts, channelId, visitor, name)
     return response
   },
@@ -67,15 +66,17 @@ const setTemporaryMessage = async (channelId, message, timestamp = null) => {
   return result
 }
 
-const prepareMessage = (visitor, name) => {
+const prepareMessage = (visitor, name, userId) => {
   let text
   !name ? text = `${visitor} är vid dörren` : text = `${visitor} är vid dörren, söker ${name}` 
+  userId ? text += ` <@${userId}>` : null
+  console.log(userId)
   let block = acceptDeclineMessage(text)
   return {block, text}
 }
 
-const sendAcceptFormToChannel = async (visitor, name, channelId) => {
-  let {block, text} = prepareMessage(visitor, name)
+const sendAcceptFormToChannel = async (visitor, name, userId, channelId) => {
+  let {block, text} = prepareMessage(visitor, name, userId)
   let result = await api.sendFormToChannel(channelId, block, text)
   return result
 }

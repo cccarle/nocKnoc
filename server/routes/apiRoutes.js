@@ -48,14 +48,15 @@ server.get('/teams', async (req, res) => {
 
 server.post('/notify', validate.client, async (req, res) => {
   try {
-    if (req.body.channelId && req.body.visitor && req.body.name) {
+    if (req.body.channelId && req.body.visitor && req.body.name && req.body.userId) {
       let result = await messageController.sendAccept(
         req.body.visitor,
         req.body.name,
+        req.body.userId,
         req.body.channelId
       )
       res.status(200).json(result)
-    } else if (!req.body.channelId && req.body.visitor && !req.body.name) {
+    } else if (!req.body.channelId && req.body.visitor && !req.body.name && !req.body.userId) {
       let result = await messageController.sendToFallback(req.body.visitor)
       res.status(200).json(result)
     } else {
