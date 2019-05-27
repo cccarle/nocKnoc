@@ -1,4 +1,5 @@
 const api = require('../utils/slack/api')
+const workspace = require('../utils/workspace')
 const settingsFile = require('../utils/readSettingsFile')
 let {acceptDeclineMessage} = require('../resources/blocks.js')
 
@@ -13,11 +14,13 @@ module.exports = {
   },
   answerHandler: async (answer) => {
     clearTimeout(timer)
+    let user = await workspace.getEmployeeById(answer.user.id)
     let channel = answer.container.channel_id
     let ts = answer.container.message_ts
     let name = answer.user.name
     let text = `${name} är på väg att öppna.`
-    return setTemporaryMessage(channel, text, ts)
+    setTemporaryMessage(channel, text, ts)
+    return {text, user}
   },
     sendDeviceMessage: async message => {
       let resource = await settingsFile.readFile()

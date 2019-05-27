@@ -37,6 +37,16 @@ const getTeams = async () => {
     return employees
   }
 
+  getEmployeeById = async (employeeId) => {
+    let result = await api.getUserById(employeeId)
+    let {id, team_id, real_name, profile} = result
+    return {
+      id,
+      team_id,
+      real_name,
+      images: _filterImagesFromProfile(profile)
+    }
+  }
   const _filterImagesFromProfile = profile => {
     return {
       icon: profile.image_24,
@@ -47,5 +57,6 @@ const getTeams = async () => {
 module.exports = {
     getTeams,
     getEmployees,
-    getChannels
+    getChannels,
+    getEmployeeById
 }

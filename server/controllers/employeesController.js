@@ -17,6 +17,7 @@ const getNotifiableEmployees = async () => {
   return employeeArray
 }
 
+
 module.exports = {
   getNotifiableEmployees
 }
