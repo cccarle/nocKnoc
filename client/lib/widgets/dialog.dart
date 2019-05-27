@@ -14,73 +14,134 @@ import './my_painter.dart';
 class Dialog {
   get getDialog => _showDialog;
   get getCancelDialog => _cancelDialog;
+  get alternativeDialog => _alternativeDialog;
 
   Future<bool> _showDialog(BuildContext context, UserModel user) async {
-    final bloc = Provider.of(context);
     SocketIOManager manager = SocketIOManager();
     final SocketIO socket =
-        await manager.createInstance('https://997cad89.ngrok.io');
+        await manager.createInstance('https://6da3b5c7.ngrok.io');
     return showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
-        return StreamBuilder(
-          stream: bloc.userFromSocketStream,
-          builder: (context, snapshot) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                Radius.circular(40.0),
-              )),
-              contentPadding: EdgeInsets.only(top: 10.0),
-              content: new Container(
-                height: 350.0,
-                width: 400.0,
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: <Widget>[
-                    Center(
-                      child: new Stack(
-                        // fit: StackFit.loose,
-                        children: <Widget>[
-                          new Positioned(
-                            child: Center(
-                              child: SpinKitRing(
-                                  color: Theme.of(context).accentColor,
-                                  size: 135.0,
-                                  lineWidth: 15.0),
-                            ),
-                          ),
-                          new Positioned(
-                            // left: MediaQuery.of(context).size.width * 0.40,
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 13.0),
-                              child: Center(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  child: Container(
-                                    child: Image.network(
-                                      user.image,
-                                      fit: BoxFit.fill,
-                                      height: 110.0,
-                                      width: 110.0,
-                                    ),
-                                  ),
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+            Radius.circular(40.0),
+          )),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: new Container(
+            height: 350.0,
+            width: 400.0,
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                Center(
+                  child: new Stack(
+                    // fit: StackFit.loose,
+                    children: <Widget>[
+                      new Positioned(
+                        child: Center(
+                          child: SpinKitRing(
+                              color: Theme.of(context).accentColor,
+                              size: 135.0,
+                              lineWidth: 15.0),
+                        ),
+                      ),
+                      new Positioned(
+                        // left: MediaQuery.of(context).size.width * 0.40,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 13.0),
+                          child: Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50.0),
+                              child: Container(
+                                child: Image.network(
+                                  user.image,
+                                  fit: BoxFit.fill,
+                                  height: 110.0,
+                                  width: 110.0,
                                 ),
                               ),
                             ),
                           ),
-                          Container()
-                        ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10.0),
-                    DialogContent(socket, user.name, context),
-                  ],
+                      Container()
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+                SizedBox(height: 10.0),
+                DialogContent(socket, user.name, context),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<bool> _alternativeDialog(BuildContext context) async {
+
+    SocketIOManager manager = SocketIOManager();
+    final SocketIO socket =
+        await manager.createInstance('https://6da3b5c7.ngrok.io');
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+            Radius.circular(40.0),
+          )),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: new Container(
+            height: 350.0,
+            width: 400.0,
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                Center(
+                  child: new Stack(
+                    // fit: StackFit.loose,
+                    children: <Widget>[
+                      new Positioned(
+                        child: Center(
+                          child: SpinKitRing(
+                              color: Theme.of(context).accentColor,
+                              size: 135.0,
+                              lineWidth: 15.0),
+                        ),
+                      ),
+                      new Positioned(
+                        // left: MediaQuery.of(context).size.width * 0.40,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 13.0),
+                          child: Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50.0),
+                              child: Container(
+                                child: Image.network(
+                                 "https://media.licdn.com/dms/image/C4D0BAQEFDQEvVnNIFQ/company-logo_200_200/0?e=2159024400&v=beta&t=rbi_4pyBeBBlPqqQaWMHUWOE9Q0vwIZV2iN_RS5fOWA",
+                                  fit: BoxFit.fill,
+                                  height: 110.0,
+                                  width: 110.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container()
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                DialogContent(socket, "asd", context),
+              ],
+            ),
+          ),
         );
       },
     );

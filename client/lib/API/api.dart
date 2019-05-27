@@ -8,8 +8,8 @@ import 'package:flutter/foundation.dart';
 
 import '../model/encryption.dart';
 
-final _apiStartpoint = 'https://997cad89.ngrok.io/api/employeestest';
-final _apiExitpoint = 'https://997cad89.ngrok.io/api/notify';
+final _apiStartpoint = 'https://6da3b5c7.ngrok.io/api/employeestest';
+final _apiExitpoint = 'https://6da3b5c7.ngrok.io/api/notify';
 
 Future<List<UserModel>> fecthUserList(key) async {
   var keys = encryption.encrypt(key);

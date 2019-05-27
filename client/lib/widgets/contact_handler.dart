@@ -1,48 +1,30 @@
 import 'package:flutter/material.dart';
-
-//Widgets
-import './alertIcon.dart';
-import './slackUserImage.dart';
-import './slackUsername.dart';
-
-//Api
-import '../API/api.dart';
-
-//Model
-import '../model/post_model.dart';
-import '../env/config.dart';
-
-// import '../widgets/contact_modal.dart';
-
-//Statemanagement
-import '../model/user_model.dart';
 import '../widgets/dialog.dart';
-
+import '../model/post_model.dart';
+import '../model/user_model.dart';
+import '../API/api.dart';
+import '../env/config.dart';
 import 'dart:async';
 
-class UserCard extends StatefulWidget {
-  final UserModel user;
-  final String visitor;
-  final BuildContext context;
+class ContactHandler extends StatefulWidget {
+  // BuildContext context;
+  // UserModel user;
+  // String visitor;
+  // ContactHandler(this.context, this.user, this.visitor);
 
-  UserCard(this.user, this.visitor, this.context);
-  _UserCardState createState() => _UserCardState();
+  _ContactHandlerState createState() => _ContactHandlerState();
 }
 
-class _UserCardState extends State<UserCard> {
+class _ContactHandlerState extends State<ContactHandler> {
   Timer timer;
   int _start = 3000;
-
-  _handleEvent(BuildContext context) {
-    startTimer(context);
-  }
 
   void handleCancelDialog(time, BuildContext context, Timer timer) {
     var apiKey = ConfigWrapper.of(context).apiKey;
 
     if (time == 3000) {
       dialog
-          .getCancelDialog(context, makeRequest, timer, setTimer, apiKey)
+          .getCancelDialog(widget.context, makeRequest, timer, setTimer, apiKey)
           .then((onValue) {});
     } else if (time == 300) {
       makeRequest(apiKey);
@@ -67,12 +49,16 @@ class _UserCardState extends State<UserCard> {
 
   void startTimer(BuildContext context) {
     const oneSec = const Duration(milliseconds: 100);
+    print(_st)
     timer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(
             () {
               if (_start < 100) {
-                dialog.getDialog(context, widget.user).then((onValue) {});
+              
+                dialog
+                    .getDialog(widget.context, widget.user)
+                    .then((onValue) {});
                 timer.cancel();
               } else {
                 handleCancelDialog(_start, context, timer);
@@ -91,18 +77,6 @@ class _UserCardState extends State<UserCard> {
     super.dispose();
   }
 
-  Widget build(BuildContext context) {
-    return Container(
-      child: GestureDetector(
-        onTap: () => _handleEvent(widget.context),
-        child: Row(
-          children: <Widget>[
-            SlackUserImage(widget.user.image),
-            SlackUsername(widget.user.name),
-            AlertIcon(size: 30.0, color: Colors.black)
-          ],
-        ),
-      ),
-    );
-  }
 }
+
+//  ContactHandler contactHandler = new ContactHandler(widget.context );
