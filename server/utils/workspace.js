@@ -37,15 +37,16 @@ const getTeams = async () => {
     return employees
   }
 
-  getEmployeeById = async (employeeId) => {
+ const getEmployeeById = async (employeeId) => {
     let result = await api.getUserById(employeeId)
-    let {id, team_id, real_name, profile} = result
-    return {
+    let {id, team_id, real_name, profile} = result.user
+    let user = {
       id,
       team_id,
       real_name,
       images: _filterImagesFromProfile(profile)
     }
+    return user
   }
   const _filterImagesFromProfile = profile => {
     return {

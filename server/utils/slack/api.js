@@ -19,7 +19,7 @@ module.exports = {
     return bot.channels.list({token: botToken})
   },
   getUserById: (userId) => {
-    return bot.users.info({token: botToken, userId})
+    return bot.users.info({token: botToken, user: userId})
   },
   getChannelById: (channel) => {
     return bot.channels.info({token: botToken, channel})

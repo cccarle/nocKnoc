@@ -105,6 +105,7 @@ server.post('/payload', validate.slack, async (req, res, next) => {
     // Accept-svar från anställd när någon söks hamnar här
     } else if (parsed.message.text !== "settings") {
       let result = await messageController.answerHandler(parsed)
+      console.log(result, 'APIROUTES')
       req.io.emit('answer', result)
       res.status(200)
     } else {
