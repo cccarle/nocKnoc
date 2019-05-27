@@ -20,8 +20,9 @@ Bot_User_OAuth_Access_Token=”Bot token tilldelad av appen i slack”
 User_OAuth_Access_Token=”User token tilldelad av appen i slack”
 slack_signing_secret=”Secret för boten given av slack”
 client_signature=”En överenskommen hemlighet delad med klientsidan”
-Starta servern med kommandot “node index” stående i serverns rot
 ```
+Starta servern med kommandot “node index” stående i serverns rot
+
 ## Klient
 
 ### Tillvägagångssätt

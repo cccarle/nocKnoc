@@ -82,7 +82,6 @@ class Dialog {
   }
 
   Future<bool> _alternativeDialog(BuildContext context) async {
-
     SocketIOManager manager = SocketIOManager();
     final SocketIO socket =
         await manager.createInstance('https://6da3b5c7.ngrok.io');
@@ -123,7 +122,7 @@ class Dialog {
                               borderRadius: BorderRadius.circular(50.0),
                               child: Container(
                                 child: Image.network(
-                                 "https://media.licdn.com/dms/image/C4D0BAQEFDQEvVnNIFQ/company-logo_200_200/0?e=2159024400&v=beta&t=rbi_4pyBeBBlPqqQaWMHUWOE9Q0vwIZV2iN_RS5fOWA",
+                                  "https://media.licdn.com/dms/image/C4D0BAQEFDQEvVnNIFQ/company-logo_200_200/0?e=2159024400&v=beta&t=rbi_4pyBeBBlPqqQaWMHUWOE9Q0vwIZV2iN_RS5fOWA",
                                   fit: BoxFit.fill,
                                   height: 110.0,
                                   width: 110.0,

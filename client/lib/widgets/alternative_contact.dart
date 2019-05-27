@@ -6,13 +6,12 @@ import 'dart:async';
 import '../widgets/dialog.dart';
 import '../model/user_model.dart';
 
-
 class AlternativeContact extends StatefulWidget {
   // final UserModel user;
   final String visitor;
-  // final BuildContext context; 
-  
-   AlternativeContact(this.visitor);
+  // final BuildContext context;
+
+  AlternativeContact(this.visitor);
 
   _AlternativeContactState createState() => _AlternativeContactState();
 }
@@ -45,8 +44,7 @@ class _AlternativeContactState extends State<AlternativeContact> {
   }
 
   void makeRequest(apiKey) {
-    Post newPost = new Post(
-        visitor: widget.visitor);
+    Post newPost = new Post(visitor: widget.visitor);
 
     createPost(body: newPost.toMap(), key: apiKey);
   }
@@ -79,7 +77,6 @@ class _AlternativeContactState extends State<AlternativeContact> {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () => _handleEvent(context),
       child: Align(
