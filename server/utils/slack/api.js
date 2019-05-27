@@ -41,7 +41,6 @@ module.exports = {
   },
 
   sendTeamsToChannel: async (channel, blocks) => {
-    console.log(channel)
     return bot.chat.postMessage({token: botToken, channel: channel, text: 'settings', blocks: JSON.stringify(blocks)})
   },
 
@@ -52,7 +51,6 @@ module.exports = {
     return bot.chat.delete({token: botToken, channel, ts})
   },
   updateSettingsMessage: (channel, ts, blocks) => {
-    console.log(channel)
     return bot.chat.update({token: botToken, channel: channel, text: "settings", ts, as_user: true, blocks})
   }
 }

@@ -8,7 +8,6 @@ module.exports = {
     clearTimeout(timer)
     
     let response = await sendAcceptFormToChannel(visitor, name, channelId)
-    console.log(response)
     setFallbackTimeout(response.ts, channelId, visitor, name)
     return response
   },
@@ -22,7 +21,6 @@ module.exports = {
   },
     sendDeviceMessage: async message => {
       let resource = await settingsFile.readFile()
-      console.log(resource.deviceInfo.channel)
       let channel = resource.deviceInfo.channel
       let tags = '' //Måste vara tom sträng från början
       resource.deviceInfo.tags.forEach(element => {

@@ -5,7 +5,6 @@ module.exports = (error) => {
   if (slackError) {
     message = slackError.message
   }
-  // console.log(error)
   return {code, message}
 }
 

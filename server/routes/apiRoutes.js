@@ -105,9 +105,7 @@ server.post('/payload', validate.slack, async (req, res, next) => {
     // Accept-svar från anställd när någon söks hamnar här
     } else if (parsed.message.text !== "settings") {
       let result = await messageController.answerHandler(parsed)
-      console.log('User som acceptat:', result)
       req.io.emit('answer', result)
-      console.log('emit ska skickats')
       res.status(200)
     } else {
       res.status(400).send('Bad Format')
@@ -120,8 +118,7 @@ server.post('/payload', validate.slack, async (req, res, next) => {
 
 server.post('/settings', async (req, res, next) => {
   try {
-    let answer = await settingsController.sendSelectionBlock(req.body)
-    console.log(req.body.channel_id, 'I routes')
+    let answer = await settingsController.sendSelectionBlock(req.body) // TODO: ska detta returnera något?
     res.status(200).json()
 
   } catch (e) {
