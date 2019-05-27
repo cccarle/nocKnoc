@@ -66,7 +66,7 @@ const whiteListedTeamsToBlock = async whitelistedTeams => {
   let unhiddenTeams = []
   whitelistedTeams.forEach(team => {
     unhiddenTeams.push(
-      selectBlock.selectBlock(team.handle, team.id, "Hide team")
+      selectBlock.selectBlock(team.handle, team.id, "Göm team")
     )
   })
   return unhiddenTeams
@@ -75,7 +75,7 @@ const whiteListedTeamsToBlock = async whitelistedTeams => {
 const blackListedTeamsToBlock = async blacklistedTeams => {
   let hiddenTeams = []
   blacklistedTeams.forEach(team => {
-    hiddenTeams.push(selectBlock.selectBlock(team.handle, team.id, "Show team"))
+    hiddenTeams.push(selectBlock.selectBlock(team.handle, team.id, "Visa team"))
   })
   return hiddenTeams
 }
