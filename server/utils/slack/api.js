@@ -1,6 +1,5 @@
 var Slack = require('slack')
 require('dotenv').config()
-let {acceptDeclineMessage} = require('../../resources/blocks.js')
 
 const botToken = process.env.Bot_User_OAuth_Access_Token
 const userToken = process.env.User_OAuth_Access_Token
