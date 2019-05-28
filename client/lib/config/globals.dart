@@ -2,7 +2,7 @@ library my_prj.globals;
 
 bool showSuportView = false;
 
-String url = "http://160f4b82.ngrok.io";
+String url = "http://160f4b82.ngrok.io/s";
 
 String visitorOption1 = "Leverans";
 
@@ -16,7 +16,7 @@ String welcomeText = "Välkommen!";
 
 String whoAreYou = "Vem är du?";
 
-String whoAreYouLookingFor = "Vem söker du?";
+String whoAreYouLookingFor = "Vem söker du";
 
 String unknown = "Jag vet inte vem jag söker";
 

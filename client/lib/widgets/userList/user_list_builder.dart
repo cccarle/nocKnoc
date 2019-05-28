@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/pages/error_page.dart';
 import 'dart:async';
 
 // bloc
@@ -55,11 +56,7 @@ class UserListBuilder extends StatelessWidget {
                 return Text('loading');
               case ConnectionState.done:
                 if (asyncsnapshot.hasError) {
-                  // Navigator.pushReplacementNamed(context, '/error');
-                  return Text(
-                    '${asyncsnapshot.error}',
-                    style: TextStyle(color: Colors.red),
-                  );
+                  return ErrorPage();
                 } else {
                   return _buildList(asyncsnapshot.data, snapshot.data);
                 }
