@@ -47,10 +47,15 @@ const setFallbackTimeout = async (firstTimestamp, channelId, visitor, name) => {
   let fallbackChannelId = settings.settings.fallbackChannel
   let timeToFallback = settings.settings.secondsToFallback * 1000
   timer = setTimeout(async () => {
-    sendAcceptFormToFallbackChannel(visitor, name)
-    let fallbackChannel = await api.getChannelById(fallbackChannelId)
-    let message = `Förfrågan har gått ut till kanal "${fallbackChannel.channel.name}"`
+    try {
+    let fallbackResponse = await sendAcceptFormToFallbackChannel(visitor, name)
+    let message = `Förfrågan har gått ut till kanal "${fallbackResponse.channelName}"`
     setTemporaryMessage(channelId, message, firstTimestamp)
+  } catch (e) {
+    let message = `Ingen fallback kanal vald. Skriv /settings för att få fram inställningsmenyn`
+    setTemporaryMessage(channelId, message, firstTimestamp)
+    sendAcceptFormToChannel(visitor, name, channelId)
+  }
   }, timeToFallback)
 }
 
@@ -82,9 +87,11 @@ const sendAcceptFormToChannel = async (visitor, name, channelId) => {
 const sendAcceptFormToFallbackChannel = async (visitor, name) => {
   let settings = await settingsFile.readFile()
   let channelId = settings.settings.fallbackChannel
+  let channel = await api.getChannelById(channelId)
   let {block, text} = prepareMessage(visitor, name)
-  let fallbackResponse = await api.sendFormToChannel(channelId, block, text)
+  let response = await api.sendFormToChannel(channelId, block, text)
+  response.channelName = channel.channel.name
  
   
-  return fallbackResponse
+  return response
 }
