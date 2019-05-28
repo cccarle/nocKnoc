@@ -2,10 +2,18 @@ library my_prj.globals;
 
 String url = "https://160f4b82.ngrok.io";
 
-String visitorOption1 = "Leverans";
+bool isSwe = true;
 
-String visitorOption2 = "Besökare";
+String visitorOption1 = isSwe ? "Leverans": "Deliviery";
 
-String visitorOption3 = "Affärspatner";
+String visitorOption2 = isSwe ? "Besökare": "Visitor" ;
 
-String visitorOption4 = "Anställd";
+String visitorOption3 = isSwe ? "Affärspatner": "Business Partner";
+
+String visitorOption4 = isSwe ? "Anställd": "Employee";
+
+String welcomeText = isSwe ? "Välkommen!": "Welcome";
+
+String whoAreYou = isSwe ? "Vem är du?": "Who are you?";
+
+String whoAreYouLookingFor = isSwe ? "Vem söker du?": "Who are you meeting";

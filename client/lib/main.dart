@@ -3,7 +3,6 @@ import './pages/home_page.dart';
 import './bloc/provider.dart';
 import 'env/config.dart';
 import './pages/error_page.dart';
-import './config/test.dart';
 import './env/dev.dart';
 
 void main() => runApp(

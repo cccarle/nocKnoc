@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import '../widgets/search_input_field.dart';
-import '../widgets/user_list_builder.dart';
-import '../widgets/app_bar.dart';
+import '../widgets/searchField/search_input_field.dart';
+import '../widgets/employeeList/user_list_builder.dart';
+import '../widgets/appbar/app_bar.dart';
 import '../bloc/provider.dart';
 import '../API/api.dart';
 import '../model/user_model.dart';
 import '../widgets/modals/alternative_contact.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import '../config/globals.dart' as globals;
 
 class SearchPage extends StatefulWidget {
   final String visitor;
@@ -90,7 +91,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget _headlineText() {
     return Center(
       child: Text(
-        'Vem söker du?',
+        globals.whoAreYouLookingFor,
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 80.0, color: Colors.white),
       ),

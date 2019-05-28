@@ -2,9 +2,12 @@ import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:crypto/src/digest_sink.dart';
 
+/* 
+Create encryption from secret.
+Used to make request to the API.
+ */
+
 class Encryption {
-
-
 
   encrypt(value) {
     var key = utf8.encode(value);

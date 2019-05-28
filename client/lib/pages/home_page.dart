@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './search_page.dart';
-import '../widgets/app_bar.dart';
+import '../widgets/appbar/app_bar.dart';
 import '../env/config.dart';
 
 import '../config/globals.dart' as globals;
@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(left: 20.0, top: 35.0),
             child: Text(
-              'Välkommen!',
+              globals.welcomeText,
               style: TextStyle(fontSize: 90.0, color: Colors.white),
             ),
           ),
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(bottom: 40.0, top: 25.0),
           child: Text(
-            'Vem är du?',
+            globals.whoAreYou,
             style: TextStyle(fontSize: 70.0, color: Colors.white),
           ),
         )

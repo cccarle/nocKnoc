@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 // bloc
-import '../bloc/bloc.dart';
-import '../bloc/provider.dart';
+import '../../bloc/bloc.dart';
+import '../../bloc/provider.dart';
 
 // Model
-import '../model/user_model.dart';
+import '../../model/user_model.dart';
 
 // Widgets
-import '../widgets/usercardInList/user_card.dart';
+import '../../widgets/usercardInList/user_card.dart';
 
 class UserListBuilder extends StatelessWidget {
   final String visitor;
