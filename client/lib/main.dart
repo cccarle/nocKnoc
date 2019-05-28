@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import './pages/home.dart';
+import './pages/home_page.dart';
 import './bloc/provider.dart';
-import 'package:crypto/crypto.dart';
 import 'env/config.dart';
 import './pages/error_page.dart';
-// void main() async {
-//   runApp(Main());
-// }
+import './config/test.dart';
 import './env/dev.dart';
 
 void main() => runApp(
@@ -28,9 +25,7 @@ class Main extends StatelessWidget {
             primaryColor: meridiumBlue,
             accentColor: meridiumRed),
         home: HomePage(),
-        routes: {
-          '/error': (BuildContext context) =>  ErrorPage()
-        },
+        routes: {'/error': (BuildContext context) => ErrorPage()},
       ),
     );
   }

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import '../widgets/searchInputField.dart';
-import '../widgets/listView.dart';
-import '../widgets/appBar.dart';
+import '../widgets/search_input_field.dart';
+import '../widgets/user_list_builder.dart';
+import '../widgets/app_bar.dart';
 import '../bloc/provider.dart';
 import '../API/api.dart';
 import '../model/user_model.dart';
-import '../widgets/alternative_contact.dart';
+import '../widgets/modals/alternative_contact.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
-import '../env/config.dart';
 
 class SearchPage extends StatefulWidget {
   final String visitor;
   final dynamic apiKey;
+  
   SearchPage({this.visitor, this.apiKey});
 
   _SearchPageState createState() => _SearchPageState();
@@ -20,10 +20,24 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   Future<List<UserModel>> list;
   double _height = 630;
+
   @protected
   void initState() {
     super.initState();
     returnList();
+    checkIfKeyboardIsDisplayed();
+  }
+
+  void goBackToHomeScreen() {
+    Future.delayed(
+      const Duration(milliseconds: 30000),
+      () {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      },
+    );
+  }
+
+  void checkIfKeyboardIsDisplayed() {
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
         if (visible) {
@@ -35,7 +49,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  returnList() { 
+  returnList() {
     if (list == null) {
       setState(() {
         list = fecthUserList(widget.apiKey);
@@ -45,37 +59,33 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(const Duration(milliseconds: 6000), () {
-    //   Navigator.of(context).popUntil((route) => route.isFirst);
-    // });
-
+    goBackToHomeScreen();
     final bloc = Provider.of(context);
+
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: Theme.of(context).primaryColor,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70.0),
-          child: DynamicAppBar(),
-        ),
-        body: Center(
-          child: Container(
-            margin: EdgeInsets.all(10.0),
-            width: 700.0,
-            child: Column(
-              children: <Widget>[
-                _headlineText(),
-                _searchInput(),
-                SizedBox(height: 25),
-                _listViewSlackUsers(context, bloc),
-                AlternativeContact(widget.visitor)
-              ],
-            ),
+      resizeToAvoidBottomInset: true,
+      backgroundColor: Theme.of(context).primaryColor,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.0),
+        child: DynamicAppBar(),
+      ),
+      body: Center(
+        child: Container(
+          margin: EdgeInsets.all(10.0),
+          width: 700.0,
+          child: Column(
+            children: <Widget>[
+              _headlineText(),
+              _searchInput(),
+              SizedBox(height: 25),
+              _listViewSlackUsers(context, bloc),
+              AlternativeContact(widget.visitor)
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
-
-
-
 
   Widget _headlineText() {
     return Center(
@@ -101,7 +111,6 @@ class _SearchPageState extends State<SearchPage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(20.0),
         ),
-        child:
-            ListViewSlackUsers(widget.visitor, list, (_height - 50), context));
+        child: UserListBuilder(widget.visitor, list, (_height - 50), context));
   }
 }

@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import '../API/api.dart';
-import '../env/config.dart';
-import '../model/post_model.dart';
+import '../../API/api.dart';
+import '../../env/config.dart';
+import '../../model/post_model.dart';
 import 'dart:async';
-import '../widgets/dialog.dart';
-import '../model/user_model.dart';
+import './dialog.dart';
 
 class AlternativeContact extends StatefulWidget {
-  // final UserModel user;
   final String visitor;
-  // final BuildContext context;
 
   AlternativeContact(this.visitor);
 
@@ -44,8 +41,9 @@ class _AlternativeContactState extends State<AlternativeContact> {
   }
 
   void makeRequest(apiKey) {
+    print(widget.visitor);
     Post newPost = new Post(visitor: widget.visitor);
-
+    print(newPost.toMap());
     createPost(body: newPost.toMap(), key: apiKey);
   }
 
@@ -56,7 +54,7 @@ class _AlternativeContactState extends State<AlternativeContact> {
       (Timer timer) => setState(
             () {
               if (_start < 100) {
-                dialog.alternativeDialog(context).then((onValue) {});
+                dialog.alternativeDialog(context, false).then((onValue) {});
                 timer.cancel();
               } else {
                 handleCancelDialog(_start, context, timer);

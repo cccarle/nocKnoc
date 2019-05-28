@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+
+// bloc
 import '../bloc/bloc.dart';
 import '../bloc/provider.dart';
 
-// Widgets
-import '../API/api.dart';
-
-import 'dart:async';
-
-//Api
-import '../widgets/userCard.dart';
-
+// Model
 import '../model/user_model.dart';
 
-class ListViewSlackUsers extends StatelessWidget {
+// Widgets
+import '../widgets/usercardInList/user_card.dart';
+
+class UserListBuilder extends StatelessWidget {
   final String visitor;
   final Future<List<UserModel>> list;
   final double number;
   final BuildContext context;
-  ListViewSlackUsers(this.visitor, this.list, this.number, this.context);
+
+  UserListBuilder(this.visitor, this.list, this.number, this.context);
 
   @override
   Widget build(BuildContext context) {
@@ -90,11 +90,13 @@ class ListViewSlackUsers extends StatelessWidget {
   }
 
   _slackUserListItem(index, userObject) {
-    return Column(children: <Widget>[
-      SizedBox(
-        height: 10.0,
-      ),
-      UserCard(userObject, visitor, context),
-    ]);
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 10.0,
+        ),
+        UserCard(userObject, visitor, context),
+      ],
+    );
   }
 }

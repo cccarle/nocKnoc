@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import './search.dart';
-import '../widgets/appBar.dart';
-import '../model/language_model.dart';
+import './search_page.dart';
+import '../widgets/app_bar.dart';
 import '../env/config.dart';
 
+import '../config/globals.dart' as globals;
+
 class HomePage extends StatelessWidget {
-  String a = "Leverans";
-  String b = "Besökare";
-  String c = "Affärspatner";
-  String d = "Anställd";
+
+
   Widget build(BuildContext context) {
     var apiKey = ConfigWrapper.of(context).apiKey;
 
-    final List<String> visitors = [a, b, c, d];
+    final List<String> visitors = [
+      globals.visitorOption1,
+      globals.visitorOption2,
+      globals.visitorOption3,
+      globals.visitorOption4
+    ];
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,

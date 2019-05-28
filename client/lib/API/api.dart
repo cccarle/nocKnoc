@@ -1,15 +1,23 @@
-import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/foundation.dart';
+import 'dart:convert';
 import 'dart:async';
+
+//models
 import '../model/user_model.dart';
 import '../model/post_model.dart';
-
-import 'package:flutter/foundation.dart';
-
 import '../model/encryption.dart';
 
-final _apiStartpoint = 'https://6da3b5c7.ngrok.io/api/employeestest';
-final _apiExitpoint = 'https://6da3b5c7.ngrok.io/api/notify';
+import '../config/globals.dart' as globals;
+
+
+final _apiStartpoint = '${globals.url}/api/employeestest';
+final _apiExitpoint = '${globals.url}ss/api/notify';
+
+Future<String> loadAsset() async {
+  return await rootBundle.loadString('assets/resources/swe.json');
+}
 
 Future<List<UserModel>> fecthUserList(key) async {
   var keys = encryption.encrypt(key);
@@ -33,8 +41,9 @@ List<UserModel> parseUsers(String responseBody) {
 }
 
 Future<Post> createPost({Map body, key}) async {
-  print(body);
   var keys = encryption.encrypt(key);
+
+  print('hello');
   return http.post(_apiExitpoint, body: body, headers: {
     "client-signature": keys.toString()
   }).then((http.Response response) {
@@ -43,6 +52,7 @@ Future<Post> createPost({Map body, key}) async {
     if (statusCode < 200 || statusCode > 400 || json == null) {
       throw new Exception("Error while fetching data");
     }
+
     return Post.fromJson(json.decode(response.body));
   });
 }

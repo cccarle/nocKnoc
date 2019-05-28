@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
-
-//Widgets
-import './alertIcon.dart';
-import './slackUserImage.dart';
-import './slackUsername.dart';
-
-//Api
-import '../API/api.dart';
+import 'dart:async';
 
 //Model
-import '../model/post_model.dart';
-import '../env/config.dart';
-
-// import '../widgets/contact_modal.dart';
+import '../../model/post_model.dart';
+import '../../env/config.dart';
 
 //Statemanagement
-import '../model/user_model.dart';
-import '../widgets/dialog.dart';
+import '../../model/user_model.dart';
 
-import 'dart:async';
+//Widgets
+import './alert_Icon.dart';
+import './slack_user_image.dart';
+import './slack_username.dart';
+import '../../widgets/modals/dialog.dart';
+
+//Api
+import '../../API/api.dart';
 
 class UserCard extends StatefulWidget {
   final UserModel user;
@@ -33,7 +30,7 @@ class _UserCardState extends State<UserCard> {
   Timer timer;
   int _start = 3000;
 
-  _handleEvent(BuildContext context) {
+  void _handleEvent(BuildContext context) {
     startTimer(context);
   }
 
@@ -60,19 +57,21 @@ class _UserCardState extends State<UserCard> {
     Post newPost = new Post(
         name: widget.user.name,
         visitor: widget.visitor,
-        channelId: widget.user.channels);
+        channelId: widget.user.channels,
+        userId: widget.user.userId);
 
     createPost(body: newPost.toMap(), key: apiKey);
   }
 
   void startTimer(BuildContext context) {
     const oneSec = const Duration(milliseconds: 100);
+
     timer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(
             () {
               if (_start < 100) {
-                dialog.getDialog(context, widget.user).then((onValue) {});
+                dialog.getDialog(context, widget.user, true).then((onValue) {});
                 timer.cancel();
               } else {
                 handleCancelDialog(_start, context, timer);
@@ -81,14 +80,6 @@ class _UserCardState extends State<UserCard> {
             },
           ),
     );
-  }
-
-  @override
-  void dispose() {
-    if (timer != null) {
-      timer.cancel();
-    }
-    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -104,5 +95,13 @@ class _UserCardState extends State<UserCard> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    if (timer != null) {
+      timer.cancel();
+    }
+    super.dispose();
   }
 }
