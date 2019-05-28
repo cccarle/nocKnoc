@@ -6,16 +6,19 @@ import '../env/config.dart';
 import '../config/globals.dart' as globals;
 
 class HomePage extends StatelessWidget {
-
+  final String visitorOption1 = globals.visitorOption1;
+  final String visitorOption2 = globals.visitorOption2;
+  final String visitorOption3 = globals.visitorOption3;
+  final String visitorOption4 = globals.visitorOption4;
 
   Widget build(BuildContext context) {
     var apiKey = ConfigWrapper.of(context).apiKey;
 
     final List<String> visitors = [
-      globals.visitorOption1,
-      globals.visitorOption2,
-      globals.visitorOption3,
-      globals.visitorOption4
+      visitorOption1,
+      visitorOption2,
+      visitorOption3,
+      visitorOption4
     ];
 
     return Scaffold(

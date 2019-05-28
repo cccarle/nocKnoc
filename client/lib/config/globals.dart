@@ -1,19 +1,36 @@
 library my_prj.globals;
 
-String url = "https://160f4b82.ngrok.io";
+bool showSuportView = false;
 
-bool isSwe = true;
+String url = "http://160f4b82.ngrok.io";
 
-String visitorOption1 = isSwe ? "Leverans": "Deliviery";
+String visitorOption1 = "Leverans";
 
-String visitorOption2 = isSwe ? "Besökare": "Visitor" ;
+String visitorOption2 = "Besökare";
 
-String visitorOption3 = isSwe ? "Affärspatner": "Business Partner";
+String visitorOption3 = "Affärspartner";
 
-String visitorOption4 = isSwe ? "Anställd": "Employee";
+String visitorOption4 = "Anställd";
 
-String welcomeText = isSwe ? "Välkommen!": "Welcome";
+String welcomeText = "Välkommen!";
 
-String whoAreYou = isSwe ? "Vem är du?": "Who are you?";
+String whoAreYou = "Vem är du?";
 
-String whoAreYouLookingFor = isSwe ? "Vem söker du?": "Who are you meeting";
+String whoAreYouLookingFor = "Vem söker du?";
+
+String unknown = "Jag vet inte vem jag söker";
+
+String lastMessage = "Ring växel 0724340454";
+
+String cancelText = "Avbryt";
+
+const String emptyString = "";
+
+const String defaultImage =
+    "https://media.licdn.com/dms/image/C4D0BAQEFDQEvVnNIFQ/company-logo_200_200/0?e=2159024400&v=beta&t=rbi_4pyBeBBlPqqQaWMHUWOE9Q0vwIZV2iN_RS5fOWA";
+
+const String defaultMessage = "någon på Meridium";
+
+buildMessage(String name) {
+  return "Vi kontaktar $name";
+}

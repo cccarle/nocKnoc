@@ -4,6 +4,7 @@ import '../../env/config.dart';
 import '../../model/post_model.dart';
 import 'dart:async';
 import './dialog.dart';
+import '../../config/globals.dart' as globals;
 
 class AlternativeContact extends StatefulWidget {
   final String visitor;
@@ -15,7 +16,8 @@ class AlternativeContact extends StatefulWidget {
 
 class _AlternativeContactState extends State<AlternativeContact> {
   Timer timer;
-  int _start = 3000;
+  static final threeSec = 3000;
+  int _start = threeSec;
 
   _handleEvent(BuildContext context) {
     startTimer(context);
@@ -24,7 +26,7 @@ class _AlternativeContactState extends State<AlternativeContact> {
   void handleCancelDialog(time, BuildContext context, Timer timer) {
     var apiKey = ConfigWrapper.of(context).apiKey;
 
-    if (time == 3000) {
+    if (time == threeSec) {
       dialog
           .getCancelDialog(context, makeRequest, timer, setTimer, apiKey)
           .then((onValue) {});
@@ -66,14 +68,6 @@ class _AlternativeContactState extends State<AlternativeContact> {
   }
 
   @override
-  void dispose() {
-    if (timer != null) {
-      timer.cancel();
-    }
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _handleEvent(context),
@@ -82,12 +76,20 @@ class _AlternativeContactState extends State<AlternativeContact> {
         child: Padding(
           padding: EdgeInsets.only(left: 15.0),
           child: Text(
-            'Jag vet inte vem jag söker?',
+            globals.unknown,
             style: TextStyle(
                 color: Colors.white, decoration: TextDecoration.underline),
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    if (timer != null) {
+      timer.cancel();
+    }
+    super.dispose();
   }
 }

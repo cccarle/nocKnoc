@@ -11,6 +11,7 @@ import '../usercardInList/alert_Icon.dart';
 import '../spinner/spinner.dart';
 import './dialog_content.dart';
 
+import '../../config/globals.dart' as globals;
 
 class Dialog {
   get getDialog => _showDialog;
@@ -21,7 +22,7 @@ class Dialog {
       BuildContext context, UserModel user, bool isKnownContact) async {
 
     SocketIOManager manager = SocketIOManager();
-    SocketIO socket = await manager.createInstance('https://160f4b82.ngrok.io');
+    SocketIO socket = await manager.createInstance(globals.url);
 
     return showDialog(
       barrierDismissible: false,
@@ -47,7 +48,7 @@ class Dialog {
   Future<bool> _alternativeDialog(
       BuildContext context, bool isKnownContact) async {
     SocketIOManager manager = SocketIOManager();
-    SocketIO socket = await manager.createInstance('https://160f4b82.ngrok.io');
+    SocketIO socket = await manager.createInstance(globals.url);
     return showDialog(
       barrierDismissible: false,
       context: context,
@@ -73,13 +74,14 @@ class Dialog {
 
   Future<bool> _cancelDialog(
       BuildContext context, makeRequest, timer, setTimer, apiKey) async {
-    _handleOnTapEvent(BuildContext context) {
+
+    _contactDirect(BuildContext context) {
       makeRequest(apiKey);
       setTimer(0);
       Navigator.of(context).pop(true);
     }
 
-    _handleCancelEvent(BuildContext context, timer) {
+    _cancelRequest(BuildContext context, timer) {
       timer.cancel();
       setTimer(3000);
       Navigator.of(context).pop(true);
@@ -105,7 +107,7 @@ class Dialog {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50.0),
               child: GestureDetector(
-                  onTap: () => _handleOnTapEvent(context),
+                  onTap: () => _contactDirect(context),
                   child: AlertIcon(size: 80, color: Colors.white)),
             ),
           ),
@@ -119,16 +121,16 @@ class Dialog {
             child: RaisedButton.icon(
                 color: Colors.white,
                 textColor: Colors.black,
-                onPressed: () => _handleCancelEvent(context, timer),
+                onPressed: () => _cancelRequest(context, timer),
                 icon: Icon(
                   Icons.close,
                   color: Colors.black,
                 ),
-                label: Text('Avbryt')),
+                label: Text(globals.cancelText)),
           );
     }
 
-    _onTapImage(BuildContext context) {
+    _modalContainer(BuildContext context) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,7 +145,7 @@ class Dialog {
 
     return showDialog(
         context: context,
-        builder: (BuildContext context) => _onTapImage(context));
+        builder: (BuildContext context) => _modalContainer(context));
   }
 }
 

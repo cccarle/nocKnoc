@@ -1,13 +1,16 @@
+import '../config/globals.dart' as globals;
+
 class Post {
   final String name;
   final String visitor;
   final String channelId;
   final String userId;
+
   Post(
-      {this.name = "",
-      this.visitor = "",
-      this.channelId = "",
-      this.userId = ""});
+      {this.name = globals.emptyString,
+      this.visitor = globals.emptyString,
+      this.channelId = globals.emptyString,
+      this.userId = globals.emptyString});
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(

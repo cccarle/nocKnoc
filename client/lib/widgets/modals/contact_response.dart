@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
+import '../../config/globals.dart' as globals;
 
 class ContactResponse extends StatefulWidget {
   final BuildContext context;
@@ -11,15 +12,16 @@ class ContactResponse extends StatefulWidget {
   ContactResponse(
       {this.context,
       this.socket,
-      this.image =
-          "https://media.licdn.com/dms/image/C4D0BAQEFDQEvVnNIFQ/company-logo_200_200/0?e=2159024400&v=beta&t=rbi_4pyBeBBlPqqQaWMHUWOE9Q0vwIZV2iN_RS5fOWA",
-      this.username = ""});
+      this.image = globals.defaultImage,
+      this.username = globals.emptyString});
+
   _ContactResponseState createState() => _ContactResponseState();
 }
 
 class _ContactResponseState extends State<ContactResponse> {
-  bool _answer = false;
+  bool _hasAnswerFromSocket = false;
   bool _showImage = true;
+
   String _image;
 
   @override
@@ -30,51 +32,58 @@ class _ContactResponseState extends State<ContactResponse> {
   }
 
   void _listenOnSocket() {
-    widget.socket.on('answer', (data) {
-      this.setState(() => {_answer = true, _image = data['pic']});
+    widget.socket.on('answer', (responseFromSocket) {
+      this.setState(
+        () => {
+              _hasAnswerFromSocket = true,
+              _image = responseFromSocket['pic'],
+            },
+      );
     });
   }
 
-  Widget _buildStack(BuildContext context) {
-    var spinner = _answer
-        ? Container()
-        : new Positioned(
-            child: Center(
-              child: SpinKitRing(
-                  color: Theme.of(context).accentColor,
-                  size: 135.0,
-                  lineWidth: 15.0),
-            ),
-          );
+  Widget loadingSpinner() {
+    return Positioned(
+      child: Center(
+        child: SpinKitRing(
+            color: Theme.of(context).accentColor, size: 135.0, lineWidth: 15.0),
+      ),
+    );
+  }  
 
-    var picture = _showImage
-        ? new Positioned(
-            child: Padding(
-              padding: EdgeInsets.only(top: 13.0),
-              child: Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50.0),
-                  child: Container(
-                    child: Image.network(
-                      _image,
-                      fit: BoxFit.fill,
-                      height: 110.0,
-                      width: 110.0,
-                    ),
-                  ),
-                ),
+  Widget loadImage() {
+    return Positioned(
+      child: Padding(
+        padding: EdgeInsets.only(top: 13.0),
+        child: Center(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(50.0),
+            child: Container(
+              child: Image.network(
+                _image,
+                fit: BoxFit.fill,
+                height: 110.0,
+                width: 110.0,
               ),
             ),
-          )
-        : Container();
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContactResponse(BuildContext context) {
+    var spinner = _hasAnswerFromSocket ? Container() : loadingSpinner();
+
+    var image = _showImage ? loadImage() : Container();
 
     return Stack(
-      children: <Widget>[spinner, picture, Container()],
+      children: <Widget>[spinner, image, Container()],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildStack(context);
+    return _buildContactResponse(context);
   }
 }

@@ -11,13 +11,10 @@ import '../model/encryption.dart';
 
 import '../config/globals.dart' as globals;
 
-
 final _apiStartpoint = '${globals.url}/api/employeestest';
-final _apiExitpoint = '${globals.url}ss/api/notify';
+final _apiExitpoint = '${globals.url}/api/notify';
 
-Future<String> loadAsset() async {
-  return await rootBundle.loadString('assets/resources/swe.json');
-}
+
 
 Future<List<UserModel>> fecthUserList(key) async {
   var keys = encryption.encrypt(key);
@@ -43,7 +40,6 @@ List<UserModel> parseUsers(String responseBody) {
 Future<Post> createPost({Map body, key}) async {
   var keys = encryption.encrypt(key);
 
-  print('hello');
   return http.post(_apiExitpoint, body: body, headers: {
     "client-signature": keys.toString()
   }).then((http.Response response) {

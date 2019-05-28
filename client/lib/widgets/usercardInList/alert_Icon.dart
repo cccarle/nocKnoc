@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AlertIcon extends StatelessWidget {
-  double size;
-  Color color;
+  final double size;
+  final Color color;
   AlertIcon({this.size, this.color});
 
   @override

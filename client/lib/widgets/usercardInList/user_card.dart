@@ -64,18 +64,18 @@ class _UserCardState extends State<UserCard> {
   }
 
   void startTimer(BuildContext context) {
-    const oneSec = const Duration(milliseconds: 100);
-
+    const miliSecDuration = const Duration(milliseconds: 100);
+    const int miliSecCount = 100;
     timer = new Timer.periodic(
-      oneSec,
+      miliSecDuration,
       (Timer timer) => setState(
             () {
-              if (_start < 100) {
+              if (_start < miliSecCount) {
                 dialog.getDialog(context, widget.user, true).then((onValue) {});
                 timer.cancel();
               } else {
                 handleCancelDialog(_start, context, timer);
-                _start = _start - 100;
+                _start = _start - miliSecCount;
               }
             },
           ),

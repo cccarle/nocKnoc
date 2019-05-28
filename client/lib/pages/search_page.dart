@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/searchField/search_input_field.dart';
-import '../widgets/employeeList/user_list_builder.dart';
+import '../widgets/userList/user_list_builder.dart';
 import '../widgets/appbar/app_bar.dart';
 import '../bloc/provider.dart';
 import '../API/api.dart';
@@ -20,7 +20,9 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   Future<List<UserModel>> list;
-  double _height = 630;
+  static final showSmallContainer = 630.0; 
+  static final showLargeContainer = 290.0;
+  double _height = showSmallContainer;
 
   @protected
   void initState() {
@@ -31,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void goBackToHomeScreen() {
     Future.delayed(
-      const Duration(milliseconds: 30000),
+      const Duration(minutes: 4),
       () {
         Navigator.of(context).popUntil((route) => route.isFirst);
       },
@@ -42,9 +44,9 @@ class _SearchPageState extends State<SearchPage> {
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
         if (visible) {
-          _height = 290;
+          _height = showLargeContainer;
         } else {
-          _height = 630;
+          _height = showSmallContainer;
         }
       },
     );
