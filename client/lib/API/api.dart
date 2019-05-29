@@ -10,7 +10,7 @@ import '../model/encryption.dart';
 
 import '../config/globals.dart' as globals;
 
-final _fetchUserListURL = '${globals.url}/api/employeestest';
+final _fetchUserListURL = '${globals.url}/api/employees';
 final _postToAPIURL = '${globals.url}/api/notify';
 
 Future<List<UserModel>> fecthUserList(key) async {
@@ -27,7 +27,6 @@ Future<List<UserModel>> fecthUserList(key) async {
     throw Exception('Error getting users');
   }
 
-  print(response.body);
   return compute(parseUsers, response.body);
 }
 
@@ -38,17 +37,17 @@ List<UserModel> parseUsers(String responseBody) {
 
 Future<Post> createPost({Map body, key}) async {
   var keys = encryption.encrypt(key);
-
+  print(body);
   return http.post(_postToAPIURL,
       body: body, headers: {"client-signature": keys.toString()}).then(
     (http.Response response) {
       final int statusCode = response.statusCode;
 
-      if (statusCode < 200 || statusCode > 400 || json == null) {
+      if (statusCode == 200) {
+        return Post.fromJson(json.decode(response.body));
+      } else {
         throw new Exception("Error while posting");
       }
-
-      return Post.fromJson(json.decode(response.body));
     },
   );
 }

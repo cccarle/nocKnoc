@@ -56,11 +56,7 @@ class UserListBuilder extends StatelessWidget {
                 return Text('loading');
               case ConnectionState.done:
                 if (asyncsnapshot.hasError) {
-                  print(asyncsnapshot.hasError);
-                  return Text(
-                    '${asyncsnapshot.error}',
-                    style: TextStyle(color: Colors.red),
-                  );
+                  return ErrorPage();
                 } else {
                   return _buildList(asyncsnapshot.data, snapshot.data);
                 }

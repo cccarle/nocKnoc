@@ -80,7 +80,7 @@ class _DialogContentState extends State<DialogContent> {
                   ),
                 ),
                 SizedBox(height: 25.0),
-                DialogText(socket: _socket, context: context),
+                Center(child: DialogText(socket: _socket, context: context)),
               ],
             ),
           )
@@ -107,7 +107,7 @@ class _DialogContentState extends State<DialogContent> {
 
   void _startTimerToReceptionNumber() {
     Future.delayed(
-      const Duration(seconds: 5),
+      const Duration(seconds: 50),
       () {
         setState(
           () => {
@@ -121,7 +121,7 @@ class _DialogContentState extends State<DialogContent> {
 
   void _goBackToHomeScreen() {
     Future.delayed(
-      const Duration(seconds: 10),
+      const Duration(seconds: 90),
       () {
         Navigator.of(context).popUntil((route) => route.isFirst);
       },
@@ -135,5 +135,10 @@ class _DialogContentState extends State<DialogContent> {
   @override
   Widget build(BuildContext context) {
     return _buildDialogContent();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

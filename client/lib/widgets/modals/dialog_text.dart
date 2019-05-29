@@ -37,7 +37,7 @@ class _DialogTextState extends State<DialogText> {
 
   void goBackToHomeScreen() {
     Future.delayed(
-      const Duration(seconds: 6),
+      const Duration(seconds: 15),
       () {
         Navigator.of(widget.context).popUntil((route) => route.isFirst);
       },
@@ -49,9 +49,16 @@ class _DialogTextState extends State<DialogText> {
   }
 
   Widget build(BuildContext context) {
-    return Text(
-      _message,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+    return Center(
+      child: Text(
+        _message,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
