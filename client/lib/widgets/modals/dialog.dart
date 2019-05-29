@@ -20,7 +20,6 @@ class Dialog {
 
   Future<bool> _showDialog(
       BuildContext context, UserModel user, bool isKnownContact) async {
-
     SocketIOManager manager = SocketIOManager();
     SocketIO socket = await manager.createInstance(globals.url);
 
@@ -30,16 +29,18 @@ class Dialog {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-            Radius.circular(40.0),
-          )),
+            borderRadius: BorderRadius.all(
+              Radius.circular(40.0),
+            ),
+          ),
           contentPadding: EdgeInsets.only(top: 10.0),
           content: new Container(
-              height: 350.0,
-              width: 400.0,
-              padding: const EdgeInsets.all(8.0),
-              child: DialogContent(
-                  user: user, isKnownContact: isKnownContact, socket: socket)),
+            height: 350.0,
+            width: 400.0,
+            padding: const EdgeInsets.all(8.0),
+            child: DialogContent(
+                user: user, isKnownContact: isKnownContact, socket: socket),
+          ),
         );
       },
     );
@@ -74,7 +75,6 @@ class Dialog {
 
   Future<bool> _cancelDialog(
       BuildContext context, makeRequest, timer, setTimer, apiKey) async {
-
     _contactDirect(BuildContext context) {
       makeRequest(apiKey);
       setTimer(0);
@@ -115,37 +115,42 @@ class Dialog {
       );
     }
 
-    Widget cancelRequestButton(){
+    Widget cancelRequestButton() {
       return Align(
-            alignment: Alignment.bottomCenter,
-            child: RaisedButton.icon(
-                color: Colors.white,
-                textColor: Colors.black,
-                onPressed: () => _cancelRequest(context, timer),
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.black,
-                ),
-                label: Text(globals.cancelText)),
-          );
+        alignment: Alignment.bottomCenter,
+        child: RaisedButton.icon(
+          color: Colors.white,
+          textColor: Colors.black,
+          onPressed: () => _cancelRequest(context, timer),
+          icon: Icon(
+            Icons.close,
+            color: Colors.black,
+          ),
+          label: Text(globals.cancelText),
+        ),
+      );
     }
 
     _modalContainer(BuildContext context) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[loadingSpinner(), contactDirectButton()],
-          ),
-         cancelRequestButton()
-        ],
+      return WillPopScope(
+        onWillPop: () {},
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Stack(
+              children: <Widget>[loadingSpinner(), contactDirectButton()],
+            ),
+            cancelRequestButton()
+          ],
+        ),
       );
     }
 
     return showDialog(
-        context: context,
-        builder: (BuildContext context) => _modalContainer(context));
+      context: context,
+      builder: (BuildContext context) => _modalContainer(context),
+    );
   }
 }
 

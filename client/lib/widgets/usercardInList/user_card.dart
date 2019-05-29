@@ -29,6 +29,7 @@ class UserCard extends StatefulWidget {
 class _UserCardState extends State<UserCard> {
   Timer timer;
   int _start = 3000;
+  bool _willContact = false;
 
   void _handleEvent(BuildContext context) {
     startTimer(context);
@@ -46,6 +47,13 @@ class _UserCardState extends State<UserCard> {
       Navigator.of(context).pop(true);
     }
   }
+
+  // void contactOrCancel(bool contact) {
+  //   print(contact);
+  //   if (contact) {
+  //     setState(() => {_willContact = contact});
+  //   }
+  // }
 
   void setTimer(value) {
     setState(() {
@@ -86,12 +94,15 @@ class _UserCardState extends State<UserCard> {
     return Container(
       child: GestureDetector(
         onTap: () => _handleEvent(widget.context),
-        child: Row(
-          children: <Widget>[
-            SlackUserImage(widget.user.image),
-            SlackUsername(widget.user.name),
-            AlertIcon(size: 30.0, color: Colors.black)
-          ],
+        onDoubleTap: () => {print},
+        child: Container(
+          child: Row(
+            children: <Widget>[
+              SlackUserImage(widget.user.image),
+              SlackUsername(widget.user.name),
+              AlertIcon(size: 30.0, color: Colors.black)
+            ],
+          ),
         ),
       ),
     );

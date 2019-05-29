@@ -49,7 +49,7 @@ class _ContactResponseState extends State<ContactResponse> {
             color: Theme.of(context).accentColor, size: 135.0, lineWidth: 15.0),
       ),
     );
-  }  
+  }
 
   Widget loadImage() {
     return Positioned(

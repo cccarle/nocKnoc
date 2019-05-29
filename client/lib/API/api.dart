@@ -15,7 +15,6 @@ final _postToAPIURL = '${globals.url}/api/notify';
 
 Future<List<UserModel>> fecthUserList(key) async {
   var keys = encryption.encrypt(key);
-
   http.Response response = await http.get(
     Uri.encodeFull(_fetchUserListURL),
     headers: {
@@ -25,9 +24,10 @@ Future<List<UserModel>> fecthUserList(key) async {
   );
 
   if (response.statusCode != 200) {
-    throw Exception('Ring växeln');
+    throw Exception('Error getting users');
   }
 
+  print(response.body);
   return compute(parseUsers, response.body);
 }
 
@@ -45,7 +45,7 @@ Future<Post> createPost({Map body, key}) async {
       final int statusCode = response.statusCode;
 
       if (statusCode < 200 || statusCode > 400 || json == null) {
-        throw new Exception("Error while fetching data");
+        throw new Exception("Error while posting");
       }
 
       return Post.fromJson(json.decode(response.body));

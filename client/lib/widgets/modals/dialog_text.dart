@@ -8,7 +8,8 @@ class DialogText extends StatefulWidget {
   final String username;
   final SocketIO socket;
 
-  DialogText({this.context, this.username = globals.defaultMessage, this.socket});
+  DialogText(
+      {this.context, this.username = globals.defaultMessage, this.socket});
 
   @override
   _DialogTextState createState() => _DialogTextState();
@@ -50,7 +51,7 @@ class _DialogTextState extends State<DialogText> {
   Widget build(BuildContext context) {
     return Text(
       _message,
-      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25.0),
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
     );
   }
 }

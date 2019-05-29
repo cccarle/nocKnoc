@@ -1,7 +1,5 @@
 import 'dart:async';
 
-// import '../model/user_model.dart';
-
 class HelperFunctions {
   final validateSearchedUser = StreamTransformer<String, String>.fromHandlers(
     handleData: (searchedLetter, sink) {

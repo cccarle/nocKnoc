@@ -33,7 +33,7 @@ class _DialogContentState extends State<DialogContent> {
       () => {_socket = widget.socket},
     );
 
-    _startTimerToFallback();
+    _startTimerToReceptionNumber();
     _startSocketConnection();
     _goBackToHomeScreen();
   }
@@ -44,11 +44,12 @@ class _DialogContentState extends State<DialogContent> {
             child: Column(
               children: <Widget>[
                 Center(
-                    child: ContactResponse(
-                        context: context,
-                        socket: _socket,
-                        image: widget.user.image,
-                        username: widget.user.name)),
+                  child: ContactResponse(
+                      context: context,
+                      socket: _socket,
+                      image: widget.user.image,
+                      username: widget.user.name),
+                ),
                 SizedBox(height: 25.0),
                 DialogText(
                     socket: widget.socket,
@@ -104,7 +105,7 @@ class _DialogContentState extends State<DialogContent> {
     return modal;
   }
 
-  void _startTimerToFallback() {
+  void _startTimerToReceptionNumber() {
     Future.delayed(
       const Duration(seconds: 5),
       () {

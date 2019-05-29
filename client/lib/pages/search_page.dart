@@ -4,15 +4,17 @@ import '../widgets/userList/user_list_builder.dart';
 import '../widgets/appbar/app_bar.dart';
 import '../bloc/provider.dart';
 import '../API/api.dart';
+import 'dart:async';
 import '../model/user_model.dart';
 import '../widgets/modals/alternative_contact.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import '../pages/error_page.dart';
 import '../config/globals.dart' as globals;
 
 class SearchPage extends StatefulWidget {
   final String visitor;
   final dynamic apiKey;
-  
+
   SearchPage({this.visitor, this.apiKey});
 
   _SearchPageState createState() => _SearchPageState();
@@ -20,7 +22,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   Future<List<UserModel>> list;
-  static final showSmallContainer = 630.0; 
+  // List<UserModel> test;
+  static final showSmallContainer = 600.0;
   static final showLargeContainer = 290.0;
   double _height = showSmallContainer;
 
@@ -54,9 +57,13 @@ class _SearchPageState extends State<SearchPage> {
 
   returnList() {
     if (list == null) {
-      setState(() {
-        list = fecthUserList(widget.apiKey);
-      });
+      // var res = await fecthUserList(widget.apiKey);
+      print(list);
+      setState(
+        () {
+          list = fecthUserList(widget.apiKey);
+        },
+      );
     }
   }
 
@@ -76,19 +83,36 @@ class _SearchPageState extends State<SearchPage> {
         child: Container(
           margin: EdgeInsets.all(10.0),
           width: 700.0,
-          child: Column(
-            children: <Widget>[
-              _headlineText(),
-              _searchInput(),
-              SizedBox(height: 25),
-              _listViewSlackUsers(context, bloc),
-              AlternativeContact(widget.visitor)
-            ],
-          ),
+          child: pageBuilder(context, bloc),
         ),
       ),
     );
   }
+
+  pageBuilder(BuildContext context, bloc) {
+    return Column(
+      children: <Widget>[
+        _headlineText(),
+        _searchInput(),
+        SizedBox(height: 25),
+        _listViewSlackUsers(context, bloc),
+        AlternativeContact(widget.visitor)
+      ],
+    );
+  }
+  // if (test != null) {
+  //   return Column(
+  //     children: <Widget>[
+  //       _headlineText(),
+  //       _searchInput(),
+  //       SizedBox(height: 25),
+  //       _listViewSlackUsers(context, bloc),
+  //       AlternativeContact(widget.visitor)
+  //     ],
+  //   );
+  // } else {
+  //   return ErrorPage();
+  // }
 
   Widget _headlineText() {
     return Center(

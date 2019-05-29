@@ -29,7 +29,9 @@ class _AlternativeContactState extends State<AlternativeContact> {
     if (time == threeSec) {
       dialog
           .getCancelDialog(context, makeRequest, timer, setTimer, apiKey)
-          .then((onValue) {});
+          .then(
+            (onValue) {},
+          );
     } else if (time == 300) {
       makeRequest(apiKey);
       Navigator.of(context).pop(true);
@@ -37,15 +39,15 @@ class _AlternativeContactState extends State<AlternativeContact> {
   }
 
   void setTimer(value) {
-    setState(() {
-      _start = value;
-    });
+    setState(
+      () {
+        _start = value;
+      },
+    );
   }
 
   void makeRequest(apiKey) {
-    print(widget.visitor);
     Post newPost = new Post(visitor: widget.visitor);
-    print(newPost.toMap());
     createPost(body: newPost.toMap(), key: apiKey);
   }
 
@@ -70,15 +72,21 @@ class _AlternativeContactState extends State<AlternativeContact> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _handleEvent(context),
+      onTap: () => {_handleEvent(context)},
+      onDoubleTap: () => {print},
       child: Align(
         alignment: Alignment.centerLeft,
         child: Padding(
-          padding: EdgeInsets.only(left: 15.0),
-          child: Text(
-            globals.unknown,
-            style: TextStyle(
-                color: Colors.white, decoration: TextDecoration.underline),
+          padding: EdgeInsets.only(left: 15.0, top: 10.0),
+          child: Container(
+            height: 40.0,
+            child: Text(
+              globals.unknown,
+              style: TextStyle(
+                  color: Colors.white,
+                  decoration: TextDecoration.underline,
+                  fontSize: 25.0),
+            ),
           ),
         ),
       ),

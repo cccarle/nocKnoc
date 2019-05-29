@@ -49,14 +49,18 @@ class UserListBuilder extends StatelessWidget {
               AsyncSnapshot<List<UserModel>> asyncsnapshot) {
             switch (asyncsnapshot.connectionState) {
               case ConnectionState.none:
-                return Text('input a url');
+                return Text('dasd');
               case ConnectionState.waiting:
                 return Center(child: CircularProgressIndicator());
               case ConnectionState.active:
                 return Text('loading');
               case ConnectionState.done:
                 if (asyncsnapshot.hasError) {
-                  return ErrorPage();
+                  print(asyncsnapshot.hasError);
+                  return Text(
+                    '${asyncsnapshot.error}',
+                    style: TextStyle(color: Colors.red),
+                  );
                 } else {
                   return _buildList(asyncsnapshot.data, snapshot.data);
                 }

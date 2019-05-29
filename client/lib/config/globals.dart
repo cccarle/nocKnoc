@@ -2,7 +2,13 @@ library my_prj.globals;
 
 bool showSuportView = false;
 
-String url = "http://160f4b82.ngrok.io/s";
+int backToHomeScreenTimer = 4;
+
+int timeToShowReception = 60;
+
+int asd = 1;
+
+String url = "https://169fddfd.ngrok.io";
 
 String visitorOption1 = "Leverans";
 
@@ -16,13 +22,17 @@ String welcomeText = "Välkommen!";
 
 String whoAreYou = "Vem är du?";
 
-String whoAreYouLookingFor = "Vem söker du";
+String whoAreYouLookingFor = "Vem söker du ?";
 
 String unknown = "Jag vet inte vem jag söker";
 
 String lastMessage = "Ring växel 0724340454";
 
 String cancelText = "Avbryt";
+
+String somethingWentWrong = "Något gick fel!";
+
+String tryAgain = "Försök igen";
 
 const String emptyString = "";
 
