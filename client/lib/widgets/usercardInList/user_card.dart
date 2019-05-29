@@ -92,7 +92,7 @@ class _UserCardState extends State<UserCard> {
 
   Widget build(BuildContext context) {
     return Container(
-      child: GestureDetector(
+      child: InkWell(
         onTap: () => _handleEvent(widget.context),
         onDoubleTap: () => {print},
         child: Container(
