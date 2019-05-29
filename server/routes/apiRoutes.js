@@ -49,6 +49,7 @@ server.get('/teams', async (req, res) => {
 })
 
 server.post('/notify', validate.client, async (req, res) => {
+  console.log(req.body)
   try {
     if (req.body.channelId && req.body.visitor && req.body.name && req.body.userId) {
       let result = await messageController.sendAccept(
@@ -70,10 +71,6 @@ server.post('/notify', validate.client, async (req, res) => {
     res.status(handledError.code).json(handledError.message)
   }
 })
-
-server.post('/notifyall', async (req, res) => {
-   
- })
 
 server.post('/deviceinfo', async (req, res) => {
   try {
@@ -99,7 +96,7 @@ server.get('/botinfo', async (req, res) => {
   }
 })
 
-server.post('/payload', validate.slack, async (req, res, next) => {
+server.post('/payload', async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
     //Ändringar av settings hamnar här

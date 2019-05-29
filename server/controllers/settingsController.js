@@ -10,23 +10,17 @@ const settingsBlock = require('../resources/settingsBlock')
 const workspace = require('../utils/workspace')
 
 const createSettingsBlocks = async () => {
-  // let allTeams = await workspace.getTeams()
-  let allTeams = allTeamsObject
-  let allChannels = await workspace.getChannels()
+  let allTeams = await workspace.getTeams()
+  // let allTeams = allTeamsObject
+  // let allChannels = await workspace.getChannels()
+  let allChannels = [{name: 'kalmar', id: 'C1CSPJR7X'}, {name: "general", id: "C025SK1PM"}]
   let whitelistedTeams = await teamsController.extractWhitelistedTeams(allTeams)
   let blacklistedTeams = await teamsController.extractBlacklistedTeams(allTeams)
   let unHiddenTeams = await whiteListedTeamsToBlock(whitelistedTeams)
   let hiddenTeams = await blackListedTeamsToBlock(blacklistedTeams)
-  let channelsBlock = await channelsToBlock(allChannels)
+  let channelsBlock = await channelsToBlock(allChannels) // FALLBACK
   let answer = [...unHiddenTeams, ...hiddenTeams, channelsBlock]
 
-  allTeams ? console.log('All teams finns') : console.log('allTeams finns inte')
-  allChannels ? console.log('allChannels finns') : console.log('allChannels finns inte')
-  whitelistedTeams ? console.log('whitelistedTeams teams finns') : console.log('whitelistedTeams finns inte')
-  blacklistedTeams ? console.log('blacklistedTeams finns') : console.log('blacklistedTeams finns inte')
-  unHiddenTeams ? console.log('unHiddenTeams teams finns') : console.log('unHiddenTeams finns inte')
-  hiddenTeams ? console.log('hiddenTeams teams finns') : console.log('hiddenTeams finns inte')
-  channelsBlock ? console.log('channelsBlock teams finns') : console.log('channelsBlock finns inte')
   return answer
 }
 
@@ -39,6 +33,7 @@ const sendSelectionBlock = async payload => {
   return result
 }
 
+// FALLBACK
 const channelsToBlock = async (channels) => {
   var block = JSON.parse(JSON.stringify(settingsBlock))
   let {accessory} = block
@@ -88,6 +83,8 @@ const blackListedTeamsToBlock = async blacklistedTeams => {
   })
   return hiddenTeams
 }
+
+// FALLBACK-FUNKTIONALITET
 const settingsHandler = async payload => {
   if (payload.actions[0].type === 'static_select') {
     return handleFallbackChannel(payload)
@@ -117,6 +114,7 @@ const handleBlacklistChange = async payload => {
   }
 }
 
+// FALLBACK
 const handleFallbackChannel = async payload => {
   let object = await settingsObject.readFile()
   if(object.settings.fallbackChannel !== payload.actions[0].selected_option.value) {

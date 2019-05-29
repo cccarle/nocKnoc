@@ -7,7 +7,7 @@ let timer
 module.exports = {
   sendAccept: async (visitor, name, userId, channelId) => {
     clearTimeout(timer)
-    let response = await sendAcceptFormToChannel(visitor, name, userId, channelId)
+    let response = await sendAcceptFormToChannel(visitor, name, channelId, userId)
     setFallbackTimeout(response.ts, channelId, visitor, name)
     return response
   },
@@ -63,7 +63,7 @@ const setTemporaryMessage = async (channelId, message, timestamp = null) => {
   if (timestamp) {
     result = await api.updateMessage(channelId, message, timestamp)
   } else {
-    result = await api.sendMessageToChannel(channelId, message)    
+    result = await api.sendMessageToChannel(channelId, message)
   }
   setTimeout(() => {
     api.deleteMessage(result.channel, result.ts)
@@ -84,7 +84,7 @@ const prepareMessage = async (visitor, name, userId) => {
   return {block, text}
 }
 
-const sendAcceptFormToChannel = async (visitor, name, userId, channelId) => {
+const sendAcceptFormToChannel = async (visitor, name, channelId, userId) => {
   let {block, text} = await prepareMessage(visitor, name, userId)
   let result = await api.sendFormToChannel(channelId, block, text)
   return result
@@ -96,7 +96,7 @@ const sendAcceptFormToFallbackChannel = async (visitor, name) => {
   let {block, text} = await prepareMessage(visitor, name)
   let response = await api.sendFormToChannel(channelId, block, text)
   response.channelName = channel.channel.name
- 
-  
+
+
   return response
 }

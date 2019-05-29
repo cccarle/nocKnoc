@@ -12,8 +12,8 @@ const getWhiteListedTeamsAndUsers = async () => {
   return whiteListedTeamsAndUsers
 }
 
-const addUsersToTeams = (teams) => {
-  teams.forEach((team) => {
+const addUsersToTeams = teams => {
+  teams.forEach(team => {
     apiWithCache.getTeamUsersByTeamId(team.id).then(userData => {
       team.users = userData.users || []
     })
@@ -21,18 +21,27 @@ const addUsersToTeams = (teams) => {
   return teams
 }
 
-const extractWhitelistedTeams = async (teams) => {
+const extractWhitelistedTeams = async teams => {
   let settings = await settingsObject.readFile()
-  return teams.filter((team) => !settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
+  return teams.filter(
+    team =>
+      !settings.teamBlacklist.includes(team.id) && team.channels.length > 0
+  )
 }
 
-const extractBlacklistedTeams = async (teams) => {
+const extractBlacklistedTeams = async teams => {
   let settings = await settingsObject.readFile()
-  return teams.filter((team) => settings.teamBlacklist.includes(team.id) && team.channels.length > 0)
+  return teams.filter(
+    team => settings.teamBlacklist.includes(team.id) && team.channels.length > 0
+  )
 }
 
-const extractChannelsFromTeamArray = (teamArray) => {
-  return teamArray.map(({channels}) => (channels).join(','))
+const extractChannelsFromTeamArray = teamArray => {
+  // console.log(teamArray)
+  let cannels = teamArray.map(({ channels }) => {
+    return channels[0]
+  })
+  return cannels
 }
 
 module.exports = {
