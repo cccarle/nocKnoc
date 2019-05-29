@@ -96,5 +96,6 @@ testUsers.js
 testUsers.json
 allTeams.js
 allTeams.json
+AllTeams.json
 
 # End of https://www.gitignore.io/api/node

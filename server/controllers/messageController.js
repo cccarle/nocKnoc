@@ -71,17 +71,21 @@ const setTemporaryMessage = async (channelId, message, timestamp = null) => {
   return result
 }
 
-const prepareMessage = (visitor, name, userId) => {
-  let text
-  !name ? text = `${visitor} är vid dörren` : text = `${visitor} är vid dörren, söker ${name}` 
-  userId ? text += ` <@${userId}>` : null
-  console.log(userId)
+const prepareMessage = async (visitor, name, userId) => {
+  let text = `${visitor} är vid dörren`
+  if (userId && name) {
+    let user = await api.getUserById(userId)
+    let slackName = user.user.name
+    text += `, söker ${name} <@${slackName}>`
+  } else if (name) {
+    text += `, söker ${name}`
+  }
   let block = acceptDeclineMessage(text)
   return {block, text}
 }
 
 const sendAcceptFormToChannel = async (visitor, name, userId, channelId) => {
-  let {block, text} = prepareMessage(visitor, name, userId)
+  let {block, text} = await prepareMessage(visitor, name, userId)
   let result = await api.sendFormToChannel(channelId, block, text)
   return result
 }
@@ -89,7 +93,7 @@ const sendAcceptFormToFallbackChannel = async (visitor, name) => {
   let settings = await settingsFile.readFile()
   let channelId = settings.settings.fallbackChannel
   let channel = await api.getChannelById(channelId)
-  let {block, text} = prepareMessage(visitor, name)
+  let {block, text} = await prepareMessage(visitor, name)
   let response = await api.sendFormToChannel(channelId, block, text)
   response.channelName = channel.channel.name
  

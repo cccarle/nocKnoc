@@ -1,3 +1,4 @@
+
 const server = require('express').Router()
 const employeesController = require('../controllers/employeesController')
 const messageController = require('../controllers/messageController')
@@ -7,6 +8,7 @@ const errorHandling = require('../utils/errorHandling')
 const testUsers = require('../resources/testUsers')
 const validate = require('../middleware/validateSecret')
 const settingsController = require('../controllers/settingsController')
+const workspace = require('../utils/workspace')
 require('dotenv').config()
 
 server.get("/employees", async (req, res) => {
@@ -63,6 +65,7 @@ server.post('/notify', validate.client, async (req, res) => {
       res.status(400).send('Bad Format')
     }
   } catch (e) {
+    console.log(e)
     let handledError = errorHandling(e)
     res.status(handledError.code).json(handledError.message)
   }
@@ -108,6 +111,7 @@ server.post('/payload', validate.slack, async (req, res, next) => {
       let result = await messageController.answerHandler(parsed)
       console.log(result, 'APIROUTES')
       req.io.emit('answer', result)
+      req.io.emit('answer2', result)
       res.status(200)
     } else {
       res.status(400).send('Bad Format')
@@ -117,15 +121,22 @@ server.post('/payload', validate.slack, async (req, res, next) => {
     res.status(handledError.code).json(handledError.message)
   }
 })
-
+// VALIDERA
 server.post('/settings', async (req, res, next) => {
   try {
-    let answer = await settingsController.sendSelectionBlock(req.body) // TODO: ska detta returnera något?
+    console.log(req.body)
+    await settingsController.sendSelectionBlock(req.body) // TODO: ska detta returnera något?
     res.status(200).json()
 
   } catch (e) {
-    res.status(500)
+    console.log(e)
+    res.status(500).json()
   }
+})
+
+server.get('/channels', async (req, res, next) => {
+  let a = await workspace.getChannels()
+    res.status(200).json(a)
 })
 
 module.exports = server

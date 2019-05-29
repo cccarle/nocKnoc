@@ -15,13 +15,15 @@ const getTeams = async () => {
 
   const getChannels = async () => {
     let result = await api.getAllChannels()
+    let array = result.channels.filter(channel => !channel.is_archived && channel.num_members > 25)
+    console.log(array.length)
     let channels = result.channels.map(
       ({ id, name }) => ({
         id,
         name
       })
     )
-    return channels
+    return array
   }
 
   const getEmployees = async () => {
@@ -36,6 +38,8 @@ const getTeams = async () => {
       )
     return employees
   }
+
+  getEmployees()
 
  const getEmployeeById = async (employeeId) => {
     let result = await api.getUserById(employeeId)

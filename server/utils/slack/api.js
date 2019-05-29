@@ -40,7 +40,7 @@ module.exports = {
     return bot.bots.info({token: botToken})
   },
 
-  sendTeamsToChannel: async (channel, blocks) => {
+  sendTeamsToChannel: (channel, blocks) => {
     return bot.chat.postMessage({token: botToken, channel: channel, text: 'settings', blocks: JSON.stringify(blocks)})
   },
 

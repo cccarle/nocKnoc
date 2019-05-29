@@ -10,7 +10,7 @@ const settingsBlock = require('../resources/settingsBlock')
 const workspace = require('../utils/workspace')
 
 const createSettingsBlocks = async () => {
-  // let allTeams = await teamsController.getAll()
+  // let allTeams = await workspace.getTeams()
   let allTeams = allTeamsObject
   let allChannels = await workspace.getChannels()
   let whitelistedTeams = await teamsController.extractWhitelistedTeams(allTeams)
@@ -20,12 +20,21 @@ const createSettingsBlocks = async () => {
   let channelsBlock = await channelsToBlock(allChannels)
   let answer = [...unHiddenTeams, ...hiddenTeams, channelsBlock]
 
+  allTeams ? console.log('All teams finns') : console.log('allTeams finns inte')
+  allChannels ? console.log('allChannels finns') : console.log('allChannels finns inte')
+  whitelistedTeams ? console.log('whitelistedTeams teams finns') : console.log('whitelistedTeams finns inte')
+  blacklistedTeams ? console.log('blacklistedTeams finns') : console.log('blacklistedTeams finns inte')
+  unHiddenTeams ? console.log('unHiddenTeams teams finns') : console.log('unHiddenTeams finns inte')
+  hiddenTeams ? console.log('hiddenTeams teams finns') : console.log('hiddenTeams finns inte')
+  channelsBlock ? console.log('channelsBlock teams finns') : console.log('channelsBlock finns inte')
   return answer
 }
 
 const sendSelectionBlock = async payload => {
   let answer = await createSettingsBlocks()
+  console.log(answer)
   let result = await api.sendTeamsToChannel(payload.channel_id, answer)
+  console.log(result)
 
   return result
 }
