@@ -38,7 +38,7 @@ class _DialogTextState extends State<DialogText> {
 
   void goBackToHomeScreen() {
     Future.delayed(
-      const Duration(seconds: 15),
+      const Duration(seconds: globals.successfullAnswerTimer),
       () {
         Navigator.of(widget.context).popUntil((route) => route.isFirst);
       },

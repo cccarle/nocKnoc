@@ -34,7 +34,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void goBackToHomeScreen() {
     Future.delayed(
-      const Duration(minutes: 4),
+      const Duration(minutes: globals.backToHomeScreenTimer),
       () {
         Navigator.of(context).popUntil((route) => route.isFirst);
       },

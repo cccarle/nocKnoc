@@ -3,11 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'dart:async';
 
-//models
+//Models
 import '../model/user_model.dart';
 import '../model/post_model.dart';
 import '../model/encryption.dart';
-
+// Config
 import '../config/globals.dart' as globals;
 
 final _fetchUserListURL = '${globals.url}/api/employees';
