@@ -10,16 +10,16 @@ const settingsBlock = require('../resources/settingsBlock')
 const workspace = require('../utils/workspace')
 
 const createSettingsBlocks = async () => {
-  let allTeams = await workspace.getTeams()
-  // let allTeams = allTeamsObject
-  // let allChannels = await workspace.getChannels()
-  let allChannels = [{name: 'kalmar', id: 'C1CSPJR7X'}, {name: "general", id: "C025SK1PM"}]
+  // let allTeams = await workspace.getTeams()
+  let allTeams = allTeamsObject
+  // let allChannels = await workspace.getChannels() // Använd för att få upp alla kanaler i listan för fallbackkanal
+  // let allChannels = [{name: 'kalmar', id: 'C1CSPJR7X'}, {name: "general", id: "C025SK1PM"}]
   let whitelistedTeams = await teamsController.extractWhitelistedTeams(allTeams)
   let blacklistedTeams = await teamsController.extractBlacklistedTeams(allTeams)
   let unHiddenTeams = await whiteListedTeamsToBlock(whitelistedTeams)
   let hiddenTeams = await blackListedTeamsToBlock(blacklistedTeams)
-  let channelsBlock = await channelsToBlock(allChannels) // FALLBACK
-  let answer = [...unHiddenTeams, ...hiddenTeams, channelsBlock]
+//  let channelsBlock = await channelsToBlock(allChannels) // FALLBACK
+  let answer = [...unHiddenTeams, ...hiddenTeams]
 
   return answer
 }
@@ -34,6 +34,26 @@ const sendSelectionBlock = async payload => {
 }
 
 // FALLBACK
+const setFallbackById = async (channelId) => {
+  let currentSettings = await settingsObject.readFile()
+  let old = currentSettings.settings.fallbackChannel
+  let response = ''
+  if (channelId && typeof channelId === 'string' && channelId.length > 0) {
+    try {
+      let channel = await api.getChannelById(channelId)
+
+      currentSettings.settings.fallbackChannel = channelId
+      await settingsObject.writeToFile(currentSettings)
+      response += `Bytt från ${old} \n`
+
+    } catch {
+      response += 'Något gick fel. Angiven kanal är privat eller finns inte.\n'
+    }
+
+  }
+    response += 'Nuvarande ' + currentSettings.settings.fallbackChannel
+    return response
+}
 const channelsToBlock = async (channels) => {
   var block = JSON.parse(JSON.stringify(settingsBlock))
   let {accessory} = block
@@ -129,5 +149,6 @@ module.exports = {
   sendSelectionBlock,
   whiteListedTeamsToBlock,
   blackListedTeamsToBlock,
-  settingsHandler
+  settingsHandler,
+  setFallbackById
 }

@@ -96,7 +96,7 @@ server.get('/botinfo', async (req, res) => {
   }
 })
 
-server.post('/payload', async (req, res, next) => {
+server.post('/payload', validate.slack, async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
     //Ändringar av settings hamnar här
@@ -129,6 +129,12 @@ server.post('/settings', async (req, res, next) => {
     console.log(e)
     res.status(500).json()
   }
+})
+
+server.post('/fallback', async (req, res, next) => {
+  console.log(req.body.text)
+  let a = await settingsController.setFallbackById(req.body.text)
+    res.status(200).send(a)
 })
 
 server.get('/channels', async (req, res, next) => {
