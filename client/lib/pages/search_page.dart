@@ -8,7 +8,6 @@ import 'dart:async';
 import '../model/user_model.dart';
 import '../widgets/modals/alternative_contact.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
-import '../pages/error_page.dart';
 import '../config/globals.dart' as globals;
 
 class SearchPage extends StatefulWidget {
@@ -22,7 +21,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   Future<List<UserModel>> list;
-  // List<UserModel> test;
   static final showSmallContainer = 600.0;
   static final showLargeContainer = 290.0;
   double _height = showSmallContainer;
@@ -57,7 +55,6 @@ class _SearchPageState extends State<SearchPage> {
 
   returnList() {
     if (list == null) {
-      // var res = await fecthUserList(widget.apiKey);
       print(list);
       setState(
         () {
@@ -100,19 +97,6 @@ class _SearchPageState extends State<SearchPage> {
       ],
     );
   }
-  // if (test != null) {
-  //   return Column(
-  //     children: <Widget>[
-  //       _headlineText(),
-  //       _searchInput(),
-  //       SizedBox(height: 25),
-  //       _listViewSlackUsers(context, bloc),
-  //       AlternativeContact(widget.visitor)
-  //     ],
-  //   );
-  // } else {
-  //   return ErrorPage();
-  // }
 
   Widget _headlineText() {
     return Center(

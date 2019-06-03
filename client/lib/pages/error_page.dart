@@ -41,7 +41,7 @@ class ErrorPage extends StatelessWidget {
                 child: RaisedButton(
                   onPressed: () => {Navigator.pop(context)},
                   child: Text(
-                   globals.tryAgain,
+                    globals.tryAgain,
                     style: TextStyle(fontFamily: 'Avenir'),
                   ),
                 ),

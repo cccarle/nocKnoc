@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 
+/* Code taken from https://github.com/jogboms/flutter_spinkit/blob/master/lib/src/ring.dart
+* Code is modified to fit application
+*/
 class SpinKitRing1 extends StatefulWidget {
   const SpinKitRing1({
     Key key,

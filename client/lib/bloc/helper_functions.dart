@@ -7,15 +7,15 @@ class HelperFunctions {
     },
   );
 
-  final validateFlippedCard = StreamTransformer<bool, bool>.fromHandlers(
-    handleData: (open, sink) {
-      sink.add(open);
-    },
-  );
+  // final validateFlippedCard = StreamTransformer<bool, bool>.fromHandlers(
+  //   handleData: (open, sink) {
+  //     sink.add(open);
+  //   },
+  // );
 
-  final validateSocketUser = StreamTransformer<String, String>.fromHandlers(
-    handleData: (user, sink) {
-      sink.add(user);
-    },
-  );
+  // final validateSocketUser = StreamTransformer<String, String>.fromHandlers(
+  //   handleData: (user, sink) {
+  //     sink.add(user);
+  //   },
+  // );
 }

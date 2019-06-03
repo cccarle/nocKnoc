@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Appbar of application
 class DynamicAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class DynamicAppBar extends StatelessWidget {
         children: [meridiumLogo()],
       ),
       actions: <Widget>[
-        // insert Flags here
+        // insert commented out code below for adding flags
       ],
     );
   }

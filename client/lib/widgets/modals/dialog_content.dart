@@ -10,6 +10,7 @@ import '../../model/user_model.dart';
 // Config
 import '../../config/globals.dart' as globals;
 
+// Creates the content for the contact dialog text and picture
 class DialogContent extends StatefulWidget {
   final UserModel user;
   final bool isKnownContact;

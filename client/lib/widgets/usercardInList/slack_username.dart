@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Creates a text with a username
 class SlackUsername extends StatelessWidget {
   final String user;
 

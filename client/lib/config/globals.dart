@@ -1,12 +1,13 @@
 library my_prj.globals;
 
+const meridiumBlue = 0xFF09384E;
+const meridiumRed = 0xFFDC3E2A;
+
 bool showSuportView = false;
 
 int backToHomeScreenTimer = 4;
 
 int timeToShowReception = 60;
-
-int asd = 1;
 
 String url = "https://169fddfd.ngrok.io";
 

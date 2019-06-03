@@ -3,6 +3,7 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 import '../../config/globals.dart' as globals;
 
+// Creates the contacting text
 class DialogText extends StatefulWidget {
   final BuildContext context;
   final String username;

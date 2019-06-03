@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../bloc/bloc.dart';
 import '../../bloc/provider.dart';
 
+// Creates a input field
 class SearchInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,7 @@ class SearchInputField extends StatelessWidget {
     );
   }
 
+  // Text in input field are sent via streams to bloc
   Widget _renderTextInput(Bloc bloc) {
     return StreamBuilder(
       stream: bloc.searchedUserStream,

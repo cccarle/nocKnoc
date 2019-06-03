@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Creates a icon
 class AlertIcon extends StatelessWidget {
   final double size;
   final Color color;

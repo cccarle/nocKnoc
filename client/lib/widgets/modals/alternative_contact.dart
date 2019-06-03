@@ -6,6 +6,7 @@ import 'dart:async';
 import './dialog.dart';
 import '../../config/globals.dart' as globals;
 
+// Actions when not specified contcat is made
 class AlternativeContact extends StatefulWidget {
   final String visitor;
 

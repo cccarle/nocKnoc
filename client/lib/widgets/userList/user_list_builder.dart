@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/pages/error_page.dart';
 import 'dart:async';
-
-// bloc
+// Bloc
 import '../../bloc/bloc.dart';
 import '../../bloc/provider.dart';
-
 // Model
 import '../../model/user_model.dart';
+// Pages
+import '../../pages/error_page.dart';
 
 // Widgets
 import '../../widgets/usercardInList/user_card.dart';
 
+// Class that build a list of users
 class UserListBuilder extends StatelessWidget {
   final String visitor;
   final Future<List<UserModel>> list;
@@ -78,6 +78,7 @@ class UserListBuilder extends StatelessWidget {
     );
   }
 
+  // makes list searchable
   _selectList(index, filter, userObject) {
     return filter == null || filter == ""
         ? _slackUserListItem(index, userObject[index])
@@ -86,6 +87,7 @@ class UserListBuilder extends StatelessWidget {
             : Container();
   }
 
+  // creates every item in the list
   _slackUserListItem(index, userObject) {
     return Column(
       children: <Widget>[
