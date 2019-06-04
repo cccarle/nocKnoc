@@ -88,12 +88,13 @@ const prepareMessage = async (visitor, name, userId) => {
   let block = acceptDeclineMessage(text)
   return {block, text}
 }
-
+// Skapar ett formulär utav variabeldatan och skickar det till channelId:t
 const sendAcceptFormToChannel = async (visitor, name, channelId, userId) => {
   let {block, text} = await prepareMessage(visitor, name, userId)
   let result = await api.sendFormToChannel(channelId, block, text)
   return result
 }
+// Skapar formulär och skickar till specificerad fallback-kanal i settings.
 const sendAcceptFormToFallbackChannel = async (visitor, name) => {
   let settings = await settingsFile.readFile()
   let channelId = settings.settings.fallbackChannel
