@@ -2,16 +2,13 @@
 
 [Dokumentation](https://github.com/cccarle/nocKnoc/wiki)
 
-## Server
+# Server
 
-### Förkrav
+## Förkrav
 Ett slack-workspace med en App med bot-funktionalitet
 I inställningar för boten på slack kommer en URL att tas emot. Denna url behöver vara den utgående adressen till servern.
-### Tillvägagångssätt
-* utgående adressen till servern. “[din url]/api/payload”.
-* För inställningar via Slack används ett slash command, “/settings”. 
-* URL för att ta emot denna är “[din url]/api/settings”
-
+## Tillvägagångssätt
+* Skapa en app i Slack. [Instruktioner](Thisisnotalink.asdfdsasd)
 * Ladda ner repot
 * Installera beroende npm-paket 
 * I en .env-fil lokaliserat i serverns rot behövs följande:
@@ -23,9 +20,9 @@ client_signature=”En överenskommen hemlighet delad med klientsidan”
 ```
 Starta servern med kommandot “node index” stående i serverns rot
 
-## Klient
+# Klient
 
-### Tillvägagångssätt
+## Tillvägagångssätt
 
 * Installera Android studio
 * [Installera](https://github.com/cccarle/nocKnoc/wiki/Flutter-Installation) Flutter
