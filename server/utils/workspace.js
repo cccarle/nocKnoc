@@ -11,7 +11,7 @@ const getTeams = async () => {
     })
       )
     return teams
-  }  
+  }
 
   const getChannels = async () => {
     let result = await api.getAllChannels()
@@ -21,7 +21,8 @@ const getTeams = async () => {
         name
       })
     )
-    return channels
+    console.log(result)
+    return result
   }
 
   const getEmployees = async () => {
@@ -37,6 +38,17 @@ const getTeams = async () => {
     return employees
   }
 
+ const getEmployeeById = async (employeeId) => {
+    let result = await api.getUserById(employeeId)
+    let {id, team_id, real_name, profile} = result.user
+    let user = {
+      id,
+      team_id,
+      real_name,
+      images: _filterImagesFromProfile(profile)
+    }
+    return user
+  }
   const _filterImagesFromProfile = profile => {
     return {
       icon: profile.image_24,
@@ -47,5 +59,6 @@ const getTeams = async () => {
 module.exports = {
     getTeams,
     getEmployees,
-    getChannels
+    getChannels,
+    getEmployeeById
 }

@@ -16,10 +16,7 @@ const getNotifiableEmployees = async () => {
   })
   return employeeArray
 }
-// const getEmployeeById = async (id) => {
-  // let result = await api.getUserById(id)
-//   return result
-// }
+
 
 module.exports = {
   getNotifiableEmployees

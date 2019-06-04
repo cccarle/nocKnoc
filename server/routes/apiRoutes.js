@@ -1,3 +1,4 @@
+
 const server = require('express').Router()
 const employeesController = require('../controllers/employeesController')
 const messageController = require('../controllers/messageController')
@@ -7,6 +8,7 @@ const errorHandling = require('../utils/errorHandling')
 const testUsers = require('../resources/testUsers')
 const validate = require('../middleware/validateSecret')
 const settingsController = require('../controllers/settingsController')
+const workspace = require('../utils/workspace')
 require('dotenv').config()
 
 server.get("/employees", async (req, res) => {
@@ -33,6 +35,7 @@ server.get('/employee/:id', async (req, res) => {
 server.get('/employeestest', validate.client, (req, res) => {
   let users = testUsers
   res.status(200).json(users)
+
 })
 
 server.get('/teams', async (req, res) => {
@@ -45,19 +48,25 @@ server.get('/teams', async (req, res) => {
   }
 })
 
-server.post('/notify', async (req, res) => {
+server.post('/notify', validate.client, async (req, res) => {
+  console.log(req.body)
   try {
-    if (req.body.channelId && req.body.visitor && req.body.name) {
+    if (req.body.channelId && req.body.visitor && req.body.name && req.body.userId) {
       let result = await messageController.sendAccept(
         req.body.visitor,
         req.body.name,
+        req.body.userId,
         req.body.channelId
       )
+      res.status(200).json(result)
+    } else if (!req.body.channelId && req.body.visitor && !req.body.name && !req.body.userId) {
+      let result = await messageController.sendToFallback(req.body.visitor)
       res.status(200).json(result)
     } else {
       res.status(400).send('Bad Format')
     }
   } catch (e) {
+    console.log(e)
     let handledError = errorHandling(e)
     res.status(handledError.code).json(handledError.message)
   }
@@ -67,7 +76,7 @@ server.post('/deviceinfo', async (req, res) => {
   try {
     if (req.body.message) {
     let result = await messageController.sendDeviceMessage(req.body.message)
-    res.status(200).json({ result: result })
+    res.status(200).json(result)
   } else {
     res.status(400).send('Bad Format')
   }
@@ -97,9 +106,9 @@ server.post('/payload', validate.slack, async (req, res, next) => {
     // Accept-svar från anställd när någon söks hamnar här
     } else if (parsed.message.text !== "settings") {
       let result = await messageController.answerHandler(parsed)
-      console.log('User som acceptat:', parsed.user.id)
+      console.log(result, 'APIROUTES')
       req.io.emit('answer', result)
-      console.log('emit ska skickats')
+      req.io.emit('answer2', result)
       res.status(200)
     } else {
       res.status(400).send('Bad Format')
@@ -109,16 +118,28 @@ server.post('/payload', validate.slack, async (req, res, next) => {
     res.status(handledError.code).json(handledError.message)
   }
 })
-
-server.post('/teamshandler', async (req, res, next) => {
+// VALIDERA
+server.post('/settings', async (req, res, next) => {
   try {
-    let answer = await settingsController.sendSelectionBlock(req.body)
-    console.log(req.body.channel_id, 'I routes')
+    console.log(req.body)
+    await settingsController.sendSelectionBlock(req.body) // TODO: ska detta returnera något?
     res.status(200).json()
 
   } catch (e) {
-    res.status(500)
+    console.log(e)
+    res.status(500).json()
   }
+})
+
+server.post('/fallback', async (req, res, next) => {
+  console.log(req.body.text)
+  let a = await settingsController.setFallbackById(req.body.text)
+    res.status(200).send(a)
+})
+
+server.get('/channels', async (req, res, next) => {
+  let a = await workspace.getChannels()
+    res.status(200).json(a)
 })
 
 module.exports = server

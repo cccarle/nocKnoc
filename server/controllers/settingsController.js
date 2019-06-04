@@ -10,26 +10,50 @@ const settingsBlock = require('../resources/settingsBlock')
 const workspace = require('../utils/workspace')
 
 const createSettingsBlocks = async () => {
-  // let allTeams = await teamsController.getAll()
+  // let allTeams = await workspace.getTeams()
   let allTeams = allTeamsObject
-  let allChannels = await workspace.getChannels()
+  // let allChannels = await workspace.getChannels() // Använd för att få upp alla kanaler i listan för fallbackkanal
+  // let allChannels = [{name: 'kalmar', id: 'C1CSPJR7X'}, {name: "general", id: "C025SK1PM"}]
   let whitelistedTeams = await teamsController.extractWhitelistedTeams(allTeams)
   let blacklistedTeams = await teamsController.extractBlacklistedTeams(allTeams)
   let unHiddenTeams = await whiteListedTeamsToBlock(whitelistedTeams)
   let hiddenTeams = await blackListedTeamsToBlock(blacklistedTeams)
-  let channelsBlock = await channelsToBlock(allChannels)
-  let answer = [...unHiddenTeams, ...hiddenTeams, channelsBlock]
+//  let channelsBlock = await channelsToBlock(allChannels) // FALLBACK
+  let answer = [...unHiddenTeams, ...hiddenTeams]
 
   return answer
 }
 
 const sendSelectionBlock = async payload => {
   let answer = await createSettingsBlocks()
+  console.log(answer)
   let result = await api.sendTeamsToChannel(payload.channel_id, answer)
+  console.log(result)
 
   return result
 }
 
+// FALLBACK
+const setFallbackById = async (channelId) => {
+  let currentSettings = await settingsObject.readFile()
+  let old = currentSettings.settings.fallbackChannel
+  let response = ''
+  if (channelId && typeof channelId === 'string' && channelId.length > 0) {
+    try {
+      let channel = await api.getChannelById(channelId)
+
+      currentSettings.settings.fallbackChannel = channelId
+      await settingsObject.writeToFile(currentSettings)
+      response += `Bytt från ${old} \n`
+
+    } catch {
+      response += 'Något gick fel. Angiven kanal är privat eller finns inte.\n'
+    }
+
+  }
+    response += 'Nuvarande ' + currentSettings.settings.fallbackChannel
+    return response
+}
 const channelsToBlock = async (channels) => {
   var block = JSON.parse(JSON.stringify(settingsBlock))
   let {accessory} = block
@@ -66,7 +90,7 @@ const whiteListedTeamsToBlock = async whitelistedTeams => {
   let unhiddenTeams = []
   whitelistedTeams.forEach(team => {
     unhiddenTeams.push(
-      selectBlock.selectBlock(team.handle, team.id, "Hide team")
+      selectBlock.selectBlock(team.handle, team.id, "Göm team")
     )
   })
   return unhiddenTeams
@@ -75,10 +99,12 @@ const whiteListedTeamsToBlock = async whitelistedTeams => {
 const blackListedTeamsToBlock = async blacklistedTeams => {
   let hiddenTeams = []
   blacklistedTeams.forEach(team => {
-    hiddenTeams.push(selectBlock.selectBlock(team.handle, team.id, "Show team"))
+    hiddenTeams.push(selectBlock.selectBlock(team.handle, team.id, "Visa team"))
   })
   return hiddenTeams
 }
+
+// FALLBACK-FUNKTIONALITET
 const settingsHandler = async payload => {
   if (payload.actions[0].type === 'static_select') {
     return handleFallbackChannel(payload)
@@ -108,6 +134,7 @@ const handleBlacklistChange = async payload => {
   }
 }
 
+// FALLBACK
 const handleFallbackChannel = async payload => {
   let object = await settingsObject.readFile()
   if(object.settings.fallbackChannel !== payload.actions[0].selected_option.value) {
@@ -122,5 +149,6 @@ module.exports = {
   sendSelectionBlock,
   whiteListedTeamsToBlock,
   blackListedTeamsToBlock,
-  settingsHandler
+  settingsHandler,
+  setFallbackById
 }

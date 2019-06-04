@@ -1,6 +1,5 @@
 var Slack = require('slack')
 require('dotenv').config()
-let {acceptDeclineMessage} = require('../../resources/blocks.js')
 
 const botToken = process.env.Bot_User_OAuth_Access_Token
 const userToken = process.env.User_OAuth_Access_Token
@@ -20,7 +19,7 @@ module.exports = {
     return bot.channels.list({token: botToken})
   },
   getUserById: (userId) => {
-    return bot.users.info({token: botToken, userId})
+    return bot.users.info({token: botToken, user: userId})
   },
   getChannelById: (channel) => {
     return bot.channels.info({token: botToken, channel})
@@ -42,7 +41,6 @@ module.exports = {
   },
 
   sendTeamsToChannel: (channel, blocks) => {
-    console.log(channel)
     return bot.chat.postMessage({token: botToken, channel: channel, text: 'settings', blocks: JSON.stringify(blocks)})
   },
 
@@ -53,7 +51,6 @@ module.exports = {
     return bot.chat.delete({token: botToken, channel, ts})
   },
   updateSettingsMessage: (channel, ts, blocks) => {
-    console.log(channel)
     return bot.chat.update({token: botToken, channel: channel, text: "settings", ts, as_user: true, blocks})
   }
 }

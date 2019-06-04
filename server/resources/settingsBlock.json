@@ -3,7 +3,7 @@
   "type": "section",
   "text": {
     "type": "mrkdwn",
-    "text": "Choose fallback channel: "
+    "text": "Välj fallback-kanal: "
   },
   "accessory": {
     "type": "static_select",

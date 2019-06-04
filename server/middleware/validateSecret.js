@@ -13,7 +13,7 @@ const slack = (req, res, next) => {
     if ((Math.floor(new Date() / 1000) - timeStamp) > 60 * 5) {
       // if it's more than 5 min difference, it could be a replay attack.
       console.log('could be a replay attack')
-      res.status(401)
+      res.status(401).json()
     }
 
     // concatinate the version number with timestamp and the req.body
@@ -26,18 +26,23 @@ const slack = (req, res, next) => {
       console.log('valid post from slack')
       next()
     } else {
-      res.status(403)
+      res.status(403).json()
     }
 
+  } else {
+    res.status(403).json()
   }
 }
 const client = (req, res, next) => {
   let clientHeader = req.headers['client-signature']
-  hash = crypto.createHmac('sha256', process.env.client_signature).digest('hex')
+  let signature = process.env.client_signature
+  let hash = crypto.createHmac('sha256', signature).update('foobar').digest('hex')
   if(hash === clientHeader) {
-    console.log('da match', hash, clientHeader)
+    console.log('DA MATCH:', hash, clientHeader) // TODO: Remove
+    next()
   } else {
-    console.log('DA FAIL: ', hash, clientHeader)
+    console.log('DA FAIL: ', hash, clientHeader) // TODO: Remove
+    res.status(403).send('No way, José!')
   }
 
 }
