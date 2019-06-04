@@ -17,6 +17,7 @@ import '../../widgets/modals/dialog.dart';
 //Api
 import '../../API/api.dart';
 
+// Class that creates a interactive usercard
 class UserCard extends StatefulWidget {
   final UserModel user;
   final String visitor;
@@ -35,6 +36,7 @@ class _UserCardState extends State<UserCard> {
     startTimer(context);
   }
 
+  // Creates a dialog that is disposable if timer hits 300ms a request will be sent
   void handleCancelDialog(time, BuildContext context, Timer timer) {
     var apiKey = ConfigWrapper.of(context).apiKey;
 
@@ -48,19 +50,13 @@ class _UserCardState extends State<UserCard> {
     }
   }
 
-  // void contactOrCancel(bool contact) {
-  //   print(contact);
-  //   if (contact) {
-  //     setState(() => {_willContact = contact});
-  //   }
-  // }
-
   void setTimer(value) {
     setState(() {
       _start = value;
     });
   }
 
+  // Build an object and a post
   void makeRequest(apiKey) {
     Post newPost = new Post(
         name: widget.user.name,
@@ -71,6 +67,7 @@ class _UserCardState extends State<UserCard> {
     createPost(body: newPost.toMap(), key: apiKey);
   }
 
+  // Creates a timer and creates a contact dialog
   void startTimer(BuildContext context) {
     const miliSecDuration = const Duration(milliseconds: 100);
     const int miliSecCount = 100;
@@ -108,6 +105,7 @@ class _UserCardState extends State<UserCard> {
     );
   }
 
+  // Cancel the timer when class is disposed
   @override
   void dispose() {
     if (timer != null) {

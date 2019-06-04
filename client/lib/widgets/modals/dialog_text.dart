@@ -3,6 +3,7 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 import '../../config/globals.dart' as globals;
 
+// Creates the contacting text
 class DialogText extends StatefulWidget {
   final BuildContext context;
   final String username;
@@ -37,7 +38,7 @@ class _DialogTextState extends State<DialogText> {
 
   void goBackToHomeScreen() {
     Future.delayed(
-      const Duration(seconds: 15),
+      const Duration(seconds: globals.successfullAnswerTimer),
       () {
         Navigator.of(widget.context).popUntil((route) => route.isFirst);
       },

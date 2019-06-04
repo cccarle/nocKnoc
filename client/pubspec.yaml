@@ -1,5 +1,5 @@
-name: my_app
-description: A new Flutter project.
+name: nocKnoc
+description: Flutter project for meridium.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -29,15 +29,19 @@ dependencies:
   rxdart: ^0.21.0
   http: ^0.12.0+2
   equatable: ^0.1.0
-  socket_io_client: ^0.9.1
-  flutter_socket_io: ^0.4.6
   adhara_socket_io: ^0.1.10
   flutter_spinkit: '^3.1.0'
   keyboard_visibility: ^0.5.2
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.7.2
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: launcher_icon
+  ios: true
+  image_path: assets/icon.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

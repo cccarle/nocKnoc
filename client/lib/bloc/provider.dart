@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'bloc.dart';
 
+/* 
+Provider is wrapped around the application for accessing the bloc anywhere in the app
+Provider is accessed by using "final bloc = Provider.of(context);"
+ */
+
 class Provider extends InheritedWidget {
   final bloc = Bloc();
 

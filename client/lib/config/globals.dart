@@ -1,14 +1,21 @@
 library my_prj.globals;
 
+const meridiumBlue = 0xFF09384E;
+const meridiumRed = 0xFFDC3E2A;
+
 bool showSuportView = false;
 
-int backToHomeScreenTimer = 4;
+const backToHomeScreenTimer = 4;
 
-int timeToShowReception = 60;
+const timeToShowReception = 60;
 
-int asd = 1;
+const successfullAnswerTimer = 15;
 
-String url = "https://169fddfd.ngrok.io";
+const receptionTimer = 80;
+
+const backToHomeScreenAfterContactTimer = 120;
+
+String url = "https://d7177037.ngrok.io";
 
 String visitorOption1 = "Leverans";
 
@@ -33,6 +40,8 @@ String cancelText = "Avbryt";
 String somethingWentWrong = "Något gick fel!";
 
 String tryAgain = "Försök igen";
+
+String logo = "assets/images/Logo.png";
 
 const String emptyString = "";
 

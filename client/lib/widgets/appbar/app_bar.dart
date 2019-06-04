@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../config/globals.dart' as globals;
+
+// Appbar of application
 class DynamicAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,7 +12,7 @@ class DynamicAppBar extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Image.asset(
-              'assets/images/Logo.png',
+              globals.logo,
               fit: BoxFit.contain,
             ),
           ],
@@ -23,7 +26,7 @@ class DynamicAppBar extends StatelessWidget {
         children: [meridiumLogo()],
       ),
       actions: <Widget>[
-        // insert Flags here
+        // insert commented out code below for adding flags
       ],
     );
   }

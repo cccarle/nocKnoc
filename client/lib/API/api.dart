@@ -3,16 +3,23 @@ import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'dart:async';
 
-//models
+//Models
 import '../model/user_model.dart';
 import '../model/post_model.dart';
 import '../model/encryption.dart';
+<<<<<<< HEAD
 
 //global variables
 import '../config/globals.dart' as globals;
 
 // API url
 final _fetchUserListURL = '${globals.url}/api/employees';
+=======
+// Config
+import '../config/globals.dart' as globals;
+
+final _fetchUserListURL = '${globals.url}/api/employeestest';
+>>>>>>> eee6eeea006a10d1d126390d5c10837fef65c66b
 final _postToAPIURL = '${globals.url}/api/notify';
 
 // Fetch data

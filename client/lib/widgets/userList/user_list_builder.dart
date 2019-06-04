@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/pages/error_page.dart';
 import 'dart:async';
-
-// bloc
+// Bloc
 import '../../bloc/bloc.dart';
 import '../../bloc/provider.dart';
-
 // Model
 import '../../model/user_model.dart';
+// Pages
+import '../../pages/error_page.dart';
 
 // Widgets
 import '../../widgets/usercardInList/user_card.dart';
 
-class UserListBuilder extends StatelessWidget {
+class UserListBuilder extends StatefulWidget {
   final String visitor;
   final Future<List<UserModel>> list;
   final double number;
@@ -20,9 +19,16 @@ class UserListBuilder extends StatelessWidget {
 
   UserListBuilder(this.visitor, this.list, this.number, this.context);
 
+  _UserListBuilderState createState() => _UserListBuilderState();
+}
+
+// Class that build a list of users
+class _UserListBuilderState extends State<UserListBuilder> {
+  Bloc bloc;
+
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    bloc = Provider.of(context);
     return Container(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -30,7 +36,7 @@ class UserListBuilder extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              height: number,
+              height: widget.number,
               child: _createFutureList(bloc),
             ),
           ],
@@ -44,7 +50,7 @@ class UserListBuilder extends StatelessWidget {
       stream: bloc.searchedUserStream,
       builder: (context, snapshot) {
         return FutureBuilder<List<UserModel>>(
-          future: list,
+          future: widget.list,
           builder: (BuildContext context,
               AsyncSnapshot<List<UserModel>> asyncsnapshot) {
             switch (asyncsnapshot.connectionState) {
@@ -78,6 +84,7 @@ class UserListBuilder extends StatelessWidget {
     );
   }
 
+  // makes list searchable
   _selectList(index, filter, userObject) {
     return filter == null || filter == ""
         ? _slackUserListItem(index, userObject[index])
@@ -86,14 +93,19 @@ class UserListBuilder extends StatelessWidget {
             : Container();
   }
 
+  // creates every item in the list
   _slackUserListItem(index, userObject) {
     return Column(
       children: <Widget>[
         SizedBox(
           height: 10.0,
         ),
-        UserCard(userObject, visitor, context),
+        UserCard(userObject, widget.visitor, widget.context),
       ],
     );
+  }
+
+  dispose() {
+    bloc.dispose();
   }
 }

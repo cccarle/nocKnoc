@@ -10,6 +10,7 @@ import '../../model/user_model.dart';
 // Config
 import '../../config/globals.dart' as globals;
 
+// Creates the content for the contact dialog text and picture
 class DialogContent extends StatefulWidget {
   final UserModel user;
   final bool isKnownContact;
@@ -22,7 +23,6 @@ class DialogContent extends StatefulWidget {
 
 class _DialogContentState extends State<DialogContent> {
   SocketIO _socket;
-  String _message;
   bool _setView = true;
 
   @override
@@ -107,13 +107,10 @@ class _DialogContentState extends State<DialogContent> {
 
   void _startTimerToReceptionNumber() {
     Future.delayed(
-      const Duration(seconds: 50),
+      const Duration(seconds: globals.receptionTimer),
       () {
         setState(
-          () => {
-                _message = globals.lastMessage,
-                _setView = globals.showSuportView
-              },
+          () => {_setView = globals.showSuportView},
         );
       },
     );
@@ -121,7 +118,7 @@ class _DialogContentState extends State<DialogContent> {
 
   void _goBackToHomeScreen() {
     Future.delayed(
-      const Duration(seconds: 90),
+      const Duration(seconds: globals.backToHomeScreenAfterContactTimer),
       () {
         Navigator.of(context).popUntil((route) => route.isFirst);
       },

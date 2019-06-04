@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Creates a image
 class SlackUserImage extends StatelessWidget {
   final String image;
   SlackUserImage(this.image);

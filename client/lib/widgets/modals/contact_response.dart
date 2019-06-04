@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import '../../config/globals.dart' as globals;
 
+// On reponse from socket the picture is changed
 class ContactResponse extends StatefulWidget {
   final BuildContext context;
   final SocketIO socket;

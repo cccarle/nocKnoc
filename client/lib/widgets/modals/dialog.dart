@@ -5,7 +5,6 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 // Model
 import '../../model/user_model.dart';
-
 // Widgets
 import '../usercardInList/alert_Icon.dart';
 import '../spinner/spinner.dart';
@@ -13,11 +12,14 @@ import './dialog_content.dart';
 
 import '../../config/globals.dart' as globals;
 
+// Creates all dialogs for contaction
 class Dialog {
+  // getters
   get getDialog => _showDialog;
   get getCancelDialog => _cancelDialog;
   get alternativeDialog => _alternativeDialog;
 
+  // creates a dialog for specified contact
   Future<bool> _showDialog(
       BuildContext context, UserModel user, bool isKnownContact) async {
     SocketIOManager manager = SocketIOManager();
@@ -46,6 +48,7 @@ class Dialog {
     );
   }
 
+  // Creates a alternate contact dialog for unspecified contact
   Future<bool> _alternativeDialog(
       BuildContext context, bool isKnownContact) async {
     SocketIOManager manager = SocketIOManager();
@@ -73,14 +76,17 @@ class Dialog {
     );
   }
 
+  // Create a dialog to cancel contact
   Future<bool> _cancelDialog(
       BuildContext context, makeRequest, timer, setTimer, apiKey) async {
+    // on direct contact the a request is sent and timer set to 0
     _contactDirect(BuildContext context) {
       makeRequest(apiKey);
       setTimer(0);
       Navigator.of(context).pop(true);
     }
 
+    // on cancel the timer is reseted and the dialog is removed
     _cancelRequest(BuildContext context, timer) {
       timer.cancel();
       setTimer(3000);
