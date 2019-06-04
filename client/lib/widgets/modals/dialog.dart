@@ -5,7 +5,6 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 // Model
 import '../../model/user_model.dart';
-
 // Widgets
 import '../usercardInList/alert_Icon.dart';
 import '../spinner/spinner.dart';

@@ -24,5 +24,6 @@ Close streams
 
   dispose() {
     _searchedUser.close();
+    print('asd');
   }
 }

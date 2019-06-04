@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import './search_page.dart';
 import '../widgets/appbar/app_bar.dart';
 import '../env/config.dart';
+import '../bloc/bloc.dart';
 
+import '../bloc/provider.dart';
 import '../config/globals.dart' as globals;
 
 class HomePage extends StatelessWidget {

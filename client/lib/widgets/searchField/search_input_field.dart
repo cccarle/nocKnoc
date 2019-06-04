@@ -3,15 +3,21 @@ import '../../bloc/bloc.dart';
 import '../../bloc/provider.dart';
 
 // Creates a input field
-class SearchInputField extends StatelessWidget {
+
+class SearchInputField extends StatefulWidget {
+  _SearchInputFieldState createState() => _SearchInputFieldState();
+}
+
+class _SearchInputFieldState extends State<SearchInputField> {
   @override
+  Bloc _bloc;
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    _bloc = Provider.of(context);
 
     return Material(
       child: Column(
         children: <Widget>[
-          _renderTextInput(bloc),
+          _renderTextInput(_bloc),
         ],
       ),
     );
@@ -44,4 +50,10 @@ class SearchInputField extends StatelessWidget {
       },
     );
   }
+
+  // @override
+  // void dispose() {
+  //   _bloc.dispose();
+  //   super.dispose();
+  // }
 }

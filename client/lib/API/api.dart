@@ -10,7 +10,7 @@ import '../model/encryption.dart';
 // Config
 import '../config/globals.dart' as globals;
 
-final _fetchUserListURL = '${globals.url}/api/employees';
+final _fetchUserListURL = '${globals.url}/api/employeestest';
 final _postToAPIURL = '${globals.url}/api/notify';
 
 Future<List<UserModel>> fecthUserList(key) async {
