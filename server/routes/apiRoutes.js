@@ -38,6 +38,7 @@ server.get('/employeestest', validate.client, (req, res) => {
 
 })
 
+// Returnerar array med teams som inte ligger i blacklist i settings. Inkluderar teamets kanaler i varje objekt. 
 server.get('/teams', async (req, res) => {
   try {
     let teams = await teamsController.getWhiteListedTeams()
@@ -48,6 +49,10 @@ server.get('/teams', async (req, res) => {
   }
 })
 
+// Skickar ut meddelande till kanal i slack. Tar emot strängarna:
+// channelId = Kanalens Id i slack
+// visitor = Namn på besökaren. (Besökare, Anställd...)
+// userId = Id på användare i slack som ska taggas i inlägget
 server.post('/notify', validate.client, async (req, res) => {
   console.log(req.body)
   try {
@@ -72,6 +77,7 @@ server.post('/notify', validate.client, async (req, res) => {
   }
 })
 
+// Skickar meddelandet i req.body.message till informationskanal i slack. Låg batterinivå etc
 server.post('/deviceinfo', async (req, res) => {
   try {
     if (req.body.message) {
@@ -86,6 +92,7 @@ server.post('/deviceinfo', async (req, res) => {
   }
 })
 
+// Returnerar information om appen i slack
 server.get('/botinfo', async (req, res) => {
   try {
     let result = await slack.botInfo()
@@ -96,6 +103,7 @@ server.get('/botinfo', async (req, res) => {
   }
 })
 
+// Requests från slack. Kontakt/knapptryck från användare
 server.post('/payload', validate.slack, async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
