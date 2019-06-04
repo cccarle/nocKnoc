@@ -1,6 +1,4 @@
-const api = require('../utils/slack/api')
 const teamsController = require('./teamsController')
-const apiWithCache = require('../utils/slack/apiWithCache')
 const workspace = require('../utils/workspace')
 
 const getNotifiableEmployees = async () => {

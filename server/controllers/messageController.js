@@ -5,6 +5,7 @@ let {acceptDeclineMessage} = require('../resources/blocks.js')
 
 let timer
 module.exports = {
+  // Skickar notifieringsmeddelande till slack. Startar timer för att skicka till fallback. 
   sendAccept: async (visitor, name, userId, channelId) => {
     clearTimeout(timer)
     let response = await sendAcceptFormToChannel(visitor, name, channelId, userId)
@@ -43,7 +44,6 @@ module.exports = {
 
 const setFallbackTimeout = async (firstTimestamp, channelId, visitor, name) => {
   let settings = await settingsFile.readFile()
-  let fallbackChannelId = settings.settings.fallbackChannel
   let timeToFallback = settings.settings.secondsToFallback * 1000
   timer = setTimeout(async () => {
     try {
