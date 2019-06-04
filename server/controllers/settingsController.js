@@ -48,6 +48,8 @@ const setFallbackById = async (channelId) => {
     response += 'Nuvarande ' + currentSettings.settings.fallbackChannel
     return response
 }
+
+// Skapar array med list-objekt i form av blocks. 
 const channelsToBlock = async (channels) => {
   var block = JSON.parse(JSON.stringify(settingsBlock))
   let {accessory} = block
@@ -70,6 +72,7 @@ const channelsToBlock = async (channels) => {
   return block
 }
 
+// Uppdaterar Settingsblocket
 const updateSelectionBlock = async payload => {
   let answer = await createSettingsBlocks()
   let result = await api.updateSettingsMessage(
