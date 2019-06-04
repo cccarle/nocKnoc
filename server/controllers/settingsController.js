@@ -72,7 +72,6 @@ const channelsToBlock = async (channels) => {
   return block
 }
 
-// Uppdaterar Settingsblocket
 const updateSelectionBlock = async payload => {
   let answer = await createSettingsBlocks()
   let result = await api.updateSettingsMessage(

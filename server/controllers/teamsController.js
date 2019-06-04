@@ -37,7 +37,6 @@ const extractBlacklistedTeams = async teams => {
 }
 
 const extractChannelsFromTeamArray = teamArray => {
-  // console.log(teamArray)
   let cannels = teamArray.map(({ channels }) => {
     return channels[0]
   })

@@ -38,10 +38,8 @@ const client = (req, res, next) => {
   let signature = process.env.client_signature
   let hash = crypto.createHmac('sha256', signature).update('foobar').digest('hex')
   if(hash === clientHeader) {
-    console.log('DA MATCH:', hash, clientHeader) // TODO: Remove
     next()
   } else {
-    console.log('DA FAIL: ', hash, clientHeader) // TODO: Remove
     res.status(403).send('No way, José!')
   }
 
