@@ -55,7 +55,7 @@ class _UserListBuilderState extends State<UserListBuilder> {
               AsyncSnapshot<List<UserModel>> asyncsnapshot) {
             switch (asyncsnapshot.connectionState) {
               case ConnectionState.none:
-                return Text('dasd');
+                return Text('connecting');
               case ConnectionState.waiting:
                 return Center(child: CircularProgressIndicator());
               case ConnectionState.active:
@@ -105,7 +105,11 @@ class _UserListBuilderState extends State<UserListBuilder> {
     );
   }
 
-  dispose() {
-    bloc.dispose();
+  @override
+  void dispose() {
+    print('drain, user_list');
+    // bloc.changeSearchBarInput.;
+    bloc.searchedUserStream.drain();
+    super.dispose();
   }
 }

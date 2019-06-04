@@ -40,11 +40,13 @@ class _AlternativeContactState extends State<AlternativeContact> {
   }
 
   void setTimer(value) {
-    setState(
-      () {
-        _start = value;
-      },
-    );
+    if (mounted) {
+      setState(
+        () {
+          _start = value;
+        },
+      );
+    }
   }
 
   void makeRequest(apiKey) {
@@ -56,7 +58,7 @@ class _AlternativeContactState extends State<AlternativeContact> {
     const oneSec = const Duration(milliseconds: 100);
     timer = new Timer.periodic(
       oneSec,
-      (Timer timer) => setState(
+      (Timer timer) => mounted ? setState(
             () {
               if (_start < 100) {
                 dialog.alternativeDialog(context, false).then((onValue) {});
@@ -66,7 +68,7 @@ class _AlternativeContactState extends State<AlternativeContact> {
                 _start = _start - 100;
               }
             },
-          ),
+          ) : null
     );
   }
 

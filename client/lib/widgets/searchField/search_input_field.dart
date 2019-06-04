@@ -9,8 +9,8 @@ class SearchInputField extends StatefulWidget {
 }
 
 class _SearchInputFieldState extends State<SearchInputField> {
-  @override
   Bloc _bloc;
+  @override
   Widget build(BuildContext context) {
     _bloc = Provider.of(context);
 
@@ -51,9 +51,9 @@ class _SearchInputFieldState extends State<SearchInputField> {
     );
   }
 
-  // @override
-  // void dispose() {
-  //   _bloc.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _bloc.searchedUserStream.drain();
+    super.dispose();
+  }
 }

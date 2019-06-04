@@ -29,6 +29,7 @@ class _ContactResponseState extends State<ContactResponse> {
   void initState() {
     super.initState();
     _listenOnSocket();
+
     setState(() => {_image = widget.image});
   }
 
@@ -86,5 +87,10 @@ class _ContactResponseState extends State<ContactResponse> {
   @override
   Widget build(BuildContext context) {
     return _buildContactResponse(context);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

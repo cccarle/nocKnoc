@@ -54,13 +54,15 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   returnList() {
-    if (list == null) {
-      print(list);
-      setState(
-        () {
-          list = fecthUserList(widget.apiKey);
-        },
-      );
+    if (mounted) {
+      if (list == null) {
+        print(list);
+        setState(
+          () {
+            list = fecthUserList(widget.apiKey);
+          },
+        );
+      }
     }
   }
 
@@ -123,5 +125,10 @@ class _SearchPageState extends State<SearchPage> {
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: UserListBuilder(widget.visitor, list, (_height - 50), context));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
