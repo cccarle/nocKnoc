@@ -47,5 +47,5 @@ Editera "client/lib/config/globals" för att konfiguera URL:er, Timers eller nå
 * Öppna projektet i vald IDE
 * Bygg och installera applikationen med kommandot stående i clientens rot :
 ```javascript
-flutter run build
+flutter run --release
 
