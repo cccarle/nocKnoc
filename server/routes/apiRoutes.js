@@ -11,7 +11,8 @@ const settingsController = require('../controllers/settingsController')
 const workspace = require('../utils/workspace')
 require('dotenv').config()
 
-server.get("/employees", async (req, res) => {
+// Returnerar lista med de anställda vars team har kanaler samt inte är i blacklist
+server.get("/employees", validate.client, async (req, res) => {
   try {
     let result = await employeesController.getNotifiableEmployees()
     res.status(200).json(result)
@@ -21,24 +22,8 @@ server.get("/employees", async (req, res) => {
   }
 })
 
-server.get('/employee/:id', async (req, res) => {
-  try {
-    let id = req.params.id
-    let result = await employeesController.getEmployeeById(id)
-    res.status(200).json(result)
-  } catch (e) {
-    let handledError = errorHandling(e)
-    res.status(handledError.code).json(handledError.message)
-  }
-})
-
-server.get('/employeestest', validate.client, (req, res) => {
-  let users = testUsers
-  res.status(200).json(users)
-
-})
-
-server.get('/teams', async (req, res) => {
+// Returnerar array med teams som inte ligger i blacklist i settings. Inkluderar teamets kanaler i varje objekt. 
+server.get('/teams', validate.client, async (req, res) => {
   try {
     let teams = await teamsController.getWhiteListedTeams()
     res.status(200).json(teams)
@@ -48,6 +33,10 @@ server.get('/teams', async (req, res) => {
   }
 })
 
+// Skickar ut meddelande till kanal i slack. Tar emot strängarna:
+// channelId = Kanalens Id i slack
+// visitor = Namn på besökaren. (Besökare, Anställd...)
+// userId = Id på användare i slack som ska taggas i inlägget
 server.post('/notify', validate.client, async (req, res) => {
   console.log(req.body)
   try {
@@ -72,7 +61,8 @@ server.post('/notify', validate.client, async (req, res) => {
   }
 })
 
-server.post('/deviceinfo', async (req, res) => {
+// Skickar meddelandet i req.body.message till informationskanal i slack. Låg batterinivå etc
+server.post('/deviceinfo', validate.client, async (req, res) => {
   try {
     if (req.body.message) {
     let result = await messageController.sendDeviceMessage(req.body.message)
@@ -86,7 +76,8 @@ server.post('/deviceinfo', async (req, res) => {
   }
 })
 
-server.get('/botinfo', async (req, res) => {
+// Returnerar information om appen i slack
+server.get('/botinfo', validate.client, async (req, res) => {
   try {
     let result = await slack.botInfo()
     res.status(200).json(result)
@@ -96,6 +87,7 @@ server.get('/botinfo', async (req, res) => {
   }
 })
 
+// Requests från slack. Kontakt/knapptryck från användare
 server.post('/payload', validate.slack, async (req, res, next) => {
   try {
     let parsed = JSON.parse(req.body.payload)
@@ -119,7 +111,7 @@ server.post('/payload', validate.slack, async (req, res, next) => {
   }
 })
 // VALIDERA
-server.post('/settings', async (req, res, next) => {
+server.post('/settings',validate.slack, async (req, res, next) => {
   try {
     console.log(req.body)
     await settingsController.sendSelectionBlock(req.body) // TODO: ska detta returnera något?
@@ -131,15 +123,10 @@ server.post('/settings', async (req, res, next) => {
   }
 })
 
-server.post('/fallback', async (req, res, next) => {
+server.post('/fallback', validate.slack, async (req, res, next) => {
   console.log(req.body.text)
   let a = await settingsController.setFallbackById(req.body.text)
     res.status(200).send(a)
-})
-
-server.get('/channels', async (req, res, next) => {
-  let a = await workspace.getChannels()
-    res.status(200).json(a)
 })
 
 module.exports = server

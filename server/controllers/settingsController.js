@@ -1,29 +1,23 @@
 const api = require("../utils/slack/api")
 const selectBlock = require("../resources/selectBlock")
 const teamsController = require("./teamsController")
-// const settings = require("../resources/settings")
-const allTeamsObject = require("../resources/allTeams")
-const fs = require("fs")
 const settingsObject = require("../utils/readSettingsFile")
-const channels = require('./messageController')
 const settingsBlock = require('../resources/settingsBlock')
 const workspace = require('../utils/workspace')
 
+// Generar Slack-Block med alla inställningar. 
 const createSettingsBlocks = async () => {
-  // let allTeams = await workspace.getTeams()
-  let allTeams = allTeamsObject
-  // let allChannels = await workspace.getChannels() // Använd för att få upp alla kanaler i listan för fallbackkanal
-  // let allChannels = [{name: 'kalmar', id: 'C1CSPJR7X'}, {name: "general", id: "C025SK1PM"}]
+  let allTeams = await workspace.getTeams()
   let whitelistedTeams = await teamsController.extractWhitelistedTeams(allTeams)
   let blacklistedTeams = await teamsController.extractBlacklistedTeams(allTeams)
   let unHiddenTeams = await whiteListedTeamsToBlock(whitelistedTeams)
   let hiddenTeams = await blackListedTeamsToBlock(blacklistedTeams)
-//  let channelsBlock = await channelsToBlock(allChannels) // FALLBACK
   let answer = [...unHiddenTeams, ...hiddenTeams]
 
   return answer
 }
 
+// Skickar settings till kanalen 
 const sendSelectionBlock = async payload => {
   let answer = await createSettingsBlocks()
   console.log(answer)
@@ -54,6 +48,8 @@ const setFallbackById = async (channelId) => {
     response += 'Nuvarande ' + currentSettings.settings.fallbackChannel
     return response
 }
+
+// Skapar array med list-objekt i form av blocks. 
 const channelsToBlock = async (channels) => {
   var block = JSON.parse(JSON.stringify(settingsBlock))
   let {accessory} = block

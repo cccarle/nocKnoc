@@ -13,6 +13,8 @@ let teamsCache = {
 let teamUsersCache = {
 }
 
+// Denna modul sparar tunga requests från slack för att spara tid och undvika utestängande från Slack.
+
 // USERS
 const getAllUsers = () => {
   if (isTimeUp(userCache.timestamp) || userCache.data.length <= 0) {

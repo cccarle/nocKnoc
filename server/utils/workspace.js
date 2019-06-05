@@ -1,6 +1,8 @@
 const apiWithCache = require('./slack/apiWithCache')
 const api = require('./slack/api')
 
+// Modul tar hand om filtrering från slacks api.
+
 const getTeams = async () => {
     let result = await apiWithCache.getAllTeams()
     let teams = result.usergroups.map(({ id, name, handle, prefs }) => ({
