@@ -8,7 +8,7 @@
 Ett slack-workspace med en App med bot-funktionalitet
 I inställningar för boten på slack kommer en URL att tas emot. Denna url behöver vara den utgående adressen till servern.
 ## Tillvägagångssätt
-* Skapa en app i Slack. [Instruktioner](Thisisnotalink.asdfdsasd)
+* Skapa en app i Slack. [Instruktioner](https://github.com/cccarle/nocKnoc/wiki/Skapa-Slackapplikation)
 * Ladda ner repot
 * Installera beroende npm-paket 
 * I en .env-fil lokaliserat i serverns rot behövs följande:
