@@ -7,12 +7,17 @@ import 'dart:async';
 import '../model/user_model.dart';
 import '../model/post_model.dart';
 import '../model/encryption.dart';
-// Config
+
+
+//global variables
 import '../config/globals.dart' as globals;
 
+// API url
 final _fetchUserListURL = '${globals.url}/api/employeestest';
+
 final _postToAPIURL = '${globals.url}/api/notify';
 
+// Fetch data
 Future<List<UserModel>> fecthUserList(key) async {
   var keys = encryption.encrypt(key);
   http.Response response = await http.get(
@@ -30,6 +35,7 @@ Future<List<UserModel>> fecthUserList(key) async {
   return compute(parseUsers, response.body);
 }
 
+//
 List<UserModel> parseUsers(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<UserModel>((json) => UserModel.fromJSON(json)).toList();

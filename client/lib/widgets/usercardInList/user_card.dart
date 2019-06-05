@@ -51,9 +51,11 @@ class _UserCardState extends State<UserCard> {
   }
 
   void setTimer(value) {
-    setState(() {
-      _start = value;
-    });
+    if (mounted) {
+      setState(() {
+        _start = value;
+      });
+    }
   }
 
   // Build an object and a post

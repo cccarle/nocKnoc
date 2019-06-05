@@ -15,7 +15,7 @@ const receptionTimer = 80;
 
 const backToHomeScreenAfterContactTimer = 120;
 
-String url = "https://d7177037.ngrok.io";
+String url = "https://9795f011.ngrok.io";
 
 String visitorOption1 = "Leverans";
 
@@ -33,7 +33,7 @@ String whoAreYouLookingFor = "Vem söker du ?";
 
 String unknown = "Jag vet inte vem jag söker";
 
-String lastMessage = "Ring växel 0724340454";
+String lastMessage = "Ring växel 0480426060";
 
 String cancelText = "Avbryt";
 

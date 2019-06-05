@@ -3,7 +3,7 @@ import 'package:rxdart/rxdart.dart';
 import 'helper_functions.dart';
 
 class Bloc with HelperFunctions {
-  final _searchedUser = BehaviorSubject<String>();
+  final _searchedUser = PublishSubject<String>();
 
 /* 
   Add to stream
