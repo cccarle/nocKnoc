@@ -5,7 +5,7 @@ import 'env/config.dart';
 import './pages/error_page.dart';
 import './config/globals.dart' as globals;
 import './env/dev.dart';
-
+import 'package:screen/screen.dart';
 /* 
 Starting point of the application.
 To edit any global numbers such as:
@@ -25,6 +25,7 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Screen.keepOn(true);
     return Provider(
       child: MaterialApp(
         theme: ThemeData(
