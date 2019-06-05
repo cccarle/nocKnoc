@@ -37,3 +37,15 @@ Starta servern med kommandot “node index” stående i serverns rot
 * När detta är gjort skriv följande kommando i klientens rot:
 * ```Flutter packages pub run build_runner build --delete-conflicting-outputs```
 * Starta programmet med debugger på vald IDE
+
+## Konfigurering
+
+Editera "client/lib/config/globals" för att konfiguera URL:er, Timers eller någon form av strängar i applikationen
+
+## Installation på ny enhet
+* Anslut enheten till datamaskinen
+* Öppna projektet i vald IDE
+* Bygg och installera applikationen med kommandot stående i clientens rot :
+```javascript
+flutter run build
+
