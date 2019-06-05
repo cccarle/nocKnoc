@@ -22,32 +22,6 @@ server.get("/employees", validate.client, async (req, res) => {
   }
 })
 
-// TODO: REMOVE?
-// server.get('/employee/:id', async (req, res) => {
-//   try {
-//     let id = req.params.id
-//     let result = await employeesController.getEmployeeById(id)
-//     res.status(200).json(result)
-//   } catch (e) {
-//     let handledError = errorHandling(e)
-//     res.status(handledError.code).json(handledError.message)
-//   }
-// })
-
-// TODO: REMOVE
-// server.get('/channels', async (req, res, next) => {
-//   let a = await workspace.getChannels()
-//     res.status(200).json(a)
-// })
-
-
-// TODO: REMOVE
-// server.get('/employeestest', validate.client, (req, res) => {
-//   let users = testUsers
-//   res.status(200).json(users)
-
-// })
-
 // Returnerar array med teams som inte ligger i blacklist i settings. Inkluderar teamets kanaler i varje objekt. 
 server.get('/teams', validate.client, async (req, res) => {
   try {
