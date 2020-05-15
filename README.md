@@ -12,17 +12,16 @@ Om kontaktad person inte svarar, skickas förfrågan vidare till fallback-kanale
 
 ### Start
 
-![Starsida](/UI/Home.png)
-<img src="/UI/Home.png" alt="drawing" width="200"/>
+<img src="/UI/Home.png" alt="startsida" width="300"/>
 
 ### Sök efter person att kontakta
 
-![Söka efter person i workspacet](/UI/Search.png)
+<img src="/UI/Search.png" alt="Söka efter person i workspacet" width="300"/>
 
 
 ### Kontaktar person
 
-![Kontaktar person](/UI/Search&nbsp-&nbsp2.png)
+<img src="/UI/Search&nbsp;-&nbsp2;.png" alt="Kontaktar person" width="300"/>
 
 # Server
 
