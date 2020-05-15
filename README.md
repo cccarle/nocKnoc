@@ -1,12 +1,10 @@
 # nocKnoc
 
-[Dokumentation](https://github.com/cccarle/nocKnoc/wiki)
-
-## Om
-
 Entrésystem utvecklat för att kunna kontakta personer i ett slack workspace om att de har en besökare. 
 Server utvecklad i Node, kommunicerar med ett slack-workspace och med klienten, utvecklad i Flutter.
 Om kontaktad person inte svarar, skickas förfrågan vidare till fallback-kanalen.
+
+[Dokumentation](https://github.com/cccarle/nocKnoc/wiki)
 
 ## Bilder
 
