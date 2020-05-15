@@ -22,7 +22,7 @@ Om kontaktad person inte svarar, skickas förfrågan vidare till fallback-kanale
 
 ### Kontaktar person
 
-![Söka efter person i workspacet](/UI/Search-1.png)
+![Kontaktar person](/UI/Search-2.png)
 
 # Server
 
