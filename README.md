@@ -22,7 +22,7 @@ Om kontaktad person inte svarar, skickas förfrågan vidare till fallback-kanale
 
 ### Kontaktar person
 
-![Kontaktar person](/UI/Search-2.png)
+![Kontaktar person](/UI/Search&nbsp-&nbsp2.png)
 
 # Server
 
