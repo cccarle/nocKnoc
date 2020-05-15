@@ -21,7 +21,7 @@ Om kontaktad person inte svarar, skickas förfrågan vidare till fallback-kanale
 
 ### Kontaktar person
 
-<img src="/UI/Search&nbsp;-&nbsp2;.png" alt="Kontaktar person" width="300"/>
+<img src="/UI/Search &nbsp;-&nbsp2;.png" alt="Kontaktar person" width="300"/>
 
 # Server
 
