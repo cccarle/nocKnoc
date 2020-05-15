@@ -12,8 +12,7 @@ Om kontaktad person inte svarar, skickas förfrågan vidare till fallback-kanale
 
 ### Start
 
-![Starsida](/UI/Home.png)
-![Söka efter person i workspacet](/UI/Search.png)
+![Starsida](/UI/Home.png) ![Söka efter person i workspacet](/UI/Search.png)
 
 ### Sök efter person att kontakta
 
